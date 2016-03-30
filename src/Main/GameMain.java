@@ -134,7 +134,7 @@ public class GameMain extends PApplet
                 case 5:
                     if(!player.GetIsJumping() && (boolean)keyMap.get(38))
                     {
-                        playerVelocity.y -= 10;
+                        playerVelocity.y -= 15;
                         player.SetIsJumping(true);
                         player.SetIsOnGround(false);
                     }

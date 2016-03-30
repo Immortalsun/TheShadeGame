@@ -57,6 +57,7 @@ public class Engine
                 {
                     g.SetIsJumping(false);
                     g.GetVelocity().y = 0;
+                    g.GetLocation().y = (ground.GetMinY() - g.GetHeight());
                 }
                 g.Update();
                 g.SetIsOnGround(CheckOnGround(g));
