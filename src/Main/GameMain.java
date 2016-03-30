@@ -40,6 +40,7 @@ public class GameMain extends PApplet
         player = engine.CretePlayer(0,0, 20,20);
         player.SetIsJumping(true);
         engine.SetGroundLevel();
+        engine.GeneratePlatforms();
     }
 
     public void draw()

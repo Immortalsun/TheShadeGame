@@ -40,6 +40,13 @@ public class Engine
         _gameObjectCollection.add(ground);
     }
 
+    public void GeneratePlatforms()
+    {
+        Platform p = new Platform(200, ground.GetMinY() - 105, 50, 15, this.sketchParent);
+        p.SetIsOnGround(true);
+        _gameObjectCollection.add(p);
+    }
+
     public void Update()
     {
         for(GameObject g : _gameObjectCollection)
@@ -57,6 +64,7 @@ public class Engine
                 {
                     g.SetIsJumping(false);
                     g.GetVelocity().y = 0;
+                    //we need better collision resolution
                     g.GetLocation().y = (ground.GetMinY() - g.GetHeight());
                 }
                 g.Update();
@@ -89,6 +97,17 @@ public class Engine
         if(obj.GetMaxY() < ground.GetMinY()) return false;
 
         return true;
+    }
+
+    public boolean CheckOnPlatform(GameObject obj, Platform platform)
+    {
+        if(obj.GetMaxY() == platform.GetMinY() &&
+                (obj.GetMinX() >= platform.GetMinX() || obj.GetMaxX() <= platform.GetMaxX()))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public void ResolveCollision(GameObject objA, GameObject objB)
