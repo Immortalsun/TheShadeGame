@@ -18,6 +18,7 @@ public class GameObject
     private float minY, minX, objWidth, objHeight;
     private boolean isPlayer;
     private boolean isOnGround;
+    private boolean isGround;
     private boolean isJumping;
     //Constructor
     public GameObject(float x, float y, float objectWidth, float objectHeight, PApplet parent)
@@ -96,6 +97,8 @@ public class GameObject
         return isJumping;
     }
 
+    public boolean GetIsGround() {return isGround; }
+
     public void SetVelocity(PVector v)
     {
         velocity = v;
@@ -115,6 +118,8 @@ public class GameObject
     {
         isJumping = jumping;
     }
+
+    public void SetIsGround(boolean ground) { isGround = ground; }
 
 
     //Methods
