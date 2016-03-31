@@ -189,7 +189,7 @@ public class Engine
             }
             else
             {
-
+                //we collided with the platform from a different direction so we cant land on it
             }
 
         }
