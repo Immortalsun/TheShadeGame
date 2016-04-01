@@ -15,7 +15,6 @@ public class Engine
     private int screenWidth;
     private int screenHeight;
     private ArrayList<GameObject> _gameObjectCollection;
-    private GameObject ground;
     private Player player;
     private PApplet sketchParent;
 
@@ -38,14 +37,14 @@ public class Engine
 
     public void SetGroundLevel()
     {
-        ground = new GameObject(0,screenHeight-15, screenWidth-1, 15, this.sketchParent);
+        GameObject ground = new GameObject(0,screenHeight-15, screenWidth-1, 15, this.sketchParent);
         ground.SetIsGround(true);
         _gameObjectCollection.add(ground);
     }
 
     public void GeneratePlatforms()
     {
-        GameObject p = new GameObject(200, ground.GetMinY() - 105, 50, 15, this.sketchParent);
+        GameObject p = new GameObject(200, 385 - 105, 50, 15, this.sketchParent);
         p.SetIsGround(true);
         _gameObjectCollection.add(p);
     }
@@ -75,8 +74,10 @@ public class Engine
         }
         else
         {
-            player.SetIsJumping(false);
-            player.GetVelocity().y = 0;
+            if(player.GetIsJumping())
+            {
+                player.SetIsJumping(false);
+            }
         }
         player.Update();
         player.SetIsOnGround(CheckOnGround(player));
@@ -96,7 +97,7 @@ public class Engine
     {
         if(obj1.GetMaxX() < obj2.GetMinX() || obj1.GetMinX() > obj2.GetMaxX()) return false;
 
-        if(obj1.GetMaxY() < obj2.GetMinY() || obj1.GetMaxY() > obj2.GetMaxY()) return false;
+        if(obj1.GetMaxY() < obj2.GetMinY() || obj1.GetMinY() > obj2.GetMaxY()) return false;
 
         return true;
     }
@@ -119,9 +120,9 @@ public class Engine
         float yOverlap = (yBottom-yTop);
 
         //Get vector from A to B
-        PVector objALocation = new PVector(objA.GetLocation().x, objA.GetLocation().y);
-        PVector objBLocation = new PVector(objB.GetLocation().x, objB.GetLocation().y);
-        PVector locationVector = objBLocation.sub(objALocation);
+        PVector objALocation = new PVector(objA.GetMinX(), objA.GetMinY());
+        PVector objBLocation = new PVector(objB.GetMinX(), objB.GetMinY());
+        PVector locationVector = new PVector((objBLocation.x - objALocation.x),(objBLocation.y - objALocation.y));
 
         //if we have some overlapping distance
         if(xOverlap > 0 || yOverlap > 0)
@@ -187,22 +188,98 @@ public class Engine
         {
             CollisionResult result = GetCollisionResult(obj, groundObj);
 
+            if(!result.Direction.equals(CollisionDirection.NONE))
+            {
+                ResolveCollision(result);
+            }
+
             //if we are, make sure we are colliding from above the ground object
             if(result.Direction.equals(CollisionDirection.FROMABOVE))
             {
                 return true;
             }
-            else
-            {
-                //we collided with the platform from a different direction so we cant land on it
-            }
-
         }
         return false;
     }
 
-    public void ResolveCollision(GameObject objA, GameObject objB)
+    public void ResolveCollision(CollisionResult result)
     {
+        switch (result.Direction)
+        {
+            case FROMABOVE:
+                //if we are colliding from above
+                //if both objects are not ground objects, we want to move them in opposite directions
+                //each half of the total penetration distance. In this case, the -y direction
+                if(!result.ObjectA.GetIsGround() && !result.ObjectB.GetIsGround())
+                {
+                    result.ObjectA.GetLocation().y -= (result.PenetrationDepth/2);
+                    result.ObjectB.GetLocation().y += (result.PenetrationDepth/2);
 
+                    result.ObjectA.GetVelocity().y = 0;
+                    result.ObjectB.GetVelocity().y = 0;
+                }
+                //if one object is a ground object and the other is not, move the non-ground object in the -y
+                //direction by the penetration distance
+                else if(!result.ObjectA.GetIsGround() && result.ObjectB.GetIsGround())
+                {
+                    result.ObjectA.GetLocation().y -= result.PenetrationDepth;
+                    result.ObjectA.GetVelocity().y = 0;
+                }
+                break;
+            case FROMBELOW:
+                //colliding from below is like coliding from above except we need to move things in the positive y direction
+                if(!result.ObjectA.GetIsGround() && !result.ObjectB.GetIsGround())
+                {
+                    result.ObjectA.GetLocation().y -= (result.PenetrationDepth/2);
+                    result.ObjectB.GetLocation().y += (result.PenetrationDepth/2);
+
+                    result.ObjectA.GetVelocity().y = 0;
+                    result.ObjectB.GetVelocity().y = 0;
+                }
+                //if one object is a ground object and the other is not, move the non-ground object in the -y
+                //direction by the penetration distance
+                else if(!result.ObjectA.GetIsGround() && result.ObjectB.GetIsGround())
+                {
+                    result.ObjectA.GetLocation().y += result.PenetrationDepth;
+                    result.ObjectA.GetVelocity().y = 0;
+                }
+                break;
+            case FROMLEFT:
+                //Colliding from the left involves the x axis, we need to move in the -x direction to resolve the collision
+                if(!result.ObjectA.GetIsGround() && !result.ObjectB.GetIsGround())
+                {
+                    result.ObjectA.GetLocation().x += (result.PenetrationDepth/2);
+                    result.ObjectB.GetLocation().x -= (result.PenetrationDepth/2);
+
+                    result.ObjectA.GetVelocity().x = 0;
+                    result.ObjectB.GetVelocity().x = 0;
+                }
+                //if one object is a ground object and the other is not, move the non-ground object in the -y
+                //direction by the penetration distance
+                else if(!result.ObjectA.GetIsGround() && result.ObjectB.GetIsGround())
+                {
+                    result.ObjectA.GetLocation().x -= result.PenetrationDepth;
+                    result.ObjectA.GetVelocity().x = 0;
+                }
+                break;
+            case FROMRIGHT:
+                //colliding from the right means we need to move in the +x direction
+                if(!result.ObjectA.GetIsGround() && !result.ObjectB.GetIsGround())
+                {
+                    result.ObjectA.GetLocation().x -= (result.PenetrationDepth/2);
+                    result.ObjectB.GetLocation().x += (result.PenetrationDepth/2);
+
+                    result.ObjectA.GetVelocity().x = 0;
+                    result.ObjectB.GetVelocity().x = 0;
+                }
+                //if one object is a ground object and the other is not, move the non-ground object in the -y
+                //direction by the penetration distance
+                else if(!result.ObjectA.GetIsGround() && result.ObjectB.GetIsGround())
+                {
+                    result.ObjectA.GetLocation().x += result.PenetrationDepth;
+                    result.ObjectA.GetVelocity().x = 0;
+                }
+                break;
+        }
     }
 }

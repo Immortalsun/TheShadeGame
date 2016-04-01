@@ -133,9 +133,9 @@ public class GameMain extends PApplet
                     break;
                 //5 is a jump
                 case 5:
-                    if(!player.GetIsJumping() && (boolean)keyMap.get(38))
+                    if(!player.GetIsJumping() && keyMap.get(38))
                     {
-                        playerVelocity.y -= 15;
+                        playerVelocity.y -= 10;
                         player.SetIsJumping(true);
                         player.SetIsOnGround(false);
                     }
