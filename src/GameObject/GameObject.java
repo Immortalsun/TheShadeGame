@@ -141,27 +141,35 @@ public class GameObject
     {
         if(image != null)
         {
-            if(frameCount % desiredFramesPerSecond == 0)
+            if(velocity.x != 0)
             {
-                if(currentFrame < maxAnimFrames-1)
+                if(frameCount % desiredFramesPerSecond == 0)
                 {
-                    currentFrame++;
+                    if(currentFrame < maxAnimFrames-1)
+                    {
+                        currentFrame++;
+                    }
+                    else
+                    {
+                        currentFrame = 0;
+                    }
+
+                    frameCount = 1;
                 }
                 else
                 {
-                    currentFrame = 0;
+                    frameCount++;
                 }
-
-                frameCount = 1;
             }
             else
             {
-                frameCount++;
+                currentFrame=0;
+                frameCount = 1;
             }
 
-            frame = image.get(0,(currentFrame*32), 32, 32);
 
-            sketchParent.image(frame, location.x, location.y, objWidth, objHeight, 0,0,32,32);
+            frame = image.get(0,(currentFrame*32), 32, 32);
+            sketchParent.image(frame, location.x, location.y, objWidth, objHeight);
         }
         else
         {
