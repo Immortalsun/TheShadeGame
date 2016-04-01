@@ -6,6 +6,8 @@ package Engine;
 import GameObject.*;
 import processing.core.PApplet;
 import processing.core.PVector;
+
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Engine
@@ -104,25 +106,27 @@ public class Engine
         CollisionResult result = new CollisionResult();
         result.ObjectA = objA;
         result.ObjectB = objB;
+
+        //find intersecting rectangle
+        float xLeft = Math.max(objA.GetMinX(), objB.GetMinX());
+        float yTop = Math.max(objA.GetMinY(), objB.GetMinY());
+        float xRight = Math.min(objA.GetMaxX(), objB.GetMaxX());
+        float yBottom = Math.min(objA.GetMaxY(), objB.GetMaxY());
+
+        //overlap on x axis is width of overlapping rectangle
+        float xOverlap = (xRight-xLeft);
+        //overlap on y axis is height of overlapping rectangle
+        float yOverlap = (yBottom-yTop);
+
         //Get vector from A to B
-        PVector objBLocation = new PVector(objB.GetLocation().x, objB.GetLocation().y);
         PVector objALocation = new PVector(objA.GetLocation().x, objA.GetLocation().y);
+        PVector objBLocation = new PVector(objB.GetLocation().x, objB.GetLocation().y);
         PVector locationVector = objBLocation.sub(objALocation);
 
-        //Calculate half-extents on X axis
-        float extentA = (objA.GetMaxX() - objA.GetMinX())/2;
-        float extentB = (objB.GetMaxX() - objB.GetMinX())/2;
-
-        float xOverlap = extentA + extentB - Math.abs(locationVector.x);
-
-        if(xOverlap > 0)
+        //if we have some overlapping distance
+        if(xOverlap > 0 || yOverlap > 0)
         {
-            //Calculate half extents along y axis
-            float yExtentA = (objA.GetMaxY() - objA.GetMinY())/2;
-            float yExtentB = (objB.GetMaxY() - objB.GetMinY())/2;
-
-            float yOverlap = yExtentA + yExtentB - Math.abs(locationVector.y);
-
+            //we want to choose overlap that is smallest
             if(xOverlap < yOverlap)
             {
                 if(locationVector.x < 0)
@@ -150,6 +154,7 @@ public class Engine
                     result.CollisionNormal = new PVector(0,1);
                     result.Direction = CollisionDirection.FROMABOVE;
                 }
+                result.PenetrationDepth = yOverlap;
                 return result;
             }
         }
