@@ -44,11 +44,11 @@ public class Engine
 
     public void GeneratePlatforms()
     {
-        GameObject p = new GameObject(200, 385 - 105, 50, 15, this.sketchParent);
+        GameObject p = new GameObject(200, 585 - 105, 50, 15, this.sketchParent);
         p.SetIsGround(true);
         _gameObjectCollection.add(p);
 
-        GameObject p1 = new GameObject(400, 385 - 50, 20, 50, this.sketchParent);
+        GameObject p1 = new GameObject(400, 585 - 50, 20, 50, this.sketchParent);
         p1.SetIsGround(true);
         _gameObjectCollection.add(p1);
     }

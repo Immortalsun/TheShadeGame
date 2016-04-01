@@ -5,6 +5,7 @@ package GameObject;
  */
 import processing.core.*;
 
+import static processing.core.PConstants.CORNER;
 import static processing.core.PConstants.RECT;
 
 public class GameObject
@@ -14,7 +15,10 @@ public class GameObject
     private PVector location;
     private PVector velocity;
     private PApplet sketchParent;
+    private PImage image;
+    private PImage frame;
     private int fillColor;
+    private int frameCount, currentFrame, desiredFramesPerSecond, maxAnimFrames;
     private float minY, minX, objWidth, objHeight;
     private boolean isPlayer;
     private boolean isOnGround;
@@ -121,12 +125,48 @@ public class GameObject
 
     public void SetIsGround(boolean ground) { isGround = ground; }
 
+    public void SetImage(String imagePath, int fCount, int desiredFps)
+    {
+        image = sketchParent.loadImage(imagePath);
+        maxAnimFrames = fCount;
+        currentFrame = 0;
+        frameCount = 1;
+        desiredFramesPerSecond = desiredFps;
+    }
+
 
     //Methods
     //Draw boundingRect
     public void Display()
     {
-        sketchParent.shape(boundingRect, location.x, location.y);
+        if(image != null)
+        {
+            if(frameCount % desiredFramesPerSecond == 0)
+            {
+                if(currentFrame < maxAnimFrames-1)
+                {
+                    currentFrame++;
+                }
+                else
+                {
+                    currentFrame = 0;
+                }
+
+                frameCount = 1;
+            }
+            else
+            {
+                frameCount++;
+            }
+
+            frame = image.get(0,(currentFrame*32), 32, 32);
+
+            sketchParent.image(frame, location.x, location.y, objWidth, objHeight, 0,0,32,32);
+        }
+        else
+        {
+            sketchParent.shape(boundingRect, location.x, location.y);
+        }
     }
 
     //Update any Movement

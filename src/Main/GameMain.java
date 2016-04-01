@@ -12,7 +12,7 @@ public class GameMain extends PApplet
 {
     float acceleration = 0.1f;
     int windowWidth = 800;
-    int windowHeight = 400;
+    int windowHeight = 600;
     boolean isKeyPressed;
     HashMap<Integer, Boolean> keyMap = new HashMap<Integer, Boolean>();
     PVector playerVelocity = new PVector(0,0);
@@ -27,7 +27,8 @@ public class GameMain extends PApplet
 
     public void settings()
     {
-        size(800,400);
+        size(800,600);
+        String path = calcSketchPath();
     }
 
     public void setup()
@@ -37,7 +38,7 @@ public class GameMain extends PApplet
         keyMap.put(38, false);
         keyMap.put(39, false);
         engine = new Engine(windowWidth, windowHeight, this);
-        player = engine.CretePlayer(0,0, 20,20);
+        player = engine.CretePlayer(0,0, 32,32);
         player.SetIsJumping(true);
         engine.SetGroundLevel();
         engine.GeneratePlatforms();
