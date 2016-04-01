@@ -17,7 +17,7 @@ public class GameObject
     private PApplet sketchParent;
     private PImage image;
     private PImage flippedImage;
-    private PImage frame;
+    private PImage frame, lastFrame;
     private int fillColor;
     private int frameCount, currentFrame, desiredFramesPerSecond, maxAnimFrames;
     private float minY, minX, objWidth, objHeight;
@@ -177,12 +177,25 @@ public class GameObject
             {
                 frame = image.get(0,(currentFrame*32), 32, 32);
             }
-            else
+            else if(velocity.x < 0)
             {
                 frame = flippedImage.get(0,(currentFrame*32), 32, 32);
             }
+            else
+            {
+                if(lastFrame != null)
+                {
+                    frame = lastFrame;
+                }
+                else
+                {
+                    frame = image.get(0,0, 32, 32);
+                }
+
+            }
 
             sketchParent.image(frame, location.x, location.y, objWidth, objHeight);
+            lastFrame = frame;
         }
         else
         {
