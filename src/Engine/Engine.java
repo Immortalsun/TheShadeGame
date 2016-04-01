@@ -47,6 +47,10 @@ public class Engine
         GameObject p = new GameObject(200, 385 - 105, 50, 15, this.sketchParent);
         p.SetIsGround(true);
         _gameObjectCollection.add(p);
+
+        GameObject p1 = new GameObject(400, 385 - 50, 20, 50, this.sketchParent);
+        p1.SetIsGround(true);
+        _gameObjectCollection.add(p1);
     }
 
     public void Update()
@@ -61,26 +65,42 @@ public class Engine
 
     private void UpdatePlayer()
     {
-        //check to see if player has any collisions
-        //if we have any, resolve them and adjust player location and velocity
-        //otherwise if the player is in the air apply gravity
-        //if the player is on the ground do nothing
-        if(!player.GetIsOnGround())
-        {
-            if(player.GetVelocity().y < 10)
-            {
-                player.GetVelocity().y+=gravityConstant;
-            }
-        }
-        else
-        {
-            if(player.GetIsJumping())
-            {
-                player.SetIsJumping(false);
-            }
-        }
         player.Update();
+        //check to see if player has any collisions
+        ArrayList<CollisionResult> collisions = CheckPlayerCollisions();
+        if(!collisions.isEmpty())
+        {
+            //if we have any, resolve them and adjust player location and velocity
+            for(CollisionResult result : collisions)
+            {
+                ResolveCollision(result);
+            }
+        }
+
+        if(player.GetVelocity().y < 10)
+        {
+            player.GetVelocity().y+=gravityConstant;
+        }
+
+        if(player.GetIsOnGround())
+        {
+            player.SetIsJumping(false);
+        }
+
         player.SetIsOnGround(CheckOnGround(player));
+    }
+
+    private ArrayList<CollisionResult> CheckPlayerCollisions()
+    {
+        ArrayList<CollisionResult> results = new ArrayList<CollisionResult>();
+        for(GameObject g : _gameObjectCollection)
+        {
+            if(CheckCollision(player, g))
+            {
+                results.add(GetCollisionResult(player,g));
+            }
+        }
+        return results;
     }
 
     public void Display()
@@ -130,14 +150,12 @@ public class Engine
             //we want to choose overlap that is smallest
             if(xOverlap < yOverlap)
             {
-                if(locationVector.x < 0)
+                if(locationVector.x > 0)
                 {
-                    result.CollisionNormal = new PVector(-1, 0);
                     result.Direction = CollisionDirection.FROMLEFT;
                 }
                 else
                 {
-                    result.CollisionNormal = new PVector(1,0);
                     result.Direction = CollisionDirection.FROMRIGHT;
                 }
                 result.PenetrationDepth = xOverlap;
@@ -147,12 +165,10 @@ public class Engine
             {
                 if(locationVector.y < 0)
                 {
-                    result.CollisionNormal = new PVector(0, -1);
                     result.Direction = CollisionDirection.FROMBELOW;
                 }
                 else
                 {
-                    result.CollisionNormal = new PVector(0,1);
                     result.Direction = CollisionDirection.FROMABOVE;
                 }
                 result.PenetrationDepth = yOverlap;
@@ -169,36 +185,20 @@ public class Engine
         {
             if(object.GetIsGround())
             {
-                boolean objectIsOnGround = CheckOnPlatform(obj, object);
+                boolean collidingWithGround = CheckCollision(obj, object);
 
-                if(objectIsOnGround)
+                if(collidingWithGround)
                 {
-                    return true;
+                    CollisionResult result = GetCollisionResult(obj, object);
+
+                    if(result.Direction.equals(CollisionDirection.FROMABOVE))
+                    {
+                        return true;
+                    }
                 }
             }
         }
 
-        return false;
-    }
-
-    public boolean CheckOnPlatform(GameObject obj, GameObject groundObj)
-    {
-        //make sure we are colliding with the ground in some way
-        if(CheckCollision(obj, groundObj))
-        {
-            CollisionResult result = GetCollisionResult(obj, groundObj);
-
-            if(!result.Direction.equals(CollisionDirection.NONE))
-            {
-                ResolveCollision(result);
-            }
-
-            //if we are, make sure we are colliding from above the ground object
-            if(result.Direction.equals(CollisionDirection.FROMABOVE))
-            {
-                return true;
-            }
-        }
         return false;
     }
 

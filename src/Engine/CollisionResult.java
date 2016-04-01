@@ -10,18 +10,15 @@ public class CollisionResult {
     public GameObject ObjectA;
     public GameObject ObjectB;
     public float PenetrationDepth;
-    public PVector CollisionNormal;
 
     public CollisionDirection Direction;
 
-    public CollisionResult(GameObject objectA, GameObject objectB, float depth, PVector normal)
+    public CollisionResult(GameObject objectA, GameObject objectB, float depth)
     {
         ObjectA = objectA;
         ObjectB = objectB;
 
         PenetrationDepth = depth;
-
-        CollisionNormal = normal;
     }
 
     public CollisionResult()
