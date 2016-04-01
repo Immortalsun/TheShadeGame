@@ -16,6 +16,7 @@ public class GameObject
     private PVector velocity;
     private PApplet sketchParent;
     private PImage image;
+    private PImage flippedImage;
     private PImage frame;
     private int fillColor;
     private int frameCount, currentFrame, desiredFramesPerSecond, maxAnimFrames;
@@ -134,6 +135,11 @@ public class GameObject
         desiredFramesPerSecond = desiredFps;
     }
 
+    public void SetFlippedImage(String imagePath)
+    {
+        flippedImage = sketchParent.loadImage(imagePath);
+    }
+
 
     //Methods
     //Draw boundingRect
@@ -167,8 +173,15 @@ public class GameObject
                 frameCount = 1;
             }
 
+            if(velocity.x > 0)
+            {
+                frame = image.get(0,(currentFrame*32), 32, 32);
+            }
+            else
+            {
+                frame = flippedImage.get(0,(currentFrame*32), 32, 32);
+            }
 
-            frame = image.get(0,(currentFrame*32), 32, 32);
             sketchParent.image(frame, location.x, location.y, objWidth, objHeight);
         }
         else
