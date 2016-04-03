@@ -9,8 +9,8 @@ public class Player extends GameObject {
 
     public Player(float x, float y, float objectWidth, float objectHeight, PApplet parent) {
         super(x, y, objectWidth, objectHeight, parent);
-        SetImage("playerTest1.png", 3, 10);
-        SetFlippedImage("playerTest2.png");
+
+        BuildAnimator("player1.png", "player1Reversed.png", 3, 10);
     }
 
     public void Move(PVector moveVector)

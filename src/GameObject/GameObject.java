@@ -15,11 +15,8 @@ public class GameObject
     private PVector location;
     private PVector velocity;
     private PApplet sketchParent;
-    private PImage image;
-    private PImage flippedImage;
-    private PImage frame, lastFrame;
+    private Animator animator;
     private int fillColor;
-    private int frameCount, currentFrame, desiredFramesPerSecond, maxAnimFrames;
     private float minY, minX, objWidth, objHeight;
     private boolean isPlayer;
     private boolean isOnGround;
@@ -126,76 +123,17 @@ public class GameObject
 
     public void SetIsGround(boolean ground) { isGround = ground; }
 
-    public void SetImage(String imagePath, int fCount, int desiredFps)
+    public void BuildAnimator(String imagePath, String flippedPath ,int fCount, int desiredFps)
     {
-        image = sketchParent.loadImage(imagePath);
-        maxAnimFrames = fCount;
-        currentFrame = 0;
-        frameCount = 1;
-        desiredFramesPerSecond = desiredFps;
+        animator = new Animator(this, sketchParent, imagePath, flippedPath, fCount, desiredFps);
     }
-
-    public void SetFlippedImage(String imagePath)
-    {
-        flippedImage = sketchParent.loadImage(imagePath);
-    }
-
-
     //Methods
     //Draw boundingRect
     public void Display()
     {
-        if(image != null)
+        if(animator != null)
         {
-            if(velocity.x != 0)
-            {
-                if(frameCount % desiredFramesPerSecond == 0)
-                {
-                    if(currentFrame < maxAnimFrames-1)
-                    {
-                        currentFrame++;
-                    }
-                    else
-                    {
-                        currentFrame = 0;
-                    }
-
-                    frameCount = 1;
-                }
-                else
-                {
-                    frameCount++;
-                }
-            }
-            else
-            {
-                currentFrame=0;
-                frameCount = 1;
-            }
-
-            if(velocity.x > 0)
-            {
-                frame = image.get(0,(currentFrame*32), 32, 32);
-            }
-            else if(velocity.x < 0)
-            {
-                frame = flippedImage.get(0,(currentFrame*32), 32, 32);
-            }
-            else
-            {
-                if(lastFrame != null)
-                {
-                    frame = lastFrame;
-                }
-                else
-                {
-                    frame = image.get(0,0, 32, 32);
-                }
-
-            }
-
-            sketchParent.image(frame, location.x, location.y, objWidth, objHeight);
-            lastFrame = frame;
+            animator.Animate();
         }
         else
         {
