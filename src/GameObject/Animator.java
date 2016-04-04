@@ -2,34 +2,47 @@ package GameObject;
 
 import processing.core.PImage;
 import processing.core.PApplet;
+
+import java.util.HashMap;
+
 /**
  * Created by Maashes on 4/1/2016.
  */
 public class Animator {
 
     private GameObject object;
-    private PImage image, flippedImage, frame;
+    private PImage frame;
     private PApplet sketchParent;
-    private int frameCount, desiredFps, currentFrame, maxFrames;
+    private int frameCount, currentFrame, maxFrames;
     private float lastDirection;
+    private HashMap<AnimationState, Animation> _animations;
 
-    public Animator(GameObject obj, PApplet parent ,String imagePath, String flippedImagePath, int fCount, int fps)
+    public Animator(GameObject obj, PApplet parent ,Animation[] animations)
     {
         sketchParent = parent;
         object = obj;
-        image = sketchParent.loadImage(imagePath);
-        flippedImage = sketchParent.loadImage(flippedImagePath);
-        frameCount = 1;
-        maxFrames = fCount;
-        desiredFps = fps;
+        _animations = new HashMap<AnimationState, Animation>();
+        BuildAnimationMap(animations);
+    }
+
+    private void BuildAnimationMap(Animation[] animations)
+    {
+        for(Animation anim : animations)
+        {
+            _animations.put(anim.associatedState, anim);
+        }
     }
 
     public void Animate()
     {
-        if(image != null) {
+        AnimationState state = object.GetCurrentAnimationState();
+
+        Animation anim = _animations.get(state);
+
+        if(anim.image != null) {
             if (object.GetVelocity().x != 0) {
-                if (frameCount % desiredFps == 0) {
-                    if (currentFrame < maxFrames - 1) {
+                if (frameCount % anim.desiredFps == 0) {
+                    if (currentFrame < anim.maxFrames - 1) {
                         currentFrame++;
                     } else {
                         currentFrame = 0;
@@ -45,15 +58,58 @@ public class Animator {
                 frameCount = 1;
             }
 
-            if (object.GetVelocity().x > 0) {
-                frame = image.get(0, (currentFrame * 32), 32, 32);
-            } else if (object.GetVelocity().x < 0) {
-                frame = flippedImage.get(0, (currentFrame * 32), 32, 32);
-            } else {
-                if (lastDirection >= 0) {
-                    frame = image.get(0, 0, 32, 32);
-                } else {
-                    frame = flippedImage.get(0, 0, 32, 32);
+            boolean isReversed = (object.GetVelocity().x < 0) || lastDirection < 0;
+            boolean isMoving = object.GetVelocity().x != 0;
+
+            if(state == AnimationState.RUNNING)
+            {
+                if (isMoving)
+                {
+                    if(!isReversed)
+                    {
+                        frame = anim.image.get(0, (currentFrame * 32), 32, 32);
+                    }
+                    else
+                    {
+                        frame = anim.reversedImage.get(0, (currentFrame * 32), 32, 32);
+                    }
+
+                }
+                else
+                {
+                    if (!isReversed)
+                    {
+                        frame = anim.image.get(0, 0, 32, 32);
+                    }
+                    else
+                    {
+                        frame = anim.reversedImage.get(0, 0, 32, 32);
+                    }
+                }
+            }
+            else if(state == AnimationState.JUMPING)
+            {
+                if(!isReversed)
+                {
+                    if(object.GetVelocity().y < 0)
+                    {
+                        frame = anim.image.get(0,0,32,32);
+                    }
+                    else
+                    {
+                        frame = anim.image.get(0,32,32,32);
+                    }
+                }
+                else
+                {
+                    if(object.GetVelocity().y < 0)
+                    {
+                        frame = anim.reversedImage.get(0,0,32,32);
+                    }
+                    else
+                    {
+                        frame = anim.reversedImage.get(0,32,32,32);
+                    }
                 }
 
             }

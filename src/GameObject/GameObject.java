@@ -5,7 +5,6 @@ package GameObject;
  */
 import processing.core.*;
 
-import static processing.core.PConstants.CORNER;
 import static processing.core.PConstants.RECT;
 
 public class GameObject
@@ -123,9 +122,23 @@ public class GameObject
 
     public void SetIsGround(boolean ground) { isGround = ground; }
 
-    public void BuildAnimator(String imagePath, String flippedPath ,int fCount, int desiredFps)
+    public void BuildAnimator(Animation[] animations)
     {
-        animator = new Animator(this, sketchParent, imagePath, flippedPath, fCount, desiredFps);
+        animator = new Animator(this, sketchParent, animations);
+    }
+
+    public AnimationState GetCurrentAnimationState()
+    {
+        if (isOnGround) {
+           return AnimationState.RUNNING;
+        }
+
+        if(isJumping)
+        {
+            return AnimationState.JUMPING;
+        }
+
+        return AnimationState.RUNNING;
     }
     //Methods
     //Draw boundingRect
