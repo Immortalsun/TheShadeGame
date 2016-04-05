@@ -1,4 +1,6 @@
-package GameObject;
+package GameObject.Animation;
+
+import GameObject.GameObject;
 
 /**
  * Created by Maashes on 4/3/2016.

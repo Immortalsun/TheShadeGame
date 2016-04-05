@@ -4,10 +4,10 @@ package Engine;
  * Created by Maashes on 3/30/2016.
  */
 import GameObject.*;
+import GameObject.Projectiles.Projectile;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Engine
@@ -35,11 +35,19 @@ public class Engine
         return player;
     }
 
-    public void SetGroundLevel()
+    public void SetLevelBounds()
     {
         GameObject ground = new GameObject(0,screenHeight-15, screenWidth-1, 15, this.sketchParent);
         ground.SetIsGround(true);
         _gameObjectCollection.add(ground);
+
+        GameObject leftBound = new GameObject(-4,0, 5,screenHeight-1, this.sketchParent);
+        leftBound.SetIsGround(true);
+        _gameObjectCollection.add(leftBound);
+
+        GameObject rightBound = new GameObject(screenWidth-1, 0, 5,screenHeight-1, this.sketchParent);
+        rightBound.SetIsGround(true);
+        _gameObjectCollection.add(rightBound);
     }
 
     public void GeneratePlatforms()
@@ -59,15 +67,26 @@ public class Engine
 
         for(GameObject g : _gameObjectCollection)
         {
+            if(g instanceof Projectile)
+            {
+                ArrayList<CollisionResult> projectileCollisions = CheckCollisions(g);
+
+                if(!projectileCollisions.isEmpty())
+                {
+                    g.SetIsDestroyed(true);
+                }
+            }
             g.Update();
         }
+
+        CleanupDestroyedObjects();
     }
 
     private void UpdatePlayer()
     {
         player.Update();
         //check to see if player has any collisions
-        ArrayList<CollisionResult> collisions = CheckPlayerCollisions();
+        ArrayList<CollisionResult> collisions = CheckCollisions(player);
         if(!collisions.isEmpty())
         {
             //if we have any, resolve them and adjust player location and velocity
@@ -88,20 +107,32 @@ public class Engine
         }
 
         player.SetIsOnGround(CheckOnGround(player));
+
+        if(player.GetHasCastProjectile())
+        {
+            _gameObjectCollection.add(player.GetCurrentProjectile());
+            player.SetHasCastProjectile(false);
+        }
     }
 
-    private ArrayList<CollisionResult> CheckPlayerCollisions()
+    private ArrayList<CollisionResult> CheckCollisions(GameObject obj)
     {
         ArrayList<CollisionResult> results = new ArrayList<CollisionResult>();
         for(GameObject g : _gameObjectCollection)
         {
-            if(CheckCollision(player, g))
+            if(!obj.equals(g))
             {
-                results.add(GetCollisionResult(player,g));
+                if(CheckCollision(obj, g))
+                {
+                    results.add(GetCollisionResult(obj,g));
+                }
             }
+
         }
         return results;
     }
+
+
 
     public void Display()
     {
@@ -280,6 +311,19 @@ public class Engine
                     result.ObjectA.GetVelocity().x = 0;
                 }
                 break;
+        }
+    }
+
+    private void CleanupDestroyedObjects()
+    {
+        ArrayList<GameObject> collection = new ArrayList<GameObject>(_gameObjectCollection);
+
+        for(GameObject g : collection)
+        {
+            if(g.GetIsDestroyed() && _gameObjectCollection.contains(g))
+            {
+                _gameObjectCollection.remove(g);
+            }
         }
     }
 }

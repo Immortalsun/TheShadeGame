@@ -3,6 +3,9 @@ package GameObject;
 /**
  * Created by Maashes on 3/30/2016.
  */
+import GameObject.Animation.Animation;
+import GameObject.Animation.AnimationState;
+import GameObject.Animation.Animator;
 import processing.core.*;
 
 import static processing.core.PConstants.RECT;
@@ -15,12 +18,9 @@ public class GameObject
     private PVector velocity;
     private PApplet sketchParent;
     private Animator animator;
-    private int fillColor;
+    private int fillColor, orientation;
     private float minY, minX, objWidth, objHeight;
-    private boolean isPlayer;
-    private boolean isOnGround;
-    private boolean isGround;
-    private boolean isJumping;
+    private boolean isPlayer, isOnGround, isGround, isJumping, isDestroyed, isAttacking;
     //Constructor
     public GameObject(float x, float y, float objectWidth, float objectHeight, PApplet parent)
     {
@@ -34,6 +34,7 @@ public class GameObject
         isPlayer = false;
         velocity = new PVector(0,0);
         fillColor = sketchParent.color(168,230,201);
+        orientation = 1;
         boundingRect.setFill(fillColor);
     }
 
@@ -100,6 +101,36 @@ public class GameObject
 
     public boolean GetIsGround() {return isGround; }
 
+    public boolean GetIsDestroyed()
+    {
+        return isDestroyed;
+    }
+
+    public boolean GetIsAttacking()
+    {
+        return isAttacking;
+    }
+
+    public void SetIsAttacking(boolean attacking)
+    {
+        isAttacking = attacking;
+    }
+
+    public PApplet GetParent()
+    {
+        return sketchParent;
+    }
+
+    public int GetOrientation()
+    {
+        return orientation;
+    }
+
+    public void SetOrientation(int o)
+    {
+        orientation = o;
+    }
+
     public void SetVelocity(PVector v)
     {
         velocity = v;
@@ -122,6 +153,11 @@ public class GameObject
 
     public void SetIsGround(boolean ground) { isGround = ground; }
 
+    public void SetIsDestroyed(boolean destroyed)
+    {
+        isDestroyed = destroyed;
+    }
+
     public void BuildAnimator(Animation[] animations)
     {
         animator = new Animator(this, sketchParent, animations);
@@ -136,6 +172,16 @@ public class GameObject
         if(isJumping)
         {
             return AnimationState.JUMPING;
+        }
+
+        if(isDestroyed)
+        {
+            return AnimationState.DEAD;
+        }
+
+        if(isAttacking)
+        {
+            return AnimationState.ATTACKING;
         }
 
         return AnimationState.RUNNING;

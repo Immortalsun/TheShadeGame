@@ -13,7 +13,7 @@ public class GameMain extends PApplet
     float acceleration = 0.1f;
     int windowWidth = 800;
     int windowHeight = 600;
-    boolean isKeyPressed;
+    boolean isKeyPressed, paused, attacking;
     HashMap<Integer, Boolean> keyMap = new HashMap<Integer, Boolean>();
     PVector playerVelocity = new PVector(0,0);
     PFont f;
@@ -37,10 +37,11 @@ public class GameMain extends PApplet
         keyMap.put(37, false);
         keyMap.put(38, false);
         keyMap.put(39, false);
+        keyMap.put(32, false);
         engine = new Engine(windowWidth, windowHeight, this);
-        player = engine.CretePlayer(0,0, 32,32);
+        player = engine.CretePlayer(10,windowHeight-30, 32,32);
         player.SetIsJumping(true);
-        engine.SetGroundLevel();
+        engine.SetLevelBounds();
         engine.GeneratePlatforms();
     }
 
@@ -75,6 +76,18 @@ public class GameMain extends PApplet
                 keyMap.replace(38, true);
             }
         }
+        else
+        {
+            if (key == 'P' || key == 'p')
+            {
+                Pause();
+            }
+            else if(key == 32 || key == ' ')
+            {
+                keyMap.replace(32, true);
+               Attack();
+            }
+        }
     }
 
     public void keyReleased()
@@ -97,6 +110,15 @@ public class GameMain extends PApplet
                 keyMap.replace(38, false);
             }
         }
+        else
+        {
+            if(key == 32 || key == ' ')
+            {
+                keyMap.replace(32, false);
+                attacking = false;
+            }
+        }
+
     }
 
     public void CheckKeyStatus()
@@ -146,6 +168,15 @@ public class GameMain extends PApplet
         player.Move(playerVelocity);
     }
 
+    public void Attack()
+    {
+        if(!attacking)
+        {
+            attacking = true;
+            player.CastProjectile();
+        }
+    }
+
     public void Accelerate()
     {
         MovePlayer();
@@ -174,13 +205,30 @@ public class GameMain extends PApplet
     {
         for(Map.Entry entry : keyMap.entrySet())
         {
-            Boolean isPressed = (Boolean)entry.getValue();
-            if(isPressed)
+            if((Integer)entry.getKey() != 32)
             {
-                return true;
+                Boolean isPressed = (Boolean)entry.getValue();
+                if(isPressed)
+                {
+                    return true;
+                }
             }
         }
 
         return false;
+    }
+
+    public void Pause()
+    {
+        if(!paused)
+        {
+            paused = true;
+            noLoop();
+        }
+        else
+        {
+            paused = false;
+            loop();
+        }
     }
 }

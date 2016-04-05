@@ -1,4 +1,4 @@
-package GameObject;
+package GameObject.Animation;
 
 import processing.core.PApplet;
 import processing.core.PImage;

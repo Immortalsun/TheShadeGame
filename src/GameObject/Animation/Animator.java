@@ -1,5 +1,6 @@
-package GameObject;
+package GameObject.Animation;
 
+import GameObject.GameObject;
 import processing.core.PImage;
 import processing.core.PApplet;
 
@@ -111,7 +112,15 @@ public class Animator {
                         frame = anim.reversedImage.get(0,32,32,32);
                     }
                 }
+            }
 
+            if(isReversed)
+            {
+                object.SetOrientation(-1);
+            }
+            else
+            {
+                object.SetOrientation(1);
             }
 
             sketchParent.image(frame, object.GetLocation().x, object.GetLocation().y, object.GetWidth(), object.GetHeight());
