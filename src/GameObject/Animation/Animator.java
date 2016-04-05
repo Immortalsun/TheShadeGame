@@ -34,6 +34,40 @@ public class Animator {
         }
     }
 
+    public void DoAnimation(AnimationState state)
+    {
+        Animation anim = _animations.get(state);
+
+        boolean isReversed = (object.GetVelocity().x < 0) || lastDirection < 0;
+        boolean isMoving = object.GetVelocity().x != 0 || object.GetVelocity().y != 0.5;
+        int moveDirection = 0;
+
+        if(isMoving)
+        {
+            moveDirection = 1;
+
+            if(object.GetVelocity().y > 0)
+            {
+                moveDirection = 2;
+            }
+            else if(object.GetVelocity().y < 0)
+            {
+                moveDirection = -2;
+            }
+        }
+
+        frame = anim.GetNextFrame(isReversed, moveDirection);
+
+
+        lastDirection = object.GetVelocity().x;
+        sketchParent.image(frame, object.GetLocation().x, object.GetLocation().y, object.GetWidth(), object.GetHeight());
+
+        if(anim.GetIsCompleted())
+        {
+        }
+
+    }
+
     public void Animate()
     {
         AnimationState state = object.GetCurrentAnimationState();

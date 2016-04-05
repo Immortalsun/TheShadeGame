@@ -1,7 +1,6 @@
 package GameObject;
 
-import GameObject.Animation.Animation;
-import GameObject.Animation.AnimationState;
+import GameObject.Animation.*;
 import GameObject.Projectiles.Fireball;
 import GameObject.Projectiles.Projectile;
 import processing.core.*;
@@ -17,15 +16,20 @@ public class Player extends GameObject {
         super(x, y, objectWidth, objectHeight, parent);
 
         Animation[] animations = new Animation[3];
-        animations[0] = new Animation(parent,"player1.png", "player1Reversed.png", AnimationState.RUNNING,3, 10);
-        animations[1] = new Animation(parent,"playerJump.png", "playerJumpReversed.png", AnimationState.JUMPING,2,10);
-        animations[2] = new Animation(parent, "fireballAttack.png", "fireballAttackReversed.png", AnimationState.ATTACKING,5,10);
+        animations[0] = new RunningAnimation(parent,"player1.png", "player1Reversed.png",3, 10);
+        animations[1] = new JumpingAnimation(parent,"playerJump.png", "playerJumpReversed.png",2,10);
+        animations[2] = new AttackingAnimation(parent, "fireballAttack.png", "fireballAttackReversed.png",5,10);
         BuildAnimator(animations);
     }
 
     public boolean GetHasCastProjectile()
     {
-        return this.GetIsAttacking();
+        return this.GetIsAttacking() && _currentProjectile != null;
+    }
+
+    public void ClearCurrentProjectile()
+    {
+        _currentProjectile = null;
     }
 
     public void SetHasCastProjectile(boolean hasCast)

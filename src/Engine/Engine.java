@@ -111,7 +111,7 @@ public class Engine
         if(player.GetHasCastProjectile())
         {
             _gameObjectCollection.add(player.GetCurrentProjectile());
-            player.SetHasCastProjectile(false);
+            player.ClearCurrentProjectile();
         }
     }
 

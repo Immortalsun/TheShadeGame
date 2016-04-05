@@ -2,6 +2,8 @@ package GameObject.Projectiles;
 
 import GameObject.Animation.Animation;
 import GameObject.Animation.AnimationState;
+import GameObject.Animation.DeadAnimation;
+import GameObject.Animation.RunningAnimation;
 import processing.core.PApplet;
 
 /**
@@ -14,8 +16,8 @@ public class Fireball extends Projectile {
 
 
         Animation[] animations = new Animation[2];
-        animations[0] = new Animation(parent,"fireball.png", "fireballReversed.png", AnimationState.RUNNING,3, 5);
-        animations[1] = new Animation(parent, "fireballExplosion.png", "fireballExplosionReversed.png", AnimationState.DEAD,5,10);
+        animations[0] = new RunningAnimation(parent,"fireball.png", "fireballReversed.png",3, 5);
+        animations[1] = new DeadAnimation(parent, "fireballExplosion.png", "fireballExplosionReversed.png",5,10);
 
         BuildAnimator(animations);
     }

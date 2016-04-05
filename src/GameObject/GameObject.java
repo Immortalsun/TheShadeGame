@@ -165,6 +165,11 @@ public class GameObject
 
     public AnimationState GetCurrentAnimationState()
     {
+        if(isAttacking)
+        {
+            return AnimationState.ATTACKING;
+        }
+
         if (isOnGround) {
            return AnimationState.RUNNING;
         }
@@ -179,12 +184,15 @@ public class GameObject
             return AnimationState.DEAD;
         }
 
-        if(isAttacking)
-        {
-            return AnimationState.ATTACKING;
-        }
-
         return AnimationState.RUNNING;
+    }
+
+    public void SetStateBasedOnAnimationCompletion()
+    {
+        if(isAttacking || GetCurrentAnimationState().equals(AnimationState.ATTACKING))
+        {
+            isAttacking = false;
+        }
     }
     //Methods
     //Draw boundingRect
@@ -192,7 +200,7 @@ public class GameObject
     {
         if(animator != null)
         {
-            animator.Animate();
+            animator.DoAnimation(GetCurrentAnimationState());
         }
         else
         {
