@@ -64,18 +64,9 @@ public abstract class Animation {
         {
             isCompleted = true;
             completionCounter = 0;
+            currentFrame = 0;
+            frameCounter = 1;
         }
-
-//        if(completionCounter < completionCount)
-//        {
-//            isCompleted = false;
-//            completionCounter++;
-//        }
-//        else if(completionCounter == completionCount)
-//        {
-//            isCompleted = true;
-//            completionCounter = 0;
-//        }
     }
 
 

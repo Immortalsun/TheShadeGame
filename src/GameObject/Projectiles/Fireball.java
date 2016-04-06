@@ -17,7 +17,7 @@ public class Fireball extends Projectile {
 
         Animation[] animations = new Animation[2];
         animations[0] = new RunningAnimation(parent,"fireball.png", "fireballReversed.png",3, 5);
-        animations[1] = new DeadAnimation(parent, "fireballExplosion.png", "fireballExplosionReversed.png",5,10);
+        animations[1] = new DeadAnimation(parent, "fireballExplosion.png", "fireballExplosionReversed.png",5,5);
 
         BuildAnimator(animations);
     }
