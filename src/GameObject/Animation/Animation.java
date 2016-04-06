@@ -64,8 +64,13 @@ public abstract class Animation {
         {
             isCompleted = true;
             completionCounter = 0;
-            currentFrame = 0;
-            frameCounter = 1;
+            
+            if(!associatedState.equals(AnimationState.RUNNING))
+            {
+                currentFrame = 0;
+                frameCounter = 1;
+            }
+
         }
     }
 
