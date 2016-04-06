@@ -23,7 +23,6 @@ public class RunningAnimation extends Animation
         boolean isMoving = moveDirection != 0;
 
         if (!isMoving) {
-
             currentFrame = 0;
         }
 
@@ -36,6 +35,7 @@ public class RunningAnimation extends Animation
         {
             frame = reversedImage.get(0, (currentFrame * 32), 32, 32);
         }
+
 
         return frame;
     }

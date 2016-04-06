@@ -42,6 +42,15 @@ public class Animator {
         boolean isMoving = object.GetVelocity().x != 0 || object.GetVelocity().y != 0.5;
         int moveDirection = 0;
 
+        if(isReversed)
+        {
+            object.SetOrientation(-1);
+        }
+        else
+        {
+            object.SetOrientation(1);
+        }
+
         if(isMoving)
         {
             moveDirection = 1;
@@ -59,7 +68,11 @@ public class Animator {
 
         frame = anim.GetNextFrame(isReversed, moveDirection);
 
-        lastDirection = object.GetVelocity().x;
+        if(object.GetVelocity().x != 0)
+        {
+            lastDirection = object.GetVelocity().x;
+        }
+
         sketchParent.image(frame, object.GetLocation().x, object.GetLocation().y, object.GetWidth(), object.GetHeight());
 
         if(anim.GetIsCompleted())
