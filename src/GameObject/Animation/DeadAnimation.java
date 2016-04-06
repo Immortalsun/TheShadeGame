@@ -20,14 +20,28 @@ public class DeadAnimation extends Animation
 
         IncrementFrameCounters();
 
-        if (!isReversed)
+        if(!isCompleted)
         {
-            frame = image.get(0, (currentFrame * 32), 32, 32);
-            return frame;
+            if (!isReversed)
+            {
+                frame = image.get(0, (currentFrame * 32), 32, 32);
+                return frame;
+            }
+            else
+            {
+                frame = reversedImage.get(0, (currentFrame * 32), 32, 32);
+            }
         }
         else
         {
-            frame = reversedImage.get(0, (currentFrame * 32), 32, 32);
+            if(!isReversed)
+            {
+                frame = image.get(0, (maxFrames-1)*32, 32, 32);
+            }
+            else
+            {
+                frame = reversedImage.get(0, (maxFrames-1)*32, 32, 32);
+            }
         }
 
         return frame;

@@ -20,7 +20,7 @@ public class GameObject
     private Animator animator;
     private int fillColor, orientation;
     private float minY, minX, objWidth, objHeight;
-    private boolean isPlayer, isOnGround, isGround, isJumping, isDestroyed, isAttacking;
+    private boolean isPlayer, isOnGround, isGround, isJumping, isDestroyed, isAttacking, readyForCleanup;
     //Constructor
     public GameObject(float x, float y, float objectWidth, float objectHeight, PApplet parent)
     {
@@ -111,6 +111,8 @@ public class GameObject
         return isAttacking;
     }
 
+    public boolean GetIsReadyForCleanup() {return readyForCleanup; }
+
     public void SetIsAttacking(boolean attacking)
     {
         isAttacking = attacking;
@@ -156,6 +158,17 @@ public class GameObject
     public void SetIsDestroyed(boolean destroyed)
     {
         isDestroyed = destroyed;
+
+        if(isDestroyed)
+        {
+            velocity.x = 0;
+            velocity.y = 0;
+        }
+    }
+
+    public void SetIsReadyForCleanup(boolean cleanup)
+    {
+        readyForCleanup = cleanup;
     }
 
     public void BuildAnimator(Animation[] animations)
@@ -170,8 +183,9 @@ public class GameObject
             return AnimationState.ATTACKING;
         }
 
-        if (isOnGround) {
-           return AnimationState.RUNNING;
+        if(isDestroyed)
+        {
+            return AnimationState.DEAD;
         }
 
         if(isJumping)
@@ -179,10 +193,10 @@ public class GameObject
             return AnimationState.JUMPING;
         }
 
-        if(isDestroyed)
-        {
-            return AnimationState.DEAD;
+        if (isOnGround) {
+            return AnimationState.RUNNING;
         }
+
 
         return AnimationState.RUNNING;
     }
@@ -192,6 +206,11 @@ public class GameObject
         if(isAttacking || GetCurrentAnimationState().equals(AnimationState.ATTACKING))
         {
             isAttacking = false;
+        }
+
+        if(isDestroyed || GetCurrentAnimationState().equals(AnimationState.DEAD))
+        {
+            readyForCleanup = true;
         }
     }
     //Methods

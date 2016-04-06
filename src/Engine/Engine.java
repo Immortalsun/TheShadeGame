@@ -63,6 +63,8 @@ public class Engine
 
     public void Update()
     {
+        CleanupDestroyedObjects();
+
         UpdatePlayer();
 
         for(GameObject g : _gameObjectCollection)
@@ -78,8 +80,6 @@ public class Engine
             }
             g.Update();
         }
-
-        CleanupDestroyedObjects();
     }
 
     private void UpdatePlayer()
@@ -320,7 +320,7 @@ public class Engine
 
         for(GameObject g : collection)
         {
-            if(g.GetIsDestroyed() && _gameObjectCollection.contains(g))
+            if(g.GetIsReadyForCleanup() && _gameObjectCollection.contains(g))
             {
                 _gameObjectCollection.remove(g);
             }
