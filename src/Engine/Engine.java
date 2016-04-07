@@ -70,12 +70,16 @@ public class Engine
         float startY = groundLevel.GetMinY() - 105;
         for(int i = 0; i < 10; i++)
         {
-            GameObject platform = new GameObject(startX, startY, 50, 15, this.sketchParent);
-            platform.SetIsGround(true);
-            _gameObjectCollection.add(platform);
+            if(i % 2 == 0)
+            {
+                GameObject platform = new GameObject(startX, startY, 50, 15, this.sketchParent);
+                platform.SetIsGround(true);
+                _gameObjectCollection.add(platform);
 
-            startX += platform.GetWidth()+20;
-            startY -=platform.GetHeight()+20;
+
+            }
+            startX += 70;
+            startY -= 35;
         }
 
 
@@ -96,6 +100,10 @@ public class Engine
                 if(!projectileCollisions.isEmpty())
                 {
                     g.SetIsDestroyed(true);
+                }
+                else
+                {
+                    ((Projectile) g).CheckRange();
                 }
             }
             g.Update();

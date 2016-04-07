@@ -15,13 +15,14 @@ public class GameMain extends PApplet
     int windowWidth = 800;
     int windowHeight = 600;
     int stageWidth = 1000;
-    int stageHeight = 900;
+    int stageHeight = 600;
     boolean isKeyPressed, paused, attacking;
     HashMap<Integer, Boolean> keyMap = new HashMap<Integer, Boolean>();
     PVector playerVelocity = new PVector(0,0);
     PFont f;
     Engine engine;
     Player player;
+    Stage currentStage;
     int currentDir;
 
     public static void main(String[] args) {
@@ -41,7 +42,8 @@ public class GameMain extends PApplet
         keyMap.put(38, false);
         keyMap.put(39, false);
         keyMap.put(32, false);
-        engine = new Engine(windowWidth, windowHeight, this, new Stage(stageWidth, stageHeight));
+        currentStage = new Stage(stageWidth, stageHeight);
+        engine = new Engine(windowWidth, windowHeight, this, currentStage);
         player = engine.CretePlayer(10,stageHeight-30, 32,32);
         player.SetIsJumping(true);
         engine.SetLevelBounds();
