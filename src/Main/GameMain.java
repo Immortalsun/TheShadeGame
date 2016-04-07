@@ -2,6 +2,7 @@ package Main; /**
  * Created by Maashes on 3/30/2016.
  */
 
+import GameObject.World.Stage;
 import processing.core.*;
 import GameObject.*;
 import Engine.*;
@@ -13,6 +14,8 @@ public class GameMain extends PApplet
     float acceleration = 0.1f;
     int windowWidth = 800;
     int windowHeight = 600;
+    int stageWidth = 1000;
+    int stageHeight = 900;
     boolean isKeyPressed, paused, attacking;
     HashMap<Integer, Boolean> keyMap = new HashMap<Integer, Boolean>();
     PVector playerVelocity = new PVector(0,0);
@@ -38,8 +41,8 @@ public class GameMain extends PApplet
         keyMap.put(38, false);
         keyMap.put(39, false);
         keyMap.put(32, false);
-        engine = new Engine(windowWidth, windowHeight, this);
-        player = engine.CretePlayer(10,windowHeight-30, 32,32);
+        engine = new Engine(windowWidth, windowHeight, this, new Stage(stageWidth, stageHeight));
+        player = engine.CretePlayer(10,stageHeight-30, 32,32);
         player.SetIsJumping(true);
         engine.SetLevelBounds();
         engine.GeneratePlatforms();

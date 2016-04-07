@@ -5,6 +5,7 @@ package Engine;
  */
 import GameObject.*;
 import GameObject.Projectiles.Projectile;
+import GameObject.World.Stage;
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -14,14 +15,18 @@ public class Engine
 {
     private int screenWidth;
     private int screenHeight;
+    private float xTranslation, yTranslation;
     private ArrayList<GameObject> _gameObjectCollection;
+    private Stage _currentStage;
+    private GameObject groundLevel;
     private Player player;
     private PApplet sketchParent;
 
     private final float gravityConstant = .5f;
 
-    public Engine(int scrWidth, int scrHeight, PApplet parent)
+    public Engine(int scrWidth, int scrHeight, PApplet parent, Stage s)
     {
+        _currentStage = s;
         screenWidth = scrWidth;
         screenHeight = scrHeight;
         _gameObjectCollection = new ArrayList(1);
@@ -37,28 +42,41 @@ public class Engine
 
     public void SetLevelBounds()
     {
-        GameObject ground = new GameObject(0,screenHeight-15, screenWidth-1, 15, this.sketchParent);
-        ground.SetIsGround(true);
-        _gameObjectCollection.add(ground);
+        groundLevel = new GameObject(0,_currentStage.GetHeight()-15, _currentStage.GetWidth()-1, 15, this.sketchParent);
+        groundLevel.SetIsGround(true);
+        _gameObjectCollection.add(groundLevel);
 
-        GameObject leftBound = new GameObject(-4,0, 5,screenHeight-1, this.sketchParent);
+        GameObject leftBound = new GameObject(-4,0, 5,_currentStage.GetHeight()-1, this.sketchParent);
         leftBound.SetIsGround(true);
         _gameObjectCollection.add(leftBound);
 
-        GameObject rightBound = new GameObject(screenWidth-1, 0, 5,screenHeight-1, this.sketchParent);
+        GameObject rightBound = new GameObject(_currentStage.GetWidth()-1, 0, 5,_currentStage.GetHeight()-1, this.sketchParent);
         rightBound.SetIsGround(true);
         _gameObjectCollection.add(rightBound);
     }
 
     public void GeneratePlatforms()
     {
-        GameObject p = new GameObject(200, 585 - 105, 50, 15, this.sketchParent);
+        GameObject p = new GameObject(900, groundLevel.GetMinY() - 105, 50, 15, this.sketchParent);
         p.SetIsGround(true);
         _gameObjectCollection.add(p);
 
-        GameObject p1 = new GameObject(400, 585 - 50, 20, 50, this.sketchParent);
+        GameObject p1 = new GameObject(950, groundLevel.GetMinY() - 50, 20, 50, this.sketchParent);
         p1.SetIsGround(true);
         _gameObjectCollection.add(p1);
+        float startX = 300;
+        float startY = groundLevel.GetMinY() - 105;
+        for(int i = 0; i < 10; i++)
+        {
+            GameObject platform = new GameObject(startX, startY, 50, 15, this.sketchParent);
+            platform.SetIsGround(true);
+            _gameObjectCollection.add(platform);
+
+            startX += platform.GetWidth();
+            startY -=platform.GetHeight()+20;
+        }
+
+
     }
 
     public void Update()
@@ -136,6 +154,8 @@ public class Engine
 
     public void Display()
     {
+        KeepPlayerInViewport();
+
         player.Display();
 
         for(GameObject g : _gameObjectCollection)
@@ -325,5 +345,26 @@ public class Engine
                 _gameObjectCollection.remove(g);
             }
         }
+    }
+
+    private void KeepPlayerInViewport()
+    {
+        if(player.GetLocation().x > (screenWidth/2) && (player.GetLocation().x-xTranslation)<=screenWidth)
+        {
+            xTranslation = (screenWidth/2) - player.GetLocation().x;
+        }
+        else
+        {
+           if(player.GetLocation().y >= (screenHeight/2))
+           {
+               yTranslation = -(screenHeight/2);
+           }
+           else
+           {
+               yTranslation = (screenHeight/2) - player.GetLocation().y;
+           }
+        }
+
+        sketchParent.translate(xTranslation, yTranslation);
     }
 }
