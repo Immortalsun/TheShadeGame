@@ -359,7 +359,7 @@ public class Engine
 
     private void KeepPlayerInViewport()
     {
-        if(player.GetLocation().x > (screenWidth/2) && (player.GetLocation().x-xTranslation)<=screenWidth)
+        if(player.GetLocation().x > (screenWidth/2) && (player.GetLocation().x-xTranslation)<=_currentStage.GetWidth())
         {
             xTranslation = (screenWidth/2) - player.GetLocation().x;
         }

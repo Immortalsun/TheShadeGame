@@ -14,8 +14,8 @@ public class GameMain extends PApplet
     float acceleration = 0.1f;
     int windowWidth = 800;
     int windowHeight = 600;
-    int stageWidth = 1000;
-    int stageHeight = 600;
+    int stageWidth = 1600;
+    int stageHeight = 800;
     boolean isKeyPressed, paused, attacking;
     HashMap<Integer, Boolean> keyMap = new HashMap<Integer, Boolean>();
     PVector playerVelocity = new PVector(0,0);

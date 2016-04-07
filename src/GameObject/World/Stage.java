@@ -10,6 +10,7 @@ import processing.core.PVector;
 public class Stage
 {
     private int _width, _height, _score;
+    private String _backgroundImage;
 
     public Stage(int width, int height)
     {
@@ -25,6 +26,11 @@ public class Stage
     public int GetHeight()
     {
         return _height;
+    }
+
+    public String GetBackgroundFile()
+    {
+        return _backgroundImage;
     }
 
 }
