@@ -15,7 +15,7 @@ public class Engine
 {
     private int screenWidth;
     private int screenHeight;
-    private float xTranslation, yTranslation;
+    private float xTranslation, yTranslation, baseYTanslation;
     private ArrayList<GameObject> _gameObjectCollection;
     private Stage _currentStage;
     private GameObject groundLevel;
@@ -37,6 +37,8 @@ public class Engine
     {
         player = new Player(x,y, objectWidth, objectHeight, this.sketchParent);
         player.SetIsPlayer(true);
+        yTranslation = baseYTanslation = (screenHeight/1.06f) - player.GetLocation().y;
+
         return player;
     }
 
@@ -72,7 +74,7 @@ public class Engine
             platform.SetIsGround(true);
             _gameObjectCollection.add(platform);
 
-            startX += platform.GetWidth();
+            startX += platform.GetWidth()+20;
             startY -=platform.GetHeight()+20;
         }
 
@@ -353,17 +355,15 @@ public class Engine
         {
             xTranslation = (screenWidth/2) - player.GetLocation().x;
         }
-        else
-        {
-           if(player.GetLocation().y >= (screenHeight/2))
-           {
-               yTranslation = -(screenHeight/2);
-           }
-           else
-           {
-               yTranslation = (screenHeight/2) - player.GetLocation().y;
-           }
-        }
+
+       if(player.GetLocation().y+yTranslation < (screenHeight/2))
+       {
+           yTranslation = (screenHeight/2) - player.GetLocation().y;
+       }
+       else if((player.GetLocation().y+yTranslation > (screenHeight/2)) && yTranslation > baseYTanslation)
+       {
+           yTranslation = ((screenHeight/2) - player.GetLocation().y);
+       }
 
         sketchParent.translate(xTranslation, yTranslation);
     }
