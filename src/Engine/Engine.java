@@ -15,7 +15,7 @@ public class Engine
 {
     private int screenWidth;
     private int screenHeight;
-    private float xTranslation, yTranslation, baseYTanslation;
+    private float xTranslation, yTranslation, baseYTanslation, maxXTranslation;
     private ArrayList<GameObject> _gameObjectCollection;
     private Stage _currentStage;
     private GameObject groundLevel;
@@ -38,6 +38,7 @@ public class Engine
         player = new Player(x,y, objectWidth, objectHeight, this.sketchParent);
         player.SetIsPlayer(true);
         yTranslation = baseYTanslation = (screenHeight/1.06f) - player.GetLocation().y;
+        maxXTranslation = -(screenWidth);
 
         return player;
     }
@@ -359,7 +360,11 @@ public class Engine
 
     private void KeepPlayerInViewport()
     {
-        if(player.GetLocation().x > (screenWidth/2) && (player.GetLocation().x-xTranslation)<=_currentStage.GetWidth())
+        if(player.GetLocation().x > (screenWidth/2) && xTranslation >= maxXTranslation)
+        {
+            xTranslation = (screenWidth/2) - player.GetLocation().x;
+        }
+        else if(player.GetLocation().x+xTranslation < (screenWidth/2) && xTranslation < 0)
         {
             xTranslation = (screenWidth/2) - player.GetLocation().x;
         }
