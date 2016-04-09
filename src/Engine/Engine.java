@@ -69,7 +69,7 @@ public class Engine
         _gameObjectCollection.add(p1);
         float startX = 300;
         float startY = groundLevel.GetMinY() - 105;
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < 16; i++)
         {
             if(i % 2 == 0)
             {
@@ -369,7 +369,7 @@ public class Engine
             xTranslation = (screenWidth/2) - player.GetLocation().x;
         }
 
-       if(player.GetLocation().y+yTranslation < (screenHeight/2))
+       if(player.GetLocation().y+yTranslation < (screenHeight/2) && yTranslation < -5)
        {
            yTranslation = (screenHeight/2) - player.GetLocation().y;
        }
@@ -379,5 +379,15 @@ public class Engine
        }
 
         sketchParent.translate(xTranslation, yTranslation);
+    }
+
+    public int GetXTranslation()
+    {
+        return (int)xTranslation;
+    }
+
+    public int GetYTranslation()
+    {
+        return (int)yTranslation;
     }
 }

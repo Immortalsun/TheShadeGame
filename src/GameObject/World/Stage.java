@@ -12,10 +12,11 @@ public class Stage
     private int _width, _height, _score;
     private String _backgroundImage;
 
-    public Stage(int width, int height)
+    public Stage(int width, int height, String bgImage)
     {
         _width = width;
         _height = height;
+        _backgroundImage = bgImage;
     }
 
     public int GetWidth()

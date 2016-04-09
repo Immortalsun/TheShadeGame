@@ -13,10 +13,11 @@ public class GameMain extends PApplet
 {
     float acceleration = 0.1f;
     int windowWidth = 800;
-    int windowHeight = 600;
+    int windowHeight = 400;
     int stageWidth = 1600;
     int stageHeight = 800;
     boolean isKeyPressed, paused, attacking;
+    PImage bgrnd;
     HashMap<Integer, Boolean> keyMap = new HashMap<Integer, Boolean>();
     PVector playerVelocity = new PVector(0,0);
     PFont f;
@@ -31,7 +32,7 @@ public class GameMain extends PApplet
 
     public void settings()
     {
-        size(800,600);
+        size(800,400);
         String path = calcSketchPath();
     }
 
@@ -42,7 +43,8 @@ public class GameMain extends PApplet
         keyMap.put(38, false);
         keyMap.put(39, false);
         keyMap.put(32, false);
-        currentStage = new Stage(stageWidth, stageHeight);
+        currentStage = new Stage(stageWidth, stageHeight, "warehouse.png");
+        bgrnd = loadImage(currentStage.GetBackgroundFile());
         engine = new Engine(windowWidth, windowHeight, this, currentStage);
         player = engine.CretePlayer(10,stageHeight-30, 32,32);
         player.SetIsJumping(true);
@@ -52,7 +54,7 @@ public class GameMain extends PApplet
 
     public void draw()
     {
-        background(103, 102);
+        set(engine.GetXTranslation(),engine.GetYTranslation(), bgrnd);
         textFont(f,16);
         fill(255);
         text("("+mouseX+", "+mouseY+")",mouseX,mouseY);
