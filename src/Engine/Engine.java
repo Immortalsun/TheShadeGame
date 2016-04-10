@@ -31,6 +31,7 @@ public class Engine
         screenHeight = scrHeight;
         _gameObjectCollection = new ArrayList(1);
         sketchParent = parent;
+        EngineProvider.SetDefaultEngineInstance(this);
     }
 
     public Player CretePlayer(float x, float y, float objectWidth, float objectHeight)
@@ -175,7 +176,7 @@ public class Engine
         }
     }
 
-    public boolean CheckCollision(GameObject obj1, GameObject obj2)
+    public static boolean CheckCollision(GameObject obj1, GameObject obj2)
     {
         if(obj1.GetMaxX() < obj2.GetMinX() || obj1.GetMinX() > obj2.GetMaxX()) return false;
 
@@ -184,7 +185,7 @@ public class Engine
         return true;
     }
 
-    public CollisionResult GetCollisionResult(GameObject objA, GameObject objB)
+    public static CollisionResult GetCollisionResult(GameObject objA, GameObject objB)
     {
         CollisionResult result = new CollisionResult();
         result.ObjectA = objA;
@@ -264,7 +265,7 @@ public class Engine
         return false;
     }
 
-    public void ResolveCollision(CollisionResult result)
+    public static void ResolveCollision(CollisionResult result)
     {
         switch (result.Direction)
         {
@@ -379,6 +380,16 @@ public class Engine
        }
 
         sketchParent.translate(xTranslation, yTranslation);
+    }
+
+    public PVector GetPlayerLocation()
+    {
+        return new PVector(player.GetLocation().x, player.GetLocation().y);
+    }
+
+    public PApplet GetSketchParent()
+    {
+        return sketchParent;
     }
 
     public int GetXTranslation()
