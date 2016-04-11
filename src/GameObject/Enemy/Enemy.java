@@ -65,6 +65,7 @@ public abstract class Enemy extends GameObject
     public void Update()
     {
         _behavior.DoNextAction();
+        super.Update();
     }
 
     public abstract void Attack();

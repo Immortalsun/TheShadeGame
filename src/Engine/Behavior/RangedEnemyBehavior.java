@@ -10,7 +10,7 @@ import processing.core.PVector;
  */
 public class RangedEnemyBehavior extends Behavior
 {
-
+    private int _attackCounter,_maxAttacksPerSecond;
     public RangedEnemyBehavior(Enemy enemy) {
         super(enemy);
     }
@@ -25,27 +25,30 @@ public class RangedEnemyBehavior extends Behavior
         {
             if(playerLoc.x > e.GetLocation().x)
             {
-                e.GetVelocity().x = -2.5f;
+                e.GetVelocity().x = 1.0f;
             }
             else
             {
-                e.GetVelocity().x = 2.5f;
+                e.GetVelocity().x = -1.0f;
             }
+            _attackCounter = 0;
         }
         else if(distToPlayer < 300)
         {
             if(playerLoc.x > e.GetLocation().x)
             {
-                e.GetVelocity().x = 2.5f;
+                e.GetVelocity().x = -1.0f;
             }
             else
             {
-                e.GetVelocity().x = -2.5f;
+                e.GetVelocity().x = 1.0f;
             }
+            _attackCounter = 0;
         }
         else
         {
-            e.Attack();
+                e.GetVelocity().x = 0f;
+                e.Attack();
         }
     }
 }

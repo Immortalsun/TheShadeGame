@@ -50,6 +50,7 @@ public class GameMain extends PApplet
         player.SetIsJumping(true);
         engine.SetLevelBounds();
         engine.GeneratePlatforms();
+        engine.PlaceSpawners();
     }
 
     public void draw()

@@ -58,6 +58,8 @@ public class Player extends GameObject {
         float startX = 0;
         float startY = 0;
 
+        this.GetVelocity().x = 0;
+
         if(this.GetOrientation() > 0)
         {
             startX = this.GetLocation().x+this.GetWidth();

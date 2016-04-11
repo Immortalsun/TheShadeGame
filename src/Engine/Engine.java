@@ -4,12 +4,16 @@ package Engine;
  * Created by Maashes on 3/30/2016.
  */
 import GameObject.*;
+import GameObject.Enemy.ButtEnemy;
+import GameObject.Enemy.Enemy;
+import GameObject.Enemy.EnemyType;
 import GameObject.Projectiles.Projectile;
 import GameObject.World.Stage;
 import processing.core.PApplet;
 import processing.core.PVector;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Engine
 {
@@ -17,6 +21,8 @@ public class Engine
     private int screenHeight;
     private float xTranslation, yTranslation, baseYTanslation, maxXTranslation;
     private ArrayList<GameObject> _gameObjectCollection;
+    private ArrayList<Enemy> _enemyColection;
+    private ArrayList<Spawner> _spawners;
     private Stage _currentStage;
     private GameObject groundLevel;
     private Player player;
@@ -30,6 +36,8 @@ public class Engine
         screenWidth = scrWidth;
         screenHeight = scrHeight;
         _gameObjectCollection = new ArrayList(1);
+        _enemyColection = new ArrayList<Enemy>(1);
+        _spawners = new ArrayList<Spawner>(1);
         sketchParent = parent;
         EngineProvider.SetDefaultEngineInstance(this);
     }
@@ -61,16 +69,9 @@ public class Engine
 
     public void GeneratePlatforms()
     {
-        GameObject p = new GameObject(900, groundLevel.GetMinY() - 105, 50, 15, this.sketchParent);
-        p.SetIsGround(true);
-        _gameObjectCollection.add(p);
-
-        GameObject p1 = new GameObject(950, groundLevel.GetMinY() - 50, 20, 50, this.sketchParent);
-        p1.SetIsGround(true);
-        _gameObjectCollection.add(p1);
-        float startX = 300;
+        float startX = 500;
         float startY = groundLevel.GetMinY() - 105;
-        for(int i = 0; i < 16; i++)
+        for(int i = 0; i < 10; i++)
         {
             if(i % 2 == 0)
             {
@@ -83,8 +84,11 @@ public class Engine
             startX += 70;
             startY -= 35;
         }
+    }
 
-
+    public void PlaceSpawners()
+    {
+        _spawners.add(new Spawner(500, groundLevel.GetMinY()-32, EnemyType.RANGED, "0", 1, 1));
     }
 
     public void Update()
@@ -92,6 +96,8 @@ public class Engine
         CleanupDestroyedObjects();
 
         UpdatePlayer();
+
+        UpdateEnemies();
 
         for(GameObject g : _gameObjectCollection)
         {
@@ -110,6 +116,8 @@ public class Engine
             }
             g.Update();
         }
+
+        SpawnEnemies();
     }
 
     private void UpdatePlayer()
@@ -145,6 +153,24 @@ public class Engine
         }
     }
 
+    private void UpdateEnemies()
+    {
+        if(!_enemyColection.isEmpty())
+        {
+            for(Enemy enemy : _enemyColection)
+            {
+                enemy.Update();
+                if(enemy.GetIsAttacking() && enemy.GetType().equals(EnemyType.RANGED))
+                {
+                    ButtEnemy buttEnemy = (ButtEnemy)enemy;
+                    _gameObjectCollection.add(buttEnemy.GetCurrentProjectile());
+                    buttEnemy.ClearCurrentProjectile();
+                    buttEnemy.SetIsAttacking(false);
+                }
+            }
+        }
+    }
+
     private ArrayList<CollisionResult> CheckCollisions(GameObject obj)
     {
         ArrayList<CollisionResult> results = new ArrayList<CollisionResult>();
@@ -170,9 +196,31 @@ public class Engine
 
         player.Display();
 
+        for(Enemy e : _enemyColection)
+        {
+            e.Display();
+        }
+
         for(GameObject g : _gameObjectCollection)
         {
             g.Display();
+        }
+    }
+
+    public void SpawnEnemies()
+    {
+        for(Spawner s : _spawners){
+            boolean spawned = s.Spawn();
+            if(spawned)
+            {
+                Enemy e = s.GetCurrentEnemy();
+                if(e != null)
+                {
+                    _enemyColection.add(e);
+                    s.ClearCurrentEnemy();
+                }
+
+            }
         }
     }
 
@@ -352,7 +400,7 @@ public class Engine
 
         for(GameObject g : collection)
         {
-            if(g.GetIsReadyForCleanup() && _gameObjectCollection.contains(g))
+            if((g.GetIsReadyForCleanup()) && _gameObjectCollection.contains(g))
             {
                 _gameObjectCollection.remove(g);
             }
