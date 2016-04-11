@@ -21,7 +21,7 @@ public class RangedEnemyBehavior extends Behavior
         Enemy e = (Enemy)object;
         PVector playerLoc = EngineProvider.GetDefaultEngineInstance().GetPlayerLocation();
         float distToPlayer = Math.abs(playerLoc.x - e.GetLocation().x);
-        if(distToPlayer > 300)
+        if(distToPlayer > 299)
         {
             if(playerLoc.x > e.GetLocation().x)
             {
@@ -33,7 +33,7 @@ public class RangedEnemyBehavior extends Behavior
             }
             _attackCounter = 0;
         }
-        else if(distToPlayer < 300)
+        else if(distToPlayer < 290)
         {
             if(playerLoc.x > e.GetLocation().x)
             {
@@ -45,7 +45,7 @@ public class RangedEnemyBehavior extends Behavior
             }
             _attackCounter = 0;
         }
-        else
+        else if(distToPlayer > 290 && distToPlayer < 299)
         {
                 e.GetVelocity().x = 0f;
                 e.Attack();

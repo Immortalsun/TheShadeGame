@@ -160,12 +160,42 @@ public class Engine
             for(Enemy enemy : _enemyColection)
             {
                 enemy.Update();
+
+                if(enemy.GetVelocity().y < 10)
+                {
+                    enemy.GetVelocity().y+=gravityConstant;
+                }
+
+                enemy.SetIsOnGround(CheckOnGround(enemy));
+
+                ArrayList<CollisionResult> collisions = CheckCollisions(enemy);
+
+                if(!collisions.isEmpty())
+                {
+                    for (CollisionResult coll : collisions)
+                    {
+                        ResolveCollision(coll);
+                        if(coll.ObjectB instanceof Projectile)
+                        {
+                            Projectile proj = (Projectile)coll.ObjectB;
+                            enemy.TakeDamage(proj.GetDamage());
+                            proj.SetIsDestroyed(true);
+                        }
+                    }
+                }
+
+
                 if(enemy.GetIsAttacking() && enemy.GetType().equals(EnemyType.RANGED))
                 {
                     ButtEnemy buttEnemy = (ButtEnemy)enemy;
                     _gameObjectCollection.add(buttEnemy.GetCurrentProjectile());
                     buttEnemy.ClearCurrentProjectile();
                     buttEnemy.SetIsAttacking(false);
+                }
+
+                if(enemy.GetIsDestroyed())
+                {
+                    enemy.SetIsReadyForCleanup(true);
                 }
             }
         }
@@ -405,6 +435,16 @@ public class Engine
                 _gameObjectCollection.remove(g);
             }
         }
+
+        ArrayList<Enemy> enemies = new ArrayList<Enemy>(_enemyColection);
+
+        for(Enemy e : enemies)
+        {
+            if(e.GetIsReadyForCleanup() && _enemyColection.contains(e))
+            {
+                _enemyColection.remove(e);
+            }
+        }
     }
 
     private void KeepPlayerInViewport()
@@ -434,6 +474,8 @@ public class Engine
     {
         return new PVector(player.GetLocation().x, player.GetLocation().y);
     }
+
+    public int GetPlayerOrientation() {return player.GetOrientation();}
 
     public PApplet GetSketchParent()
     {

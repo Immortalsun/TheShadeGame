@@ -65,6 +65,10 @@ public class Animator {
             }
         }
 
+        if(anim == null)
+        {
+            anim = _animations.get(AnimationState.RUNNING);
+        }
 
         frame = anim.GetNextFrame(isReversed, moveDirection);
 

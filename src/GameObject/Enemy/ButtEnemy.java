@@ -1,5 +1,6 @@
 package GameObject.Enemy;
 
+import Engine.EngineProvider;
 import GameObject.Animation.Animation;
 import GameObject.Animation.AttackingAnimation;
 import GameObject.Animation.RunningAnimation;
@@ -16,6 +17,7 @@ public class ButtEnemy extends Enemy
 
     private Projectile _currentProjectile;
     private boolean _attacked;
+    private int _attackCounter;
 
     public ButtEnemy(float x, float y, float objectWidth, float objectHeight, PApplet parent, String spawnId, int health) {
         super(x, y, objectWidth, objectHeight, parent, spawnId, health);
@@ -24,7 +26,7 @@ public class ButtEnemy extends Enemy
         Animation[] animations = new Animation[2];
         animations[0] = new RunningAnimation(parent, "scootieBootie.png","scootieBootieReversed.png",3, 10);
         animations[1] = new AttackingAnimation(parent,"scootieAttack.png", "scootieAttackReversed.png",5,10);
-
+        _attackCounter = 0;
         BuildAnimator(animations);
 
     }
@@ -43,18 +45,29 @@ public class ButtEnemy extends Enemy
     @Override
     public void Attack()
     {
-        SetIsAttacking(true);
-        float startX = 0;
-        float startY = 0;
+        _attackCounter++;
+        if(_attackCounter == 60)
+        {
+            if(this.GetOrientation() == EngineProvider.GetDefaultEngineInstance().GetPlayerOrientation())
+            {
+                this.SetOrientation(-(EngineProvider.GetDefaultEngineInstance().GetPlayerOrientation()));
+            }
 
-        if (this.GetOrientation() > 0) {
-            startX = this.GetLocation().x + this.GetWidth();
-            startY = (this.GetLocation().y + this.GetHeight() / 2) - 20;
-        } else {
-            startX = this.GetLocation().x - this.GetWidth();
-            startY = (this.GetLocation().y + this.GetHeight() / 2) - 20;
+            SetIsAttacking(true);
+            float startX = 0;
+            float startY = 0;
+
+            if (this.GetOrientation() > 0) {
+                startX = this.GetLocation().x + this.GetWidth();
+                startY = (this.GetLocation().y + this.GetHeight() / 2) - 20;
+            } else {
+                startX = this.GetLocation().x - this.GetWidth();
+                startY = (this.GetLocation().y + this.GetHeight() / 2) - 20;
+            }
+
+            _currentProjectile = new NoxiousBall(startX, startY, this.GetOrientation(), this.GetParent());
+            _attackCounter = 0;
         }
 
-        _currentProjectile = new NoxiousBall(startX, startY, this.GetOrientation(), this.GetParent());
     }
 }
