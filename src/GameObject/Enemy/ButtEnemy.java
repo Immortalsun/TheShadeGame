@@ -16,7 +16,6 @@ public class ButtEnemy extends Enemy
 {
 
     private Projectile _currentProjectile;
-    private boolean _attacked;
     private int _attackCounter;
 
     public ButtEnemy(float x, float y, float objectWidth, float objectHeight, PApplet parent, String spawnId, int health) {

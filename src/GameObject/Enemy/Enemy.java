@@ -41,14 +41,10 @@ public abstract class Enemy extends GameObject
     {
         _behavior = b;
     }
+
     public int GetCurrentHealth()
     {
         return _health;
-    }
-
-    public void SetHealth(int health)
-    {
-        _health = health;
     }
 
     public void TakeDamage(int damage)

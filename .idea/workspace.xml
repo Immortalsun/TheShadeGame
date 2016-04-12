@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="164ac4a8-d70a-4796-811d-ca277a2f6775" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/noxiousBall.png" afterPath="$PROJECT_DIR$/data/noxiousBall.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/scootieBootie.png" afterPath="$PROJECT_DIR$/data/scootieBootie.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/scootieBootieReversed.png" afterPath="$PROJECT_DIR$/data/scootieBootieReversed.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameObject/Projectiles/NoxiousBall.java" afterPath="$PROJECT_DIR$/src/GameObject/Projectiles/NoxiousBall.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Engine/Behavior/RangedEnemyBehavior.java" afterPath="$PROJECT_DIR$/src/Engine/Behavior/RangedEnemyBehavior.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameObject/Enemy/ButtEnemy.java" afterPath="$PROJECT_DIR$/src/GameObject/Enemy/ButtEnemy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameObject/Enemy/Enemy.java" afterPath="$PROJECT_DIR$/src/GameObject/Enemy/Enemy.java" />
     </list>
     <ignored path="TestPort1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,14 +31,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Engine.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Engine.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Engine/Engine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1462">
-              <caret line="105" column="85" selection-start-line="105" selection-start-column="85" selection-end-line="105" selection-end-column="85" />
-              <folding>
-                <element signature="e#14704#14711#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="2109">
+              <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -46,8 +44,8 @@
       <file leaf-file-name="Animator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameObject/Animation/Animator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="69" column="59" selection-start-line="69" selection-start-column="59" selection-end-line="69" selection-end-column="59" />
+            <state relative-caret-position="1173">
+              <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -58,9 +56,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
               <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -70,11 +66,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="629">
               <caret line="41" column="16" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#944#945#0" expanded="false" />
-                <element signature="e#978#979#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -82,8 +74,8 @@
       <file leaf-file-name="RangedEnemyBehavior.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Engine/Behavior/RangedEnemyBehavior.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
-              <caret line="50" column="21" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
+            <state relative-caret-position="629">
+              <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -92,8 +84,8 @@
       <file leaf-file-name="Enemy.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameObject/Enemy/Enemy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="516">
-              <caret line="70" column="25" selection-start-line="70" selection-start-column="25" selection-end-line="70" selection-end-column="25" />
+            <state relative-caret-position="438">
+              <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -101,14 +93,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ButtEnemy.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ButtEnemy.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameObject/Enemy/ButtEnemy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="48" column="30" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="523">
+              <caret line="56" column="29" selection-start-line="56" selection-start-column="29" selection-end-line="56" selection-end-column="29" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -117,7 +107,7 @@
         <entry file="file://$PROJECT_DIR$/src/GameObject/Projectiles/NoxiousBall.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
-              <caret line="17" column="111" selection-start-line="17" selection-start-column="111" selection-end-line="17" selection-end-column="111" />
+              <caret line="17" column="93" selection-start-line="17" selection-start-column="93" selection-end-line="17" selection-end-column="93" />
               <folding />
             </state>
           </provider>
@@ -192,13 +182,13 @@
         <option value="$PROJECT_DIR$/src/Engine/Behavior/Behavior.java" />
         <option value="$PROJECT_DIR$/src/GameObject/Player.java" />
         <option value="$PROJECT_DIR$/src/Main/GameMain.java" />
-        <option value="$PROJECT_DIR$/src/GameObject/Enemy/Enemy.java" />
         <option value="$PROJECT_DIR$/src/Engine/Spawner.java" />
+        <option value="$PROJECT_DIR$/src/GameObject/Animation/Animator.java" />
+        <option value="$PROJECT_DIR$/src/GameObject/Projectiles/NoxiousBall.java" />
+        <option value="$PROJECT_DIR$/src/Engine/Engine.java" />
+        <option value="$PROJECT_DIR$/src/GameObject/Enemy/Enemy.java" />
         <option value="$PROJECT_DIR$/src/Engine/Behavior/RangedEnemyBehavior.java" />
         <option value="$PROJECT_DIR$/src/GameObject/Enemy/ButtEnemy.java" />
-        <option value="$PROJECT_DIR$/src/GameObject/Animation/Animator.java" />
-        <option value="$PROJECT_DIR$/src/Engine/Engine.java" />
-        <option value="$PROJECT_DIR$/src/GameObject/Projectiles/NoxiousBall.java" />
       </list>
     </option>
   </component>
@@ -243,8 +233,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -331,6 +319,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="GameObject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Enemy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TheShadeGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TheShadeGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Engine" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -345,12 +355,22 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="data" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Engine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Behavior" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -652,7 +672,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="1" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -663,7 +683,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31852654" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31709957" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -724,14 +744,8 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/GameObject/Enemy/ButtEnemy.java</url>
-          <line>68</line>
-          <properties />
-          <option name="timeStamp" value="72" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Engine/Behavior/RangedEnemyBehavior.java</url>
-          <line>22</line>
+          <line>21</line>
           <properties />
           <option name="timeStamp" value="74" />
         </line-breakpoint>
@@ -890,15 +904,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
           <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#858#859#0" expanded="false" />
-            <element signature="e#887#888#0" expanded="false" />
-            <element signature="e#928#929#0" expanded="false" />
-            <element signature="e#962#963#0" expanded="false" />
-            <element signature="e#997#998#0" expanded="false" />
-            <element signature="e#1025#1026#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -975,20 +980,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://E:/Utilities/jdk1.8.0_65/jre/lib/rt.jar!/java/util/ArrayList.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
-          <caret line="204" column="0" selection-start-line="204" selection-start-column="0" selection-end-line="204" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/Utilities/jdk1.8.0_65/jre/lib/rt.jar!/java/util/function/Predicate.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://E:/Utilities/jdk1.8.0_65/jre/lib/rt.jar!/java/util/ArrayList.class" />
+    <entry file="jar://E:/Utilities/jdk1.8.0_65/jre/lib/rt.jar!/java/util/function/Predicate.class" />
     <entry file="file://$PROJECT_DIR$/src/Main/GameMain.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="935">
@@ -1002,15 +995,19 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameObject/Animation/Animation.java">
+    <entry file="file://$PROJECT_DIR$/src/Engine/Engine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="41" column="16" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#944#945#0" expanded="false" />
-            <element signature="e#978#979#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="2109">
+          <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameObject/Animation/Animator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1173">
+          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1018,9 +1015,31 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameObject/Animation/Animation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="41" column="16" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameObject/Projectiles/NoxiousBall.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="17" column="93" selection-start-line="17" selection-start-column="93" selection-end-line="17" selection-end-column="93" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameObject/Projectiles/Fireball.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="21" column="34" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1034,65 +1053,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Engine/Behavior/RangedEnemyBehavior.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="50" column="21" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameObject/Animation/Animator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="69" column="59" selection-start-line="69" selection-start-column="59" selection-end-line="69" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/GameObject/Enemy/Enemy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="516">
-          <caret line="70" column="25" selection-start-line="70" selection-start-column="25" selection-end-line="70" selection-end-column="25" />
+        <state relative-caret-position="438">
+          <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Engine/Behavior/RangedEnemyBehavior.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameObject/Enemy/ButtEnemy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="48" column="30" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameObject/Projectiles/NoxiousBall.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="17" column="111" selection-start-line="17" selection-start-column="111" selection-end-line="17" selection-end-column="111" />
+        <state relative-caret-position="523">
+          <caret line="56" column="29" selection-start-line="56" selection-start-column="29" selection-end-line="56" selection-end-column="29" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameObject/Projectiles/Fireball.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="21" column="34" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Engine/Engine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="105" column="85" selection-start-line="105" selection-start-column="85" selection-end-line="105" selection-end-column="85" />
-          <folding>
-            <element signature="e#14704#14711#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
