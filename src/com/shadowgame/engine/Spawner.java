@@ -1,6 +1,6 @@
 package com.shadowgame.engine;
 
-import com.shadowgame.engine.Behavior.RangedEnemyBehavior;
+import com.shadowgame.engine.behavior.RangedEnemyBehavior;
 import com.shadowgame.gameobject.enemy.ButtEnemy;
 import com.shadowgame.gameobject.enemy.Enemy;
 import com.shadowgame.gameobject.enemy.EnemyType;

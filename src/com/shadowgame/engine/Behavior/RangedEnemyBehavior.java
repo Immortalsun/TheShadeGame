@@ -1,4 +1,4 @@
-package com.shadowgame.engine.Behavior;
+package com.shadowgame.engine.behavior;
 
 import com.shadowgame.engine.EngineProvider;
 import com.shadowgame.gameobject.enemy.Enemy;

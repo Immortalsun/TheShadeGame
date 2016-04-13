@@ -1,6 +1,6 @@
 package com.shadowgame.gameobject.enemy;
 
-import com.shadowgame.engine.Collision.CollisionType;
+import com.shadowgame.engine.collision.CollisionType;
 import com.shadowgame.engine.EngineProvider;
 import com.shadowgame.gameobject.animation.Animation;
 import com.shadowgame.gameobject.animation.AttackingAnimation;

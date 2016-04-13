@@ -1,4 +1,4 @@
-package com.shadowgame.engine.Collision;
+package com.shadowgame.engine.collision;
 
 /**
  * Created by Maashes on 3/30/2016.

@@ -3,7 +3,7 @@ package com.shadowgame.gameobject;
 /**
  * Created by Maashes on 3/30/2016.
  */
-import com.shadowgame.engine.Collision.CollisionType;
+import com.shadowgame.engine.collision.CollisionType;
 import com.shadowgame.gameobject.animation.Animation;
 import com.shadowgame.gameobject.animation.AnimationState;
 import com.shadowgame.gameobject.animation.Animator;

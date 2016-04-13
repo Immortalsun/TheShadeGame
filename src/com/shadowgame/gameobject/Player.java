@@ -1,6 +1,6 @@
 package com.shadowgame.gameobject;
 
-import com.shadowgame.engine.Collision.CollisionType;
+import com.shadowgame.engine.collision.CollisionType;
 import com.shadowgame.gameobject.animation.*;
 import com.shadowgame.gameobject.projectiles.Fireball;
 import com.shadowgame.gameobject.projectiles.Projectile;

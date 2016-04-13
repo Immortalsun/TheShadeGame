@@ -1,7 +1,7 @@
 package com.shadowgame.gameobject.enemy;
 
-import com.shadowgame.engine.Behavior.Behavior;
-import com.shadowgame.engine.Collision.CollisionType;
+import com.shadowgame.engine.behavior.Behavior;
+import com.shadowgame.engine.collision.CollisionType;
 import com.shadowgame.gameobject.GameObject;
 import processing.core.PApplet;
 

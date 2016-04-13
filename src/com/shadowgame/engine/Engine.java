@@ -3,10 +3,10 @@ package com.shadowgame.engine;
 /**
  * Created by Maashes on 3/30/2016.
  */
-import com.shadowgame.engine.Collision.CollisionDirection;
-import com.shadowgame.engine.Collision.CollisionResult;
-import com.shadowgame.engine.Collision.CollisionRule;
-import com.shadowgame.engine.Collision.CollisionType;
+import com.shadowgame.engine.collision.CollisionDirection;
+import com.shadowgame.engine.collision.CollisionResult;
+import com.shadowgame.engine.collision.CollisionRule;
+import com.shadowgame.engine.collision.CollisionType;
 import com.shadowgame.gameobject.*;
 import com.shadowgame.gameobject.enemy.ButtEnemy;
 import com.shadowgame.gameobject.enemy.Enemy;
