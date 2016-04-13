@@ -1,5 +1,6 @@
 package GameObject;
 
+import Engine.Collision.CollisionType;
 import GameObject.Animation.*;
 import GameObject.Projectiles.Fireball;
 import GameObject.Projectiles.Projectile;
@@ -15,6 +16,7 @@ public class Player extends GameObject {
     public Player(float x, float y, float objectWidth, float objectHeight, PApplet parent) {
         super(x, y, objectWidth, objectHeight, parent);
 
+        SetCollisionType(CollisionType.PLAYER);
         Animation[] animations = new Animation[3];
         animations[0] = new RunningAnimation(parent,"player1.png", "player1Reversed.png",3, 10);
         animations[1] = new JumpingAnimation(parent,"playerJump.png", "playerJumpReversed.png",2,10);
@@ -72,5 +74,6 @@ public class Player extends GameObject {
         }
 
         _currentProjectile = new Fireball(startX,startY,this.GetOrientation(),this.GetParent());
+        _currentProjectile.SetCollisionType(CollisionType.PLAYERPROJECTILE);
     }
 }

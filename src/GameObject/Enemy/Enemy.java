@@ -1,6 +1,7 @@
 package GameObject.Enemy;
 
 import Engine.Behavior.Behavior;
+import Engine.Collision.CollisionType;
 import GameObject.GameObject;
 import processing.core.PApplet;
 
@@ -20,6 +21,7 @@ public abstract class Enemy extends GameObject
         super(x, y, objectWidth, objectHeight, parent);
         _spawnID = spawnId;
         _health = health;
+        SetCollisionType(CollisionType.ENEMY);
     }
 
     public EnemyType GetType()
@@ -30,6 +32,11 @@ public abstract class Enemy extends GameObject
     public void SetType(EnemyType type)
     {
         _type = type;
+    }
+
+    public String GetSpawnID()
+    {
+        return _spawnID;
     }
 
     public Behavior GetBehavior()
@@ -65,4 +72,6 @@ public abstract class Enemy extends GameObject
     }
 
     public abstract void Attack();
+
+    public abstract void Jump();
 }

@@ -1,5 +1,6 @@
 package GameObject.Enemy;
 
+import Engine.Collision.CollisionType;
 import Engine.EngineProvider;
 import GameObject.Animation.Animation;
 import GameObject.Animation.AttackingAnimation;
@@ -65,7 +66,19 @@ public class ButtEnemy extends Enemy
             }
 
             _currentProjectile = new NoxiousBall(startX, startY, this.GetOrientation(), this.GetParent());
+            _currentProjectile.SetCollisionType(CollisionType.ENEMYPROJECTILE);
             _attackCounter = 0;
+        }
+
+    }
+
+    @Override
+    public void Jump()
+    {
+        if(!GetIsJumping())
+        {
+            this.SetIsJumping(true);
+            this.GetVelocity().y -= 10;
         }
 
     }

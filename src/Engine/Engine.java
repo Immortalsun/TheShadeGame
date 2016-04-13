@@ -3,6 +3,10 @@ package Engine;
 /**
  * Created by Maashes on 3/30/2016.
  */
+import Engine.Collision.CollisionDirection;
+import Engine.Collision.CollisionResult;
+import Engine.Collision.CollisionRule;
+import Engine.Collision.CollisionType;
 import GameObject.*;
 import GameObject.Enemy.ButtEnemy;
 import GameObject.Enemy.Enemy;
@@ -13,7 +17,7 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.HashMap;
 
 public class Engine
 {
@@ -22,7 +26,7 @@ public class Engine
     private float xTranslation, yTranslation, baseYTanslation, maxXTranslation;
     private ArrayList<GameObject> _gameObjectCollection;
     private ArrayList<Enemy> _enemyColection;
-    private ArrayList<Spawner> _spawners;
+    private HashMap<String, Spawner> _spawnMap;
     private Stage _currentStage;
     private GameObject groundLevel;
     private Player player;
@@ -37,7 +41,7 @@ public class Engine
         screenHeight = scrHeight;
         _gameObjectCollection = new ArrayList(1);
         _enemyColection = new ArrayList<Enemy>(1);
-        _spawners = new ArrayList<Spawner>(1);
+        _spawnMap = new HashMap<String, Spawner>();
         sketchParent = parent;
         EngineProvider.SetDefaultEngineInstance(this);
     }
@@ -56,13 +60,16 @@ public class Engine
     {
         groundLevel = new GameObject(0,_currentStage.GetHeight()-15, _currentStage.GetWidth()-1, 15, this.sketchParent);
         groundLevel.SetIsGround(true);
+        groundLevel.SetCollisionType(CollisionType.GROUND);
         _gameObjectCollection.add(groundLevel);
 
         GameObject leftBound = new GameObject(-4,0, 5,_currentStage.GetHeight()-1, this.sketchParent);
         leftBound.SetIsGround(true);
+        leftBound.SetCollisionType(CollisionType.GROUND);
         _gameObjectCollection.add(leftBound);
 
         GameObject rightBound = new GameObject(_currentStage.GetWidth()-1, 0, 5,_currentStage.GetHeight()-1, this.sketchParent);
+        rightBound.SetCollisionType(CollisionType.GROUND);
         rightBound.SetIsGround(true);
         _gameObjectCollection.add(rightBound);
     }
@@ -77,6 +84,7 @@ public class Engine
             {
                 GameObject platform = new GameObject(startX, startY, 50, 15, this.sketchParent);
                 platform.SetIsGround(true);
+                platform.SetCollisionType(CollisionType.GROUND);
                 _gameObjectCollection.add(platform);
 
 
@@ -88,7 +96,7 @@ public class Engine
 
     public void PlaceSpawners()
     {
-        _spawners.add(new Spawner(500, groundLevel.GetMinY()-32, EnemyType.RANGED, "0", 1, 1));
+        _spawnMap.put("s1", new Spawner(500, groundLevel.GetMinY()-32, EnemyType.RANGED, "s1", 1, 1));
     }
 
     public void Update()
@@ -175,6 +183,7 @@ public class Engine
                     for (CollisionResult coll : collisions)
                     {
                         ResolveCollision(coll);
+
                         if(coll.ObjectB instanceof Projectile)
                         {
                             Projectile proj = (Projectile)coll.ObjectB;
@@ -239,7 +248,7 @@ public class Engine
 
     public void SpawnEnemies()
     {
-        for(Spawner s : _spawners){
+        for(Spawner s : _spawnMap.values()){
             boolean spawned = s.Spawn();
             if(spawned)
             {
@@ -249,13 +258,23 @@ public class Engine
                     _enemyColection.add(e);
                     s.ClearCurrentEnemy();
                 }
-
             }
+        }
+    }
+
+    private void DespawnEnemies(Enemy e)
+    {
+        Spawner spawner = _spawnMap.get(e.GetSpawnID());
+        if(spawner != null)
+        {
+            spawner.EnemyDestroyed(e.GetSpawnID());
         }
     }
 
     public static boolean CheckCollision(GameObject obj1, GameObject obj2)
     {
+        if(!CollisionRule.CanCollide(obj1.GetCollisionType(), obj2.GetCollisionType())) return false;
+
         if(obj1.GetMaxX() < obj2.GetMinX() || obj1.GetMinX() > obj2.GetMaxX()) return false;
 
         if(obj1.GetMaxY() < obj2.GetMinY() || obj1.GetMinY() > obj2.GetMaxY()) return false;
@@ -443,6 +462,7 @@ public class Engine
             if(e.GetIsReadyForCleanup() && _enemyColection.contains(e))
             {
                 _enemyColection.remove(e);
+                DespawnEnemies(e);
             }
         }
     }

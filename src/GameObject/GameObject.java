@@ -3,6 +3,7 @@ package GameObject;
 /**
  * Created by Maashes on 3/30/2016.
  */
+import Engine.Collision.CollisionType;
 import GameObject.Animation.Animation;
 import GameObject.Animation.AnimationState;
 import GameObject.Animation.Animator;
@@ -17,6 +18,7 @@ public class GameObject
     private PVector location;
     private PVector velocity;
     private PApplet sketchParent;
+    private CollisionType collisionType;
     private Animator animator;
     private int fillColor, orientation;
     private float minY, minX, objWidth, objHeight;
@@ -42,6 +44,16 @@ public class GameObject
     public PShape GetBoundingRect()
     {
         return boundingRect;
+    }
+
+    public void SetCollisionType(CollisionType type)
+    {
+        collisionType = type;
+    }
+
+    public CollisionType GetCollisionType()
+    {
+        return collisionType;
     }
 
     public float GetHeight()

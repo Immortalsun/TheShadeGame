@@ -29,7 +29,6 @@ public class Projectile extends GameObject {
         {
             this.GetVelocity().x -= flightSpeed;
         }
-
     }
 
     public int GetDamage()

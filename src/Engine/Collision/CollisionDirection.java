@@ -1,4 +1,6 @@
-package Engine;
+package Engine.Collision;
+
+import Engine.Engine;
 
 /**
  * Created by Maashes on 3/30/2016.

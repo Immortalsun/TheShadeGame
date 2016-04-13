@@ -34,6 +34,7 @@ public class Spawner
             if(_rateCounter % _spawnRate == 0)
             {
                 CreateEnemy();
+                _rateCounter = 1;
                 return true;
             }
             else
@@ -61,7 +62,7 @@ public class Spawner
         _currentEnemy = null;
     }
 
-    private void EnemyDestroyed(String spawnID)
+    public void EnemyDestroyed(String spawnID)
     {
         if(_id.equals(spawnID))
         {

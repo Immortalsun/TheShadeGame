@@ -1,10 +1,10 @@
-package Engine;
+package Engine.Collision;
 
 /**
  * Created by Maashes on 3/30/2016.
  */
 import GameObject.GameObject;
-import processing.core.PVector;
+
 public class CollisionResult {
 
     public GameObject ObjectA;
