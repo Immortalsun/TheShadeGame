@@ -1,0 +1,59 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+projects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+    apply plugin: "jacoco"
+    group = "com.shadowgame"
+    version = '0.1-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+
+    ext.junitVersion = "4.11"
+    ext.log4jVersion = "1.2.17"
+    ext.guavaVersion = "17.0"
+    ext.mockitoVersion = "1.10.19"
+
+	compileJava {
+		sourceCompatibility = 1.8
+		targetCompatibility = 1.8
+	}
+
+	compileTestJava {
+		sourceCompatibility = 1.8
+		targetCompatibility = 1.8
+	}
+
+	dependencies {
+        compile(group: 'com.google.guava', name: 'guava', version: guavaVersion)
+        compile(group: 'log4j', name: 'log4j', version: log4jVersion)
+        testCompile(group: 'org.mockito', name: 'mockito-all', version: mockitoVersion)
+        testCompile(group: 'junit', name: 'junit', version: junitVersion) {
+            exclude(group:'org.hamcrest', module:'hamcrest-core')
+        }
+        compile(group: 'org.processing', name: 'core', version: '3.0.1')
+	}
+
+  sourceSets {
+        main {
+            java {
+                srcDir 'src'
+            }
+            resources {
+                srcDir 'src/main/resources'
+            }
+        }
+    }
+}
+
