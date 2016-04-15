@@ -10,6 +10,7 @@ public class CollisionRule
     {
         switch(typeA)
         {
+            case ENEMY:
             case ENEMYPROJECTILE:
                 if(typeB.equals(CollisionType.ENEMYPROJECTILE) || typeB.equals(CollisionType.ENEMY))
                 {
@@ -17,15 +18,9 @@ public class CollisionRule
                 }
                 break;
 
+            case PLAYER:
             case PLAYERPROJECTILE:
                 if(typeB.equals(CollisionType.PLAYER) || typeB.equals(CollisionType.PLAYERPROJECTILE))
-                {
-                    return false;
-                }
-                break;
-
-            case ENEMY:
-                if(typeB.equals(CollisionType.ENEMY) || typeB.equals(CollisionType.ENEMYPROJECTILE))
                 {
                     return false;
                 }
@@ -34,13 +29,6 @@ public class CollisionRule
             case GROUND:
             case ENVIRONMENT:
                 return true;
-
-            case PLAYER:
-                if(typeB.equals(CollisionType.PLAYER) || typeB.equals(CollisionType.PLAYERPROJECTILE))
-                {
-                    return false;
-                }
-                break;
         }
 
         return true;

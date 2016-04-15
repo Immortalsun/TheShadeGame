@@ -138,7 +138,16 @@ public class Engine
             //if we have any, resolve them and adjust player location and velocity
             for(CollisionResult result : collisions)
             {
-                ResolveCollision(result);
+
+                if(result.ObjectB instanceof Projectile)
+                {
+                    Projectile proj = (Projectile)result.ObjectB;
+                    proj.SetIsDestroyed(true);
+                }
+                else
+                {
+                    ResolveCollision(result);
+                }
             }
         }
 
