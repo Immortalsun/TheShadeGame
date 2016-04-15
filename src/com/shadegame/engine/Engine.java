@@ -11,6 +11,7 @@ import com.shadegame.gameobject.*;
 import com.shadegame.gameobject.enemy.ButtEnemy;
 import com.shadegame.gameobject.enemy.Enemy;
 import com.shadegame.gameobject.enemy.EnemyType;
+import com.shadegame.gameobject.enemy.RangedEnemy;
 import com.shadegame.gameobject.projectiles.Projectile;
 import com.shadegame.gameobject.world.Stage;
 import processing.core.PApplet;
@@ -25,7 +26,7 @@ public class Engine
     private int screenHeight;
     private float xTranslation, yTranslation, baseYTanslation, maxXTranslation;
     private ArrayList<GameObject> _gameObjectCollection;
-    private ArrayList<Enemy> _enemyColection;
+    private ArrayList<Enemy> _enemyCollection;
     private HashMap<String, Spawner> _spawnMap;
     private Stage _currentStage;
     private GameObject groundLevel;
@@ -40,7 +41,7 @@ public class Engine
         screenWidth = scrWidth;
         screenHeight = scrHeight;
         _gameObjectCollection = new ArrayList(1);
-        _enemyColection = new ArrayList<Enemy>(1);
+        _enemyCollection = new ArrayList<Enemy>(1);
         _spawnMap = new HashMap<String, Spawner>();
         sketchParent = parent;
         EngineProvider.SetDefaultEngineInstance(this);
@@ -139,7 +140,7 @@ public class Engine
             for(CollisionResult result : collisions)
             {
 
-                if(result.ObjectB instanceof Projectile)
+                if(ShouldHandleProjectileCollision(result.ObjectB))
                 {
                     Projectile proj = (Projectile)result.ObjectB;
                     proj.SetIsDestroyed(true);
@@ -172,9 +173,9 @@ public class Engine
 
     private void UpdateEnemies()
     {
-        if(!_enemyColection.isEmpty())
+        if(!_enemyCollection.isEmpty())
         {
-            for(Enemy enemy : _enemyColection)
+            for(Enemy enemy : _enemyCollection)
             {
                 enemy.Update();
 
@@ -191,13 +192,15 @@ public class Engine
                 {
                     for (CollisionResult coll : collisions)
                     {
-                        ResolveCollision(coll);
-
-                        if(coll.ObjectB instanceof Projectile)
+                        if(ShouldHandleProjectileCollision(coll.ObjectB))
                         {
                             Projectile proj = (Projectile)coll.ObjectB;
                             enemy.TakeDamage(proj.GetDamage());
                             proj.SetIsDestroyed(true);
+                        }
+                        else
+                        {
+                            ResolveCollision(coll);
                         }
                     }
                 }
@@ -205,7 +208,7 @@ public class Engine
 
                 if(enemy.GetIsAttacking() && enemy.GetType().equals(EnemyType.RANGED))
                 {
-                    ButtEnemy buttEnemy = (ButtEnemy)enemy;
+                    RangedEnemy buttEnemy = (RangedEnemy) enemy;
                     _gameObjectCollection.add(buttEnemy.GetCurrentProjectile());
                     buttEnemy.ClearCurrentProjectile();
                     buttEnemy.SetIsAttacking(false);
@@ -217,6 +220,17 @@ public class Engine
                 }
             }
         }
+    }
+
+    private boolean ShouldHandleProjectileCollision(GameObject projectile)
+    {
+        if(projectile instanceof Projectile &&
+                (!projectile.GetIsDestroyed() || !projectile.GetIsReadyForCleanup()))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private ArrayList<CollisionResult> CheckCollisions(GameObject obj)
@@ -231,8 +245,16 @@ public class Engine
                     results.add(GetCollisionResult(obj,g));
                 }
             }
-
         }
+        
+        for(Enemy e : _enemyCollection)
+        {
+            if(CheckCollision(obj, e))
+            {
+                results.add(GetCollisionResult(obj, e));
+            }
+        }
+
         return results;
     }
 
@@ -244,7 +266,7 @@ public class Engine
 
         player.Display();
 
-        for(Enemy e : _enemyColection)
+        for(Enemy e : _enemyCollection)
         {
             e.Display();
         }
@@ -255,7 +277,7 @@ public class Engine
         }
     }
 
-    public void SpawnEnemies()
+    private void SpawnEnemies()
     {
         for(Spawner s : _spawnMap.values()){
             boolean spawned = s.Spawn();
@@ -264,7 +286,7 @@ public class Engine
                 Enemy e = s.GetCurrentEnemy();
                 if(e != null)
                 {
-                    _enemyColection.add(e);
+                    _enemyCollection.add(e);
                     s.ClearCurrentEnemy();
                 }
             }
@@ -348,7 +370,7 @@ public class Engine
         return new CollisionResult();
     }
 
-    public boolean CheckOnGround(GameObject obj)
+    private boolean CheckOnGround(GameObject obj)
     {
         for(GameObject object : _gameObjectCollection)
         {
@@ -464,13 +486,13 @@ public class Engine
             }
         }
 
-        ArrayList<Enemy> enemies = new ArrayList<Enemy>(_enemyColection);
+        ArrayList<Enemy> enemies = new ArrayList<Enemy>(_enemyCollection);
 
         for(Enemy e : enemies)
         {
-            if(e.GetIsReadyForCleanup() && _enemyColection.contains(e))
+            if(e.GetIsReadyForCleanup() && _enemyCollection.contains(e))
             {
-                _enemyColection.remove(e);
+                _enemyCollection.remove(e);
                 DespawnEnemies(e);
             }
         }

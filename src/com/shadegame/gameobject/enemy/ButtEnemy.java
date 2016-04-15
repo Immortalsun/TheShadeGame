@@ -12,10 +12,10 @@ import processing.core.PApplet;
 /**
  * Created by Maashes on 4/10/2016.
  */
-public class ButtEnemy extends Enemy
+public class ButtEnemy extends RangedEnemy
+
 {
 
-    private Projectile _currentProjectile;
     private int _attackCounter;
 
     public ButtEnemy(float x, float y, float objectWidth, float objectHeight, PApplet parent, String spawnId, int health) {
@@ -28,17 +28,6 @@ public class ButtEnemy extends Enemy
         _attackCounter = 0;
         BuildAnimator(animations);
 
-    }
-
-    public Projectile GetCurrentProjectile()
-    {
-        return _currentProjectile;
-    }
-
-    public void ClearCurrentProjectile()
-    {
-        SetIsAttacking(false);
-        _currentProjectile = null;
     }
 
     @Override
