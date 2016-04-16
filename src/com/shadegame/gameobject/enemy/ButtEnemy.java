@@ -36,9 +36,13 @@ public class ButtEnemy extends RangedEnemy
         _attackCounter++;
         if(_attackCounter == 60)
         {
-            if(this.GetOrientation() == EngineProvider.GetDefaultEngineInstance().GetPlayerOrientation())
+            if(EngineProvider.GetDefaultEngineInstance().GetPlayerLocation().x >= this.GetLocation().x)
             {
-                this.SetOrientation(-(EngineProvider.GetDefaultEngineInstance().GetPlayerOrientation()));
+                this.SetOrientation(1);
+            }
+            else
+            {
+                this.SetOrientation(-1);
             }
 
             SetIsAttacking(true);

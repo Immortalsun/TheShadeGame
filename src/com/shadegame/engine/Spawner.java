@@ -29,7 +29,8 @@ public class Spawner
 
     public boolean Spawn()
     {
-        if(_currentEnemyCount < _maxEnemyCount)
+        float disToPlayer = Math.abs(x-EngineProvider.GetDefaultEngineInstance().GetPlayerLocation().x);
+        if(disToPlayer <= 400 && _currentEnemyCount < _maxEnemyCount)
         {
             if(_rateCounter % _spawnRate == 0)
             {

@@ -126,7 +126,7 @@ public class Engine
             g.Update();
         }
 
-        SpawnEnemies();
+        //SpawnEnemies();
     }
 
     private void UpdatePlayer()
@@ -526,7 +526,7 @@ public class Engine
         return new PVector(player.GetLocation().x, player.GetLocation().y);
     }
 
-    public int GetPlayerOrientation() {return player.GetOrientation();}
+    public PVector GetPlayerVelocity() {return player.GetVelocity();}
 
     public PApplet GetSketchParent()
     {
@@ -537,6 +537,8 @@ public class Engine
     {
         return (int)xTranslation;
     }
+
+    public int GetMaxXTranslation() {return (int)maxXTranslation;}
 
     public int GetYTranslation()
     {
