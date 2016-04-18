@@ -98,10 +98,6 @@ local.properties
 .sonar/
 *.exec
 
-code/fortmocks/.project
-
-code/parent/.project
-
 *.scssc
 
 target/
