@@ -35,6 +35,24 @@ public class Stage
         return _height;
     }
 
+    public int GetScore(){ return _score; }
+
+    public void IncrementScore(int scoreInc)
+    {
+        _score+=scoreInc;
+    }
+
+    public void DecrementScore(int scoreDec)
+    {
+        if(_score - scoreDec >= 0)
+        {
+            _score-=scoreDec;
+        }
+        else{
+            _score=0;
+        }
+    }
+
     public void DisplayStage()
     {
         int xTranslation = EngineProvider.GetDefaultEngineInstance().GetXTranslation();

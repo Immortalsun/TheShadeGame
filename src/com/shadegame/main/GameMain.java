@@ -2,6 +2,7 @@ package com.shadegame.main; /**
  * Created by Maashes on 3/30/2016.
  */
 
+import com.shadegame.gameobject.world.HUD;
 import com.shadegame.gameobject.world.Stage;
 import processing.core.*;
 import com.shadegame.gameobject.*;
@@ -23,6 +24,7 @@ public class GameMain extends PApplet
     Engine engine;
     Player player;
     Stage currentStage;
+    HUD hud;
     int currentDir;
 
     public static void main(String[] args) {
@@ -49,17 +51,17 @@ public class GameMain extends PApplet
         engine.SetLevelBounds();
         engine.GeneratePlatforms();
         engine.PlaceSpawners();
+        hud = new HUD(player.GetHealth(),currentStage.GetScore(),this);
     }
 
     public void draw()
     {
         currentStage.DisplayStage();
-        textFont(f,16);
-        fill(255);
-        text("("+mouseX+", "+mouseY+")",mouseX,mouseY);
         CheckKeyStatus();
         engine.Update();
+        hud.UpdateHUD(player.GetHealth(),currentStage.GetScore());
         engine.Display();
+        hud.DisplayHUD();
     }
 
     public void keyPressed()

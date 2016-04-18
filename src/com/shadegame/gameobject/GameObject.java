@@ -22,7 +22,9 @@ public class GameObject
     private Animator animator;
     private int fillColor, orientation;
     private float minY, minX, objWidth, objHeight;
-    private boolean isPlayer, isOnGround, isGround, isJumping, isDestroyed, isAttacking, readyForCleanup;
+    private boolean isPlayer, isOnGround, isGround,
+            isJumping, isDestroyed, isAttacking,
+            readyForCleanup, isDamaged;
     //Constructor
     public GameObject(float x, float y, float objectWidth, float objectHeight, PApplet parent)
     {
@@ -125,6 +127,8 @@ public class GameObject
 
     public boolean GetIsReadyForCleanup() {return readyForCleanup; }
 
+    public boolean GetIsDamaged() {return isDamaged;}
+
     public void SetIsAttacking(boolean attacking)
     {
         isAttacking = attacking;
@@ -167,6 +171,8 @@ public class GameObject
 
     public void SetIsGround(boolean ground) { isGround = ground; }
 
+    public void SetIsDamaged(boolean damaged) {isDamaged = damaged;}
+
     public void SetIsDestroyed(boolean destroyed)
     {
         isDestroyed = destroyed;
@@ -193,6 +199,11 @@ public class GameObject
         if(isAttacking)
         {
             return AnimationState.ATTACKING;
+        }
+
+        if(isDamaged)
+        {
+            return AnimationState.DAMAGED;
         }
 
         if(isDestroyed)
@@ -223,6 +234,11 @@ public class GameObject
         if(isDestroyed || GetCurrentAnimationState().equals(AnimationState.DEAD))
         {
             readyForCleanup = true;
+        }
+
+        if(isDamaged || GetCurrentAnimationState().equals(AnimationState.DAMAGED))
+        {
+            isDamaged = false;
         }
     }
     //Methods

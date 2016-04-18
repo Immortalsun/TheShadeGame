@@ -126,7 +126,7 @@ public class Engine
             g.Update();
         }
 
-        //SpawnEnemies();
+        SpawnEnemies();
     }
 
     private void UpdatePlayer()
@@ -144,6 +144,7 @@ public class Engine
                 {
                     Projectile proj = (Projectile)result.ObjectB;
                     proj.SetIsDestroyed(true);
+                    player.TakeDamage(proj.GetDamage());
                 }
                 else
                 {
@@ -225,7 +226,7 @@ public class Engine
     private boolean ShouldHandleProjectileCollision(GameObject projectile)
     {
         if(projectile instanceof Projectile &&
-                (!projectile.GetIsDestroyed() || !projectile.GetIsReadyForCleanup()))
+                (!projectile.GetIsDestroyed() && !projectile.GetIsReadyForCleanup()))
         {
             return true;
         }
@@ -395,6 +396,10 @@ public class Engine
 
     public static void ResolveCollision(CollisionResult result)
     {
+        if(result.ObjectA.GetIsDestroyed() || result.ObjectB.GetIsDestroyed()
+                || result.ObjectA.GetIsReadyForCleanup() || result.ObjectB.GetIsReadyForCleanup())
+            return;
+
         switch (result.Direction)
         {
             case FROMABOVE:
