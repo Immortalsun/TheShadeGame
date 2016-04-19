@@ -396,6 +396,9 @@ public class Engine
 
     public static void ResolveCollision(CollisionResult result)
     {
+        if(result.ObjectA == null || result.ObjectB == null)
+            return;
+
         if(result.ObjectA.GetIsDestroyed() || result.ObjectB.GetIsDestroyed()
                 || result.ObjectA.GetIsReadyForCleanup() || result.ObjectB.GetIsReadyForCleanup())
             return;
