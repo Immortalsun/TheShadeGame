@@ -20,10 +20,10 @@ public class Player extends GameObject {
         _health = 1000;
         SetCollisionType(CollisionType.PLAYER);
         Animation[] animations = new Animation[4];
-        animations[0] = new RunningAnimation(parent,"player1.png", "player1Reversed.png",3, 10);
-        animations[1] = new JumpingAnimation(parent,"playerJump.png", "playerJumpReversed.png",2,10);
-        animations[2] = new AttackingAnimation(parent, "fireballAttack.png", "fireballAttackReversed.png",5,10);
-        animations[3] = new DamagedAnimation(parent, "playerDamaged.png", "playerDamagedReversed.png",4,10);
+        animations[0] = new RunningAnimation(parent,"PlayerSprites/player1.png", "PlayerSprites/player1Reversed.png",3, 10);
+        animations[1] = new JumpingAnimation(parent,"PlayerSprites/playerJump.png", "PlayerSprites/playerJumpReversed.png",2,10);
+        animations[2] = new AttackingAnimation(parent, "PlayerSprites/fireballAttack.png", "PlayerSprites/fireballAttackReversed.png",5,10);
+        animations[3] = new DamagedAnimation(parent, "PlayerSprites/playerDamaged.png", "PlayerSprites/playerDamagedReversed.png",4,10);
         BuildAnimator(animations);
     }
 

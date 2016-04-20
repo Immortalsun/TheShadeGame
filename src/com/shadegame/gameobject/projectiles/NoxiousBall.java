@@ -14,8 +14,8 @@ public class NoxiousBall extends Projectile
         super(x, y, 32, 32, 25, 5, 300, direction, parent);
 
         Animation[] animations = new Animation[2];
-        animations[0] = new RunningAnimation(parent,"noxiousBall.png", "noxiousBall.png",4, 10);
-        animations [1] = new DeadAnimation(parent,"noxiousBallExplosion.png", "noxiousBallExplosion.png",4, 5);
+        animations[0] = new RunningAnimation(parent,"ProjectileSprites/noxiousBall.png", "ProjectileSprites/noxiousBall.png",4, 10);
+        animations [1] = new DeadAnimation(parent,"ProjectileSprites/noxiousBallExplosion.png", "ProjectileSprites/noxiousBallExplosion.png",4, 5);
 
         BuildAnimator(animations);
     }

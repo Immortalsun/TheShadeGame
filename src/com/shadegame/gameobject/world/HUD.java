@@ -27,8 +27,8 @@ public class HUD
         _sketchParent = parent;
         _currentScore = currentStageScore;
         _stageScore = _sketchParent.createFont("Arial",16,true);
-        _healthBarImage = _sketchParent.loadImage("healthbarInner.png");
-        _healthBarBorder = _sketchParent.loadImage("healthbarOuter.png");
+        _healthBarImage = _sketchParent.loadImage("HUD/healthbarInner.png");
+        _healthBarBorder = _sketchParent.loadImage("HUD/healthbarOuter.png");
     }
 
     public void UpdateHUD(int health, int score)

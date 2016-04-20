@@ -23,8 +23,8 @@ public class ButtEnemy extends RangedEnemy
 
         SetType(EnemyType.RANGED);
         Animation[] animations = new Animation[2];
-        animations[0] = new RunningAnimation(parent, "scootieBootie.png","scootieBootieReversed.png",3, 10);
-        animations[1] = new AttackingAnimation(parent,"scootieAttack.png", "scootieAttackReversed.png",5,10);
+        animations[0] = new RunningAnimation(parent, "EnemySprites/scootieBootie.png","EnemySprites/scootieBootieReversed.png",3, 10);
+        animations[1] = new AttackingAnimation(parent,"EnemySprites/scootieAttack.png", "EnemySprites/scootieAttackReversed.png",5,10);
         _attackCounter = 0;
         BuildAnimator(animations);
 
