@@ -14,13 +14,12 @@ public class GameMain extends PApplet
 {
     float acceleration = 0.1f;
     int windowWidth = 800;
-    int windowHeight = 400;
-    int stageWidth = 1600;
-    int stageHeight = 800;
+    int windowHeight = 350;
+    int stageWidth = 3056;
+    int stageHeight = 500;
     boolean isKeyPressed, paused, attacking;
     HashMap<Integer, Boolean> keyMap = new HashMap<Integer, Boolean>();
     PVector playerVelocity = new PVector(0,0);
-    PFont f;
     Engine engine;
     Player player;
     Stage currentStage;
@@ -33,13 +32,11 @@ public class GameMain extends PApplet
 
     public void settings()
     {
-        size(800,400);
-        String path = calcSketchPath();
+        size(800,350);
     }
 
     public void setup()
     {
-        f = createFont("Arial",16,true);
         keyMap.put(37, false);
         keyMap.put(38, false);
         keyMap.put(39, false);
@@ -56,7 +53,8 @@ public class GameMain extends PApplet
 
     public void draw()
     {
-        currentStage.DisplayStage();
+        background(205);
+        //currentStage.DisplayStage();
         CheckKeyStatus();
         engine.Update();
         hud.UpdateHUD(player.GetHealth(),currentStage.GetScore());

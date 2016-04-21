@@ -55,9 +55,9 @@ public class Stage
 
     public void DisplayStage()
     {
-        int xTranslation = EngineProvider.GetDefaultEngineInstance().GetXTranslation();
-        int yTranslation = EngineProvider.GetDefaultEngineInstance().GetYTranslation();
-        int maxXTranslation = EngineProvider.GetDefaultEngineInstance().GetMaxXTranslation();
+        float xTranslation = EngineProvider.GetDefaultEngineInstance().GetXTranslation();
+        float yTranslation = EngineProvider.GetDefaultEngineInstance().GetYTranslation();
+        float maxXTranslation = EngineProvider.GetDefaultEngineInstance().GetMaxXTranslation();
         
         if(xTranslation < 0 && xTranslation >= maxXTranslation)
         {

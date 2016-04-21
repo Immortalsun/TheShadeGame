@@ -8,7 +8,6 @@ import com.shadegame.engine.collision.CollisionResult;
 import com.shadegame.engine.collision.CollisionRule;
 import com.shadegame.engine.collision.CollisionType;
 import com.shadegame.gameobject.*;
-import com.shadegame.gameobject.enemy.ButtEnemy;
 import com.shadegame.gameobject.enemy.Enemy;
 import com.shadegame.gameobject.enemy.EnemyType;
 import com.shadegame.gameobject.enemy.RangedEnemy;
@@ -44,6 +43,7 @@ public class Engine
         _enemyCollection = new ArrayList<Enemy>(1);
         _spawnMap = new HashMap<String, Spawner>();
         sketchParent = parent;
+
         EngineProvider.SetDefaultEngineInstance(this);
     }
 
@@ -52,7 +52,7 @@ public class Engine
         player = new Player(x,y, objectWidth, objectHeight, this.sketchParent);
         player.SetIsPlayer(true);
         yTranslation = baseYTanslation = (screenHeight/1.06f) - player.GetLocation().y;
-        maxXTranslation = -(screenWidth);
+        maxXTranslation = -(_currentStage.GetWidth())+screenWidth;
 
         return player;
     }
@@ -79,7 +79,7 @@ public class Engine
     {
         float startX = 500;
         float startY = groundLevel.GetMinY() - 105;
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < 8; i++)
         {
             if(i % 2 == 0)
             {
@@ -541,15 +541,15 @@ public class Engine
         return sketchParent;
     }
 
-    public int GetXTranslation()
+    public float GetXTranslation()
     {
-        return (int)xTranslation;
+        return xTranslation;
     }
 
-    public int GetMaxXTranslation() {return (int)maxXTranslation;}
+    public float GetMaxXTranslation() {return maxXTranslation;}
 
-    public int GetYTranslation()
+    public float GetYTranslation()
     {
-        return (int)yTranslation;
+        return yTranslation;
     }
 }
