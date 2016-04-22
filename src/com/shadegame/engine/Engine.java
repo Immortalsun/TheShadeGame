@@ -59,7 +59,7 @@ public class Engine
 
     public void SetLevelBounds()
     {
-        groundLevel = new GameObject(0,_currentStage.GetHeight()-15, _currentStage.GetWidth()-1, 15, this.sketchParent);
+        groundLevel = new GameObject(0,_currentStage.GetHeight()-53, _currentStage.GetWidth()-1, 15, this.sketchParent);
         groundLevel.SetIsGround(true);
         groundLevel.SetCollisionType(CollisionType.GROUND);
         _gameObjectCollection.add(groundLevel);

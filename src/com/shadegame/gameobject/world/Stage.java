@@ -25,6 +25,14 @@ public class Stage
         foreImg = _sketchParent.loadImage(foregroundImage);
     }
 
+    public Stage(int width, int height, String bgImage, PApplet parent)
+    {
+        _width = width;
+        _height = height;
+        _sketchParent = parent;
+        backImg = _sketchParent.loadImage(bgImage);
+    }
+
     public int GetWidth()
     {
         return _width;
@@ -73,8 +81,13 @@ public class Stage
             }
         }
 
-        _sketchParent.image(backImg, _bgXTranslation,yTranslation, _width, _height);
-        _sketchParent.image(foreImg, xTranslation, yTranslation, _width,_height);
+        _sketchParent.image(backImg, xTranslation,yTranslation, _width, _height);
+
+        if(foreImg != null)
+        {
+            _sketchParent.image(foreImg, xTranslation, yTranslation, _width,_height);
+        }
+
 
     }
 
