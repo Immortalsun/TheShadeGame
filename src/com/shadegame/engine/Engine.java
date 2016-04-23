@@ -541,6 +541,10 @@ public class Engine
         return sketchParent;
     }
 
+    public int GetScreenWidth() {return screenWidth;}
+
+    public int GetScreenHeight() {return screenHeight;}
+
     public float GetXTranslation()
     {
         return xTranslation;

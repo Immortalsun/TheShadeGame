@@ -80,8 +80,13 @@ public class Stage
                 _bgXTranslation+=1;
             }
         }
+        int screenWidth = EngineProvider.GetDefaultEngineInstance().GetScreenWidth();
+        int screenHeight = EngineProvider.GetDefaultEngineInstance().GetScreenHeight();
+        int yLoc = -(int)yTranslation;
+        int xLoc = -(int)xTranslation;
 
-        _sketchParent.image(backImg, xTranslation,yTranslation, _width, _height);
+        PImage bgFrame = backImg.get(xLoc,yLoc,screenWidth, screenHeight);
+        _sketchParent.image(bgFrame,0,0, screenWidth, screenHeight);
 
         if(foreImg != null)
         {

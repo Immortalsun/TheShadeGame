@@ -41,7 +41,7 @@ public class GameMain extends PApplet
         keyMap.put(38, false);
         keyMap.put(39, false);
         keyMap.put(32, false);
-        currentStage = new Stage(stageWidth, stageHeight, "WorldSprites/marioEdit.png",this);
+        currentStage = new Stage(stageWidth, stageHeight, "WorldSprites/longWarehouse.png",this);
         engine = new Engine(windowWidth, windowHeight, this, currentStage);
         player = engine.CretePlayer(10,stageHeight-60, 32,32);
         player.SetIsJumping(true);
