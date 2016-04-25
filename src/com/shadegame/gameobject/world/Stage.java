@@ -72,12 +72,12 @@ public class Stage
             float xVelocity = EngineProvider.GetDefaultEngineInstance().GetPlayerVelocity().x;
             if(xVelocity >= 1)
             {
-                _bgXTranslation-=1;
+                _bgXTranslation+=1;
 
             }
             else if(xVelocity <= -1)
             {
-                _bgXTranslation+=1;
+                _bgXTranslation-=1;
             }
         }
         int screenWidth = EngineProvider.GetDefaultEngineInstance().GetScreenWidth();
@@ -85,12 +85,13 @@ public class Stage
         int yLoc = -(int)yTranslation;
         int xLoc = -(int)xTranslation;
 
-        PImage bgFrame = backImg.get(xLoc,yLoc,screenWidth, screenHeight);
+        PImage bgFrame = backImg.get(_bgXTranslation,yLoc,screenWidth, screenHeight);
         _sketchParent.image(bgFrame,0,0, screenWidth, screenHeight);
 
         if(foreImg != null)
         {
-            _sketchParent.image(foreImg, xTranslation, yTranslation, _width,_height);
+            PImage fgFrame = foreImg.get(xLoc,yLoc,screenWidth,screenHeight);
+            _sketchParent.image(fgFrame, 0, 0, screenWidth,screenHeight);
         }
 
 

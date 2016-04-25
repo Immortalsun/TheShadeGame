@@ -14,7 +14,7 @@ public class GameMain extends PApplet
 {
     float acceleration = 0.1f;
     int windowWidth = 800;
-    int windowHeight = 350;
+    int windowHeight = 500;
     int stageWidth = 7554;
     int stageHeight = 500;
     boolean isKeyPressed, paused, attacking;
@@ -32,7 +32,7 @@ public class GameMain extends PApplet
 
     public void settings()
     {
-        size(800,350);
+        size(800,500);
     }
 
     public void setup()
@@ -41,7 +41,7 @@ public class GameMain extends PApplet
         keyMap.put(38, false);
         keyMap.put(39, false);
         keyMap.put(32, false);
-        currentStage = new Stage(stageWidth, stageHeight, "WorldSprites/longWarehouse.png",this);
+        currentStage = new Stage(stageWidth, stageHeight, "WorldSprites/longWarehouse.png", "WorldSprites/longWarehouseFore.png" ,this);
         engine = new Engine(windowWidth, windowHeight, this, currentStage);
         player = engine.CretePlayer(10,stageHeight-60, 32,32);
         player.SetIsJumping(true);

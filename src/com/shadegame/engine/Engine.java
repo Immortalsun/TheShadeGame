@@ -51,7 +51,7 @@ public class Engine
     {
         player = new Player(x,y, objectWidth, objectHeight, this.sketchParent);
         player.SetIsPlayer(true);
-        yTranslation = baseYTanslation = (screenHeight/1.06f) - player.GetLocation().y;
+        yTranslation = baseYTanslation = screenHeight - _currentStage.GetHeight();
         maxXTranslation = -(_currentStage.GetWidth())+screenWidth;
 
         return player;
@@ -59,7 +59,7 @@ public class Engine
 
     public void SetLevelBounds()
     {
-        groundLevel = new GameObject(0,_currentStage.GetHeight()-53, _currentStage.GetWidth()-1, 15, this.sketchParent);
+        groundLevel = new GameObject(0,_currentStage.GetHeight()-35, _currentStage.GetWidth()-1, 15, this.sketchParent);
         groundLevel.SetIsGround(true);
         groundLevel.SetCollisionType(CollisionType.GROUND);
         _gameObjectCollection.add(groundLevel);
