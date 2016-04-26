@@ -251,7 +251,12 @@ public class GameObject
         }
         else
         {
-            sketchParent.shape(boundingRect, location.x, location.y);
+            if(!isGround)
+            {
+                sketchParent.shape(boundingRect, location.x, location.y);
+            }
+
+
         }
     }
 

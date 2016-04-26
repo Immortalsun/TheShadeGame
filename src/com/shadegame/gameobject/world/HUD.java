@@ -41,8 +41,8 @@ public class HUD
 
     public void DisplayHUD()
     {
-        int xTranslation = -(EngineProvider.GetDefaultEngineInstance().GetXTranslation()-20);
-        int yTranslation = -(EngineProvider.GetDefaultEngineInstance().GetYTranslation()-20);
+        float xTranslation = -(EngineProvider.GetDefaultEngineInstance().GetXTranslation()-20);
+        float yTranslation = -(EngineProvider.GetDefaultEngineInstance().GetYTranslation()-20);
         _sketchParent.image(_healthBarBorder, xTranslation, yTranslation,300,20);
         int currentBarWidth = (int)_currentPlayerHealth;
         PImage bar = _healthBarImage.get(0,0,currentBarWidth,20);

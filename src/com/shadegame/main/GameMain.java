@@ -14,13 +14,12 @@ public class GameMain extends PApplet
 {
     float acceleration = 0.1f;
     int windowWidth = 800;
-    int windowHeight = 400;
-    int stageWidth = 1600;
-    int stageHeight = 800;
+    int windowHeight = 500;
+    int stageWidth = 7554;
+    int stageHeight = 500;
     boolean isKeyPressed, paused, attacking;
     HashMap<Integer, Boolean> keyMap = new HashMap<Integer, Boolean>();
     PVector playerVelocity = new PVector(0,0);
-    PFont f;
     Engine engine;
     Player player;
     Stage currentStage;
@@ -33,20 +32,18 @@ public class GameMain extends PApplet
 
     public void settings()
     {
-        size(800,400);
-        String path = calcSketchPath();
+        size(800,500);
     }
 
     public void setup()
     {
-        f = createFont("Arial",16,true);
         keyMap.put(37, false);
         keyMap.put(38, false);
         keyMap.put(39, false);
         keyMap.put(32, false);
-        currentStage = new Stage(stageWidth, stageHeight, "WorldSprites/warehouseBackground.png","WorldSprites/warehouseForeground.png", this);
+        currentStage = new Stage(stageWidth, stageHeight, "WorldSprites/longWarehouse.png", "WorldSprites/longWarehouseFore.png" ,this);
         engine = new Engine(windowWidth, windowHeight, this, currentStage);
-        player = engine.CretePlayer(10,stageHeight-30, 32,32);
+        player = engine.CretePlayer(10,stageHeight-60, 32,32);
         player.SetIsJumping(true);
         engine.SetLevelBounds();
         engine.GeneratePlatforms();
@@ -56,6 +53,7 @@ public class GameMain extends PApplet
 
     public void draw()
     {
+        //background(205);
         currentStage.DisplayStage();
         CheckKeyStatus();
         engine.Update();

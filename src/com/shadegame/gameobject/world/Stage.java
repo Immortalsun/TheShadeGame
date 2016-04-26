@@ -25,6 +25,14 @@ public class Stage
         foreImg = _sketchParent.loadImage(foregroundImage);
     }
 
+    public Stage(int width, int height, String bgImage, PApplet parent)
+    {
+        _width = width;
+        _height = height;
+        _sketchParent = parent;
+        backImg = _sketchParent.loadImage(bgImage);
+    }
+
     public int GetWidth()
     {
         return _width;
@@ -55,26 +63,37 @@ public class Stage
 
     public void DisplayStage()
     {
-        int xTranslation = EngineProvider.GetDefaultEngineInstance().GetXTranslation();
-        int yTranslation = EngineProvider.GetDefaultEngineInstance().GetYTranslation();
-        int maxXTranslation = EngineProvider.GetDefaultEngineInstance().GetMaxXTranslation();
+        float xTranslation = EngineProvider.GetDefaultEngineInstance().GetXTranslation();
+        float yTranslation = EngineProvider.GetDefaultEngineInstance().GetYTranslation();
+        float maxXTranslation = EngineProvider.GetDefaultEngineInstance().GetMaxXTranslation();
         
         if(xTranslation < 0 && xTranslation >= maxXTranslation)
         {
             float xVelocity = EngineProvider.GetDefaultEngineInstance().GetPlayerVelocity().x;
             if(xVelocity >= 1)
             {
-                _bgXTranslation-=1;
+                _bgXTranslation+=1;
 
             }
             else if(xVelocity <= -1)
             {
-                _bgXTranslation+=1;
+                _bgXTranslation-=1;
             }
         }
+        int screenWidth = EngineProvider.GetDefaultEngineInstance().GetScreenWidth();
+        int screenHeight = EngineProvider.GetDefaultEngineInstance().GetScreenHeight();
+        int yLoc = -(int)yTranslation;
+        int xLoc = -(int)xTranslation;
 
-        _sketchParent.image(backImg, _bgXTranslation,yTranslation, _width, _height);
-        _sketchParent.image(foreImg, xTranslation, yTranslation, _width,_height);
+        PImage bgFrame = backImg.get(_bgXTranslation,yLoc,screenWidth, screenHeight);
+        _sketchParent.image(bgFrame,0,0, screenWidth, screenHeight);
+
+        if(foreImg != null)
+        {
+            PImage fgFrame = foreImg.get(xLoc,yLoc,screenWidth,screenHeight);
+            _sketchParent.image(fgFrame, 0, 0, screenWidth,screenHeight);
+        }
+
 
     }
 
