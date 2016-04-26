@@ -13,14 +13,16 @@ public class Stage
 {
     private int _width, _height, _score,_bgXTranslation;
     private PApplet _sketchParent;
+    private String _platformFile;
     private PImage backImg;
     private PImage foreImg;
 
-    public Stage(int width, int height, String bgImage, String foregroundImage, PApplet parent)
+    public Stage(int width, int height, String bgImage, String foregroundImage, String platforms ,PApplet parent)
     {
         _width = width;
         _height = height;
         _sketchParent = parent;
+        _platformFile = platforms;
         backImg = _sketchParent.loadImage(bgImage);
         foreImg = _sketchParent.loadImage(foregroundImage);
     }
@@ -44,6 +46,8 @@ public class Stage
     }
 
     public int GetScore(){ return _score; }
+
+    public String GetPlatformFile(){return _platformFile;}
 
     public void IncrementScore(int scoreInc)
     {

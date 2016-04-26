@@ -41,7 +41,8 @@ public class GameMain extends PApplet
         keyMap.put(38, false);
         keyMap.put(39, false);
         keyMap.put(32, false);
-        currentStage = new Stage(stageWidth, stageHeight, "WorldSprites/longWarehouse.png", "WorldSprites/longWarehouseFore.png" ,this);
+        String dataFolder = dataPath("LevelData/stage1.txt");
+        currentStage = new Stage(stageWidth, stageHeight, "WorldSprites/longWarehouse.png", "WorldSprites/longWarehouseFore.png" ,dataFolder,this);
         engine = new Engine(windowWidth, windowHeight, this, currentStage);
         player = engine.CretePlayer(10,stageHeight-60, 32,32);
         player.SetIsJumping(true);
@@ -148,16 +149,16 @@ public class GameMain extends PApplet
             {
                 //3 is coded to left
                 case 3:
-                    if(playerVelocity.x > -2.5)
+                    if(playerVelocity.x >= -2.5)
                     {
-                        playerVelocity.x -= (acceleration);
+                        playerVelocity.x = -2.5f;
                     }
                     break;
                 //4 is coded to right
                 case 4:
-                    if(playerVelocity.x < 2.5)
+                    if(playerVelocity.x <= 2.5)
                     {
-                        playerVelocity.x += (acceleration);
+                        playerVelocity.x = 2.5f;
                     }
                     break;
                 //5 is a jump

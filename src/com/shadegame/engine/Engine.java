@@ -16,6 +16,9 @@ import com.shadegame.gameobject.world.Stage;
 import processing.core.PApplet;
 import processing.core.PVector;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -77,21 +80,41 @@ public class Engine
 
     public void GeneratePlatforms()
     {
-        float startX = 500;
-        float startY = groundLevel.GetMinY() - 105;
-        for(int i = 0; i < 8; i++)
+        String file =  _currentStage.GetPlatformFile();
+        String blockLine = null;
+        try
         {
-            if(i % 2 == 0)
+            FileReader fReader = new FileReader(file);
+            BufferedReader buffReader = new BufferedReader(fReader);
+
+            while((blockLine = buffReader.readLine()) != null)
             {
-                GameObject platform = new GameObject(startX, startY, 50, 15, this.sketchParent);
-                platform.SetIsGround(true);
-                platform.SetCollisionType(CollisionType.GROUND);
-                _gameObjectCollection.add(platform);
-
-
+                BuildPlatform(blockLine);
             }
-            startX += 70;
-            startY -= 35;
+
+            fReader.close();
+            buffReader.close();
+        }
+        catch(Exception ex)
+        {
+
+        }
+    }
+
+    private void BuildPlatform(String lineCoords)
+    {
+        String[] coords = lineCoords.split(",");
+        if(coords.length == 4)
+        {
+            float left = Float.parseFloat(coords[0])*2;
+            float top = Float.parseFloat(coords[1])*2;
+            float right = Float.parseFloat(coords[2])*2;
+            float bottom = Float.parseFloat(coords[3])*2;
+
+            GameObject platform = new GameObject(left,top,(right-left),(bottom-top),sketchParent);
+            platform.SetIsGround(true);
+            platform.SetCollisionType(CollisionType.GROUND);
+            _gameObjectCollection.add(platform);
         }
     }
 

@@ -40,6 +40,7 @@ public class GameObject
         fillColor = sketchParent.color(168,230,201);
         orientation = 1;
         boundingRect.setFill(fillColor);
+        boundingRect.setStroke(false);
     }
 
     //Properties
@@ -251,12 +252,8 @@ public class GameObject
         }
         else
         {
-            if(!isGround)
-            {
+
                 sketchParent.shape(boundingRect, location.x, location.y);
-            }
-
-
         }
     }
 
