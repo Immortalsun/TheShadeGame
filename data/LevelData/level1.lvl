@@ -3,14 +3,26 @@
   <BackgroundImage>E:\CodeProjects\TheShadeGame\data\WorldSprites\longWarehouse.png</BackgroundImage>
   <ForegroundImage>E:\CodeProjects\TheShadeGame\data\WorldSprites\longWarehouseFore.png</ForegroundImage>
   <Platforms>
-    <Platform Height="58" Width="308" Y="253" X="357">
+    <Platform Height="19" Width="126" Y="424" X="260">
       <Name>0</Name>
     </Platform>
-    <Platform Height="50" Width="286" Y="359" X="780">
+    <Platform Height="22" Width="122" Y="376" X="422">
       <Name>1</Name>
     </Platform>
-    <Platform Height="37" Width="241" Y="270" X="1111">
+    <Platform Height="23.25" Width="148.25" Y="319" X="577.75">
       <Name>2</Name>
+    </Platform>
+    <Platform Height="27" Width="647" Y="241.5" X="760.5">
+      <Name>3</Name>
+    </Platform>
+    <Platform Height="50" Width="56" Y="248" X="1530">
+      <Name>4</Name>
+    </Platform>
+    <Platform Height="43" Width="60" Y="314" X="1660">
+      <Name>5</Name>
+    </Platform>
+    <Platform Height="42" Width="72" Y="384" X="1753">
+      <Name>6</Name>
     </Platform>
   </Platforms>
 </Level>
