@@ -17,22 +17,18 @@ public class Stage
     private PImage backImg;
     private PImage foreImg;
 
-    public Stage(int width, int height, String bgImage, String foregroundImage, String platforms ,PApplet parent)
+    public Stage(int width, int height, String bgImage, String foregroundImage, String level ,PApplet parent)
     {
         _width = width;
         _height = height;
         _sketchParent = parent;
-        _platformFile = platforms;
-        backImg = _sketchParent.loadImage(bgImage);
-        foreImg = _sketchParent.loadImage(foregroundImage);
+        _platformFile = level;
     }
 
-    public Stage(int width, int height, String bgImage, PApplet parent)
+    public void LoadImages(String[] images)
     {
-        _width = width;
-        _height = height;
-        _sketchParent = parent;
-        backImg = _sketchParent.loadImage(bgImage);
+        backImg = _sketchParent.loadImage(images[0]);
+        foreImg = _sketchParent.loadImage(images[1]);
     }
 
     public int GetWidth()
@@ -47,7 +43,7 @@ public class Stage
 
     public int GetScore(){ return _score; }
 
-    public String GetPlatformFile(){return _platformFile;}
+    public String GetLevelFile(){return _platformFile;}
 
     public void IncrementScore(int scoreInc)
     {

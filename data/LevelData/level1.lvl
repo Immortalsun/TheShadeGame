@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BackgroundImage>E:\CodeProjects\TheShadeGame\data\WorldSprites\longWarehouse.png</BackgroundImage>
+  <ForegroundImage>E:\CodeProjects\TheShadeGame\data\WorldSprites\longWarehouseFore.png</ForegroundImage>
+  <Platforms>
+    <Platform Height="58" Width="308" Y="253" X="357">
+      <Name>0</Name>
+    </Platform>
+    <Platform Height="50" Width="286" Y="359" X="780">
+      <Name>1</Name>
+    </Platform>
+    <Platform Height="37" Width="241" Y="270" X="1111">
+      <Name>2</Name>
+    </Platform>
+  </Platforms>
+</Level>

@@ -27,6 +27,7 @@ public class Engine
     private int screenWidth;
     private int screenHeight;
     private float xTranslation, yTranslation, baseYTanslation, maxXTranslation;
+    private LevelBuilder _levelBuilder;
     private ArrayList<GameObject> _gameObjectCollection;
     private ArrayList<Enemy> _enemyCollection;
     private HashMap<String, Spawner> _spawnMap;
@@ -46,7 +47,7 @@ public class Engine
         _enemyCollection = new ArrayList<Enemy>(1);
         _spawnMap = new HashMap<String, Spawner>();
         sketchParent = parent;
-
+        _levelBuilder = new LevelBuilder();
         EngineProvider.SetDefaultEngineInstance(this);
     }
 
@@ -78,45 +79,22 @@ public class Engine
         _gameObjectCollection.add(rightBound);
     }
 
-    public void GeneratePlatforms()
+    public void LoadLevel()
     {
-        String file =  _currentStage.GetPlatformFile();
-        String blockLine = null;
-        try
+        _levelBuilder.SetLevelFile(_currentStage.GetLevelFile());
+        String[] images = _levelBuilder.GetImagePaths();
+        _currentStage.LoadImages(images);
+        ArrayList<LevelBuilder.Platform> platforms = _levelBuilder.GetPlatforms();
+
+        for(LevelBuilder.Platform platform : platforms)
         {
-            FileReader fReader = new FileReader(file);
-            BufferedReader buffReader = new BufferedReader(fReader);
-
-            while((blockLine = buffReader.readLine()) != null)
-            {
-                BuildPlatform(blockLine);
-            }
-
-            fReader.close();
-            buffReader.close();
-        }
-        catch(Exception ex)
-        {
-
+            GameObject plat =new GameObject(platform.XLoc, platform.YLoc, platform.Width,platform.Height,sketchParent);
+            plat.SetCollisionType(CollisionType.GROUND);
+            plat.SetIsGround(true);
+            _gameObjectCollection.add(plat);
         }
     }
 
-    private void BuildPlatform(String lineCoords)
-    {
-        String[] coords = lineCoords.split(",");
-        if(coords.length == 4)
-        {
-            float left = Float.parseFloat(coords[0])*2;
-            float top = Float.parseFloat(coords[1])*2;
-            float right = Float.parseFloat(coords[2])*2;
-            float bottom = Float.parseFloat(coords[3])*2;
-
-            GameObject platform = new GameObject(left,top,(right-left),(bottom-top),sketchParent);
-            platform.SetIsGround(true);
-            platform.SetCollisionType(CollisionType.GROUND);
-            _gameObjectCollection.add(platform);
-        }
-    }
 
     public void PlaceSpawners()
     {
