@@ -12,17 +12,20 @@
     <Platform Height="23.25" Width="148.25" Y="319" X="577.75">
       <Name>2</Name>
     </Platform>
-    <Platform Height="27" Width="647" Y="241.5" X="760.5">
+    <Platform Height="26.5" Width="271.5" Y="242" X="760.5">
       <Name>3</Name>
     </Platform>
-    <Platform Height="50" Width="56" Y="248" X="1530">
+    <Platform Height="23.5" Width="92.5" Y="263" X="1457">
       <Name>4</Name>
     </Platform>
-    <Platform Height="43" Width="60" Y="314" X="1660">
+    <Platform Height="32.5" Width="138" Y="281.75" X="1592">
       <Name>5</Name>
     </Platform>
-    <Platform Height="42" Width="72" Y="384" X="1753">
+    <Platform Height="178" Width="38" Y="248" X="1753">
       <Name>6</Name>
+    </Platform>
+    <Platform Height="31" Width="362" Y="175" X="1060">
+      <Name>7</Name>
     </Platform>
   </Platforms>
 </Level>

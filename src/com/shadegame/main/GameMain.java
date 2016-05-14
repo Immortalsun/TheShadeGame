@@ -3,10 +3,10 @@ package com.shadegame.main;
  * Created by Maashes on 3/30/2016.
  */
 
+import com.shadegame.gameobject.player.Player;
 import com.shadegame.gameobject.world.HUD;
 import com.shadegame.gameobject.world.Stage;
 import processing.core.*;
-import com.shadegame.gameobject.*;
 import com.shadegame.engine.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -131,6 +131,9 @@ public class GameMain extends PApplet
 
     public void CheckKeyStatus()
     {
+        if(paused)
+            return;
+
         isKeyPressed = CheckIsKeyPressed();
         if(isKeyPressed)
         {
@@ -178,6 +181,9 @@ public class GameMain extends PApplet
 
     public void Attack()
     {
+        if(paused)
+            return;
+
         if(!attacking)
         {
             attacking = true;
@@ -231,12 +237,12 @@ public class GameMain extends PApplet
         if(!paused)
         {
             paused = true;
-            noLoop();
+            engine.PauseEngine();
         }
         else
         {
             paused = false;
-            loop();
+            engine.PauseEngine();
         }
     }
 }

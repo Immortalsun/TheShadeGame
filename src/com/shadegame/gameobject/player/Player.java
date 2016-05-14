@@ -1,6 +1,7 @@
-package com.shadegame.gameobject;
+package com.shadegame.gameobject.player;
 
 import com.shadegame.engine.collision.CollisionType;
+import com.shadegame.gameobject.GameObject;
 import com.shadegame.gameobject.animation.*;
 import com.shadegame.gameobject.projectiles.Fireball;
 import com.shadegame.gameobject.projectiles.Projectile;

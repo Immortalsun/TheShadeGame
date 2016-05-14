@@ -14,8 +14,8 @@ public class Stage
     private int _width, _height, _score,_bgXTranslation;
     private PApplet _sketchParent;
     private String _platformFile;
-    private PImage backImg;
-    private PImage foreImg;
+    private PImage backImg, lastBackImg;
+    private PImage foreImg, lastForeImg;
 
     public Stage(int width, int height, String bgImage, String foregroundImage, String level ,PApplet parent)
     {
@@ -63,6 +63,19 @@ public class Stage
 
     public void DisplayStage()
     {
+        int screenWidth = EngineProvider.GetDefaultEngineInstance().GetScreenWidth();
+        int screenHeight = EngineProvider.GetDefaultEngineInstance().GetScreenHeight();
+
+        if(EngineProvider.GetDefaultEngineInstance().GetIsPaused())
+        {
+            _sketchParent.image(lastBackImg,0,0, screenWidth, screenHeight);
+            if(foreImg != null)
+            {
+                _sketchParent.image(lastForeImg, 0, 0, screenWidth,screenHeight);
+            }
+            return;
+        }
+
         float xTranslation = EngineProvider.GetDefaultEngineInstance().GetXTranslation();
         float yTranslation = EngineProvider.GetDefaultEngineInstance().GetYTranslation();
         float maxXTranslation = EngineProvider.GetDefaultEngineInstance().GetMaxXTranslation();
@@ -80,8 +93,6 @@ public class Stage
                 _bgXTranslation-=1;
             }
         }
-        int screenWidth = EngineProvider.GetDefaultEngineInstance().GetScreenWidth();
-        int screenHeight = EngineProvider.GetDefaultEngineInstance().GetScreenHeight();
         int yLoc = -(int)yTranslation;
         int xLoc = -(int)xTranslation;
 
@@ -92,8 +103,10 @@ public class Stage
         {
             PImage fgFrame = foreImg.get(xLoc,yLoc,screenWidth,screenHeight);
             _sketchParent.image(fgFrame, 0, 0, screenWidth,screenHeight);
+            lastForeImg = fgFrame;
         }
 
+        lastBackImg = bgFrame;
 
     }
 

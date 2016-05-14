@@ -41,14 +41,12 @@ public class HUD
 
     public void DisplayHUD()
     {
-        float xTranslation = -(EngineProvider.GetDefaultEngineInstance().GetXTranslation()-20);
-        float yTranslation = -(EngineProvider.GetDefaultEngineInstance().GetYTranslation()-20);
+        float xTranslation = -(EngineProvider.GetDefaultEngineInstance().GetXTranslation()-240);
+        float yTranslation = -(EngineProvider.GetDefaultEngineInstance().GetYTranslation()-(EngineProvider.GetDefaultEngineInstance().GetScreenHeight()-25));
         _sketchParent.image(_healthBarBorder, xTranslation, yTranslation,300,20);
         int currentBarWidth = (int)_currentPlayerHealth;
         PImage bar = _healthBarImage.get(0,0,currentBarWidth,20);
         _sketchParent.image(bar,xTranslation,yTranslation,_currentPlayerHealth,20);
-        _sketchParent.textFont(_stageScore,16);
-        _sketchParent.text(_score,xTranslation+200,yTranslation);
     }
 
 

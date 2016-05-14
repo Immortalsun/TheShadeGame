@@ -11,14 +11,12 @@ import com.shadegame.gameobject.*;
 import com.shadegame.gameobject.enemy.Enemy;
 import com.shadegame.gameobject.enemy.EnemyType;
 import com.shadegame.gameobject.enemy.RangedEnemy;
+import com.shadegame.gameobject.player.Player;
 import com.shadegame.gameobject.projectiles.Projectile;
 import com.shadegame.gameobject.world.Stage;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -27,6 +25,7 @@ public class Engine
     private int screenWidth;
     private int screenHeight;
     private float xTranslation, yTranslation, baseYTanslation, maxXTranslation;
+    private boolean _paused;
     private LevelBuilder _levelBuilder;
     private ArrayList<GameObject> _gameObjectCollection;
     private ArrayList<Enemy> _enemyCollection;
@@ -103,6 +102,9 @@ public class Engine
 
     public void Update()
     {
+        if(_paused)
+            return;
+
         CleanupDestroyedObjects();
 
         UpdatePlayer();
@@ -530,6 +532,11 @@ public class Engine
         sketchParent.translate(xTranslation, yTranslation);
     }
 
+    public void PauseEngine()
+    {
+        _paused = !_paused;
+    }
+
     public PVector GetPlayerLocation()
     {
         return new PVector(player.GetLocation().x, player.GetLocation().y);
@@ -556,5 +563,10 @@ public class Engine
     public float GetYTranslation()
     {
         return yTranslation;
+    }
+
+    public boolean GetIsPaused()
+    {
+        return _paused;
     }
 }

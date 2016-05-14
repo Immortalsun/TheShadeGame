@@ -1,5 +1,6 @@
 package com.shadegame.gameobject.animation;
 
+import com.shadegame.engine.EngineProvider;
 import com.shadegame.gameobject.GameObject;
 import processing.core.PImage;
 import processing.core.PApplet;
@@ -12,7 +13,7 @@ import java.util.HashMap;
 public class Animator {
 
     private GameObject object;
-    private PImage frame;
+    private PImage frame, lastFrame;
     private PApplet sketchParent;
     private int frameCount, currentFrame, maxFrames;
     private float lastDirection;
@@ -36,6 +37,12 @@ public class Animator {
 
     public void DoAnimation(AnimationState state)
     {
+        if(EngineProvider.GetDefaultEngineInstance().GetIsPaused())
+        {
+            sketchParent.image(lastFrame, object.GetLocation().x, object.GetLocation().y, object.GetWidth(), object.GetHeight());
+            return;
+        }
+
         Animation anim = _animations.get(state);
 
         boolean isReversed = (object.GetVelocity().x < 0) || lastDirection < 0;
@@ -71,6 +78,8 @@ public class Animator {
         }
 
         frame = anim.GetNextFrame(isReversed, moveDirection);
+
+        lastFrame = frame;
 
         if(object.GetVelocity().x != 0)
         {
