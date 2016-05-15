@@ -2,6 +2,7 @@ package com.shadegame.gameobject.animation;
 
 import com.shadegame.engine.EngineProvider;
 import com.shadegame.gameobject.GameObject;
+import com.shadegame.gameobject.player.Player;
 import processing.core.PImage;
 import processing.core.PApplet;
 
@@ -13,9 +14,8 @@ import java.util.HashMap;
 public class Animator {
 
     private GameObject object;
-    private PImage frame, lastFrame;
+    private PImage frame, lastFrame, lastTriggerFrame, triggerFrame;
     private PApplet sketchParent;
-    private int frameCount, currentFrame, maxFrames;
     private float lastDirection;
     private HashMap<AnimationState, Animation> _animations;
 
@@ -88,10 +88,24 @@ public class Animator {
 
         sketchParent.image(frame, object.GetLocation().x, object.GetLocation().y, object.GetWidth(), object.GetHeight());
 
+        if(object instanceof Player && object.GetIsAnimTriggered())
+        {
+            Player p = (Player)object;
+            triggerFrame = p.GetTriggeredAnimationFrame();
+
+            if(triggerFrame != null)
+            {
+                sketchParent.image(triggerFrame, object.GetLocation().x, object.GetLocation().y, object.GetWidth(), object.GetHeight());
+                lastFrame = triggerFrame;
+            }
+        }
+
+
         if(anim.GetIsCompleted())
         {
             object.SetStateBasedOnAnimationCompletion();
         }
+
 
     }
 

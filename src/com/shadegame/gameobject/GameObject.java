@@ -24,7 +24,7 @@ public class GameObject
     private float minY, minX, objWidth, objHeight;
     private boolean isPlayer, isOnGround, isGround,
             isJumping, isDestroyed, isAttacking,
-            readyForCleanup, isDamaged;
+            readyForCleanup, isDamaged, animationTriggered;
     //Constructor
     public GameObject(float x, float y, float objectWidth, float objectHeight, PApplet parent)
     {
@@ -130,6 +130,16 @@ public class GameObject
 
     public boolean GetIsDamaged() {return isDamaged;}
 
+    public boolean GetIsAnimTriggered()
+    {
+        return animationTriggered;
+    }
+
+    public void SetIsAnimTriggered(boolean value)
+    {
+        animationTriggered = value;
+    }
+
     public void SetIsAttacking(boolean attacking)
     {
         isAttacking = attacking;
@@ -173,6 +183,11 @@ public class GameObject
     public void SetIsGround(boolean ground) { isGround = ground; }
 
     public void SetIsDamaged(boolean damaged) {isDamaged = damaged;}
+
+    public PImage GetTriggeredAnimationFrame()
+    {
+        return null;
+    }
 
     public void SetIsDestroyed(boolean destroyed)
     {

@@ -8,14 +8,15 @@ import processing.core.PImage;
  */
 
 
-public abstract class Animation {
+public class Animation {
 
     public String imageName;
     public String reversedImageName;
     public PImage image, reversedImage;
+    private Animation childAnim;
     public AnimationState associatedState;
     public int maxFrames, desiredFps, currentFrame, frameCounter, completionCounter;
-    public boolean isCompleted;
+    public boolean isCompleted, hasChildAnimation, isLooping;
 
     public Animation(PApplet parent, String name, String revName, AnimationState state, int fCount, int fps)
     {
@@ -30,6 +31,27 @@ public abstract class Animation {
         currentFrame = 0;
         frameCounter = 1;
         completionCounter = 0;
+
+        if(state.equals(AnimationState.CHARGED))
+        {
+            isLooping = true;
+        }
+    }
+
+    public void SetChildAnim(Animation anim)
+    {
+        childAnim = anim;
+        hasChildAnimation = true;
+    }
+
+    public void SetIsLooping(boolean value)
+    {
+        isLooping = value;
+    }
+
+    public Animation GetChildAnimation()
+    {
+        return childAnim;
     }
 
     public boolean GetIsCompleted()
@@ -37,7 +59,39 @@ public abstract class Animation {
         return isCompleted;
     }
 
-    public abstract PImage GetNextFrame(boolean isReversed, int moveDirection);
+    public PImage GetNextFrame(boolean isReversed, int moveDirection)
+    {
+        PImage frame = null;
+
+        IncrementFrameCounters();
+
+        if(!isCompleted)
+        {
+            if (!isReversed)
+            {
+                frame = image.get(0, (currentFrame * 32), 32, 32);
+                return frame;
+            }
+            else
+            {
+                frame = reversedImage.get(0, (currentFrame * 32), 32, 32);
+            }
+        }
+        else
+        {
+            if(!isReversed)
+            {
+                frame = image.get(0, (maxFrames-1)*32, 32, 32);
+            }
+            else
+            {
+                frame = reversedImage.get(0, (maxFrames-1)*32, 32, 32);
+            }
+        }
+
+        return frame;
+    }
+
 
     public void IncrementFrameCounters()
     {
@@ -65,7 +119,7 @@ public abstract class Animation {
             isCompleted = true;
             completionCounter = 0;
             
-            if(!associatedState.equals(AnimationState.RUNNING))
+            if(!isLooping)
             {
                 currentFrame = 0;
                 frameCounter = 1;

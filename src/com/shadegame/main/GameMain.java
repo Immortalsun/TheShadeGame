@@ -18,7 +18,7 @@ public class GameMain extends PApplet
     int windowHeight = 500;
     int stageWidth = 7554;
     int stageHeight = 500;
-    boolean isKeyPressed, paused, attacking;
+    boolean isKeyPressed, paused, attacking, charging;
     HashMap<Integer, Boolean> keyMap = new HashMap<Integer, Boolean>();
     PVector playerVelocity = new PVector(0,0);
     Engine engine;
@@ -95,6 +95,13 @@ public class GameMain extends PApplet
                 keyMap.replace(32, true);
                Attack();
             }
+            else if(key == '1' || key==49)
+            {
+                if(!charging) {
+                    player.Charge(1);
+                    charging = true;
+                }
+            }
         }
     }
 
@@ -124,6 +131,10 @@ public class GameMain extends PApplet
             {
                 keyMap.replace(32, false);
                 attacking = false;
+            }
+            else if(key == '1' || key==49)
+            {
+                charging = false;
             }
         }
 
