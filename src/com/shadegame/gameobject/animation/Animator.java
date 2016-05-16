@@ -40,6 +40,10 @@ public class Animator {
         if(EngineProvider.GetDefaultEngineInstance().GetIsPaused())
         {
             sketchParent.image(lastFrame, object.GetLocation().x, object.GetLocation().y, object.GetWidth(), object.GetHeight());
+            if(lastTriggerFrame != null)
+            {
+                sketchParent.image(lastTriggerFrame, object.GetLocation().x, object.GetLocation().y, object.GetWidth(), object.GetHeight());
+            }
             return;
         }
 
@@ -88,16 +92,15 @@ public class Animator {
 
         sketchParent.image(frame, object.GetLocation().x, object.GetLocation().y, object.GetWidth(), object.GetHeight());
 
-        if(object instanceof Player && object.GetIsAnimTriggered())
+        if(object.GetIsAnimTriggered())
         {
-            Player p = (Player)object;
-            triggerFrame = p.GetTriggeredAnimationFrame();
+            triggerFrame = object.GetTriggeredAnimationFrame();
 
             if(triggerFrame != null)
             {
                 sketchParent.image(triggerFrame, object.GetLocation().x, object.GetLocation().y, object.GetWidth(), object.GetHeight());
-                lastFrame = triggerFrame;
             }
+            lastTriggerFrame = triggerFrame;
         }
 
 

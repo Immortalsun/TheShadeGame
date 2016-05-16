@@ -25,7 +25,6 @@ public class GameMain extends PApplet
     Player player;
     Stage currentStage;
     HUD hud;
-    int currentDir;
 
     public static void main(String[] args) {
         PApplet.main(GameMain.class.getName());
@@ -70,17 +69,14 @@ public class GameMain extends PApplet
         {
             if(keyCode == 37)
             {
-                currentDir = 3;
                 keyMap.replace(37, true);
             }
             else if(keyCode == 39)
             {
-                currentDir = 4;
                 keyMap.replace(39, true);
             }
             else if(keyCode == 38)
             {
-                currentDir = 5;
                 keyMap.replace(38, true);
             }
         }
@@ -95,10 +91,10 @@ public class GameMain extends PApplet
                 keyMap.replace(32, true);
                Attack();
             }
-            else if(key == '1' || key==49)
+            else if(key>=49 && key <=54)
             {
                 if(!charging) {
-                    player.Charge(1);
+                    player.Charge(((int)key-48));
                     charging = true;
                 }
             }
@@ -111,17 +107,14 @@ public class GameMain extends PApplet
         {
             if(keyCode == 37)
             {
-                currentDir = 3;
                 keyMap.replace(37, false);
             }
             else if(keyCode == 39)
             {
-                currentDir = 4;
                 keyMap.replace(39, false);
             }
             else if(keyCode == 38)
             {
-                currentDir = 5;
                 keyMap.replace(38, false);
             }
         }
@@ -132,7 +125,7 @@ public class GameMain extends PApplet
                 keyMap.replace(32, false);
                 attacking = false;
             }
-            else if(key == '1' || key==49)
+            else if((key>=49 && key <=54))
             {
                 charging = false;
             }
@@ -148,7 +141,7 @@ public class GameMain extends PApplet
         isKeyPressed = CheckIsKeyPressed();
         if(isKeyPressed)
         {
-            Accelerate();
+            MovePlayer();
         }
         else
         {
@@ -160,51 +153,37 @@ public class GameMain extends PApplet
     {
         if(isKeyPressed)
         {
-            switch(currentDir)
+            if(keyMap.get(37) && keyMap.get(39))
             {
-                //3 is coded to left
-                case 3:
-                    if(playerVelocity.x >= -2.5)
-                    {
-                        playerVelocity.x = -2.5f;
-                    }
-                    break;
-                //4 is coded to right
-                case 4:
-                    if(playerVelocity.x <= 2.5)
-                    {
-                        playerVelocity.x = 2.5f;
-                    }
-                    break;
-                //5 is a jump
-                case 5:
-                    if(!player.GetIsJumping() && keyMap.get(38))
-                    {
-                        player.Jump();
-                        player.SetIsJumping(true);
-                        player.SetIsOnGround(false);
-                    }
-                    break;
+                playerVelocity.x =0;
+            }
+            else if(keyMap.get(37))
+            {
+                playerVelocity.x = -2.5f;
+            }
+            else if(keyMap.get(39))
+            {
+                playerVelocity.x = 2.5f;
+            }
+
+            if(keyMap.get(38) && !player.GetIsJumping())
+            {
+                player.Jump();
+                player.SetIsJumping(true);
+                player.SetIsOnGround(false);
             }
         }
         player.Move(playerVelocity);
     }
 
-    public void Attack()
-    {
-        if(paused)
+    public void Attack() {
+        if (paused)
             return;
 
-        if(!attacking)
-        {
+        if (!attacking) {
             attacking = true;
             player.CastProjectile();
         }
-    }
-
-    public void Accelerate()
-    {
-        MovePlayer();
     }
 
     public void Decelerate()

@@ -1,6 +1,8 @@
 package com.shadegame.gameobject.projectiles;
 
 import com.shadegame.gameobject.GameObject;
+import com.shadegame.gameobject.animation.Animation;
+import com.shadegame.gameobject.animation.AnimationState;
 import processing.core.PApplet;
 
 /**
@@ -29,6 +31,14 @@ public class Projectile extends GameObject {
         {
             this.GetVelocity().x -= flightSpeed;
         }
+    }
+
+    public void BuildProjectileAnimator(String runningAnimImage, String runningAnimReversed, int runningFrames, int runningSpeed, String destroyedAnimImage, String destroyedAnimReversed,int destroyedFrames, int destroyedSpeed)
+    {
+        Animation[] anims = new Animation[2];
+        anims[0] = new Animation(GetParent(),runningAnimImage,runningAnimReversed, AnimationState.RUNNING,runningFrames,runningSpeed);
+        anims[1] = new Animation(GetParent(),destroyedAnimImage,destroyedAnimReversed,AnimationState.DEAD, destroyedFrames,destroyedSpeed);
+        BuildAnimator(anims);
     }
 
     public int GetDamage()

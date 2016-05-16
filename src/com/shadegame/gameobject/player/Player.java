@@ -30,9 +30,8 @@ public class Player extends GameObject {
         SetCollisionType(CollisionType.PLAYER);
         Animation[] animations = new Animation[4];
         animations[0] = new RunningAnimation(parent,"PlayerSprites/player1.png", "PlayerSprites/player1Reversed.png",3, 10);
-        animations[0].SetIsLooping(true);
         animations[1] = new JumpingAnimation(parent,"PlayerSprites/playerJump.png", "PlayerSprites/playerJumpReversed.png",2,10);
-        animations[2] = new Animation(parent, "PlayerSprites/fireballAttack.png", "PlayerSprites/fireballAttackReversed.png",AnimationState.ATTACKING,5,10);
+        animations[2] = new Animation(parent, "PlayerSprites/playerAttack.png", "PlayerSprites/playerAttackReversed.png",AnimationState.ATTACKING,5,10);
         animations[3] = new Animation(parent, "PlayerSprites/playerDamaged.png", "PlayerSprites/playerDamagedReversed.png",AnimationState.DAMAGED,4,10);
         BuildAnimator(animations);
         GenerateAnimationCollection();
@@ -42,9 +41,13 @@ public class Player extends GameObject {
     {
         _chargeAnimations = new HashMap<>();
         ArrayList<Animation> fireChargeAnims = new ArrayList<>();
-        fireChargeAnims.add(new Animation(GetParent(),"PlayerSprites/fireCharging.png","",AnimationState.CHARGING,8,10));
+        fireChargeAnims.add(new Animation(GetParent(),"PlayerSprites/fireCharging.png","",AnimationState.CHARGING,8,4));
         fireChargeAnims.add(new Animation(GetParent(),"PlayerSprites/fireCharged.png","",AnimationState.CHARGED,3,10));
         _chargeAnimations.put(ChargeState.FIRE,fireChargeAnims);
+        ArrayList<Animation> iceChargeAnims = new ArrayList<>();
+        iceChargeAnims.add(new Animation(GetParent(),"PlayerSprites/iceCharging.png","",AnimationState.CHARGING,8,4));
+        iceChargeAnims.add(new Animation(GetParent(),"PlayerSprites/iceCharged.png","",AnimationState.CHARGED,8,5));
+        _chargeAnimations.put(ChargeState.ICE,iceChargeAnims);
     }
 
     public boolean GetHasCastProjectile()
@@ -170,8 +173,8 @@ public class Player extends GameObject {
         }
         SetIsAttacking(true);
 
-        float startX = 0;
-        float startY = 0;
+        float startX;
+        float startY;
 
         this.GetVelocity().x = 0;
 
@@ -186,8 +189,26 @@ public class Player extends GameObject {
             startY = (this.GetLocation().y+this.GetHeight()/2)-20;
         }
 
-        _currentProjectile = new Fireball(startX,startY,this.GetOrientation(),this.GetParent());
+        _currentProjectile = GetChargedAttack(startX,startY,this.GetOrientation());
         _currentProjectile.SetCollisionType(CollisionType.PLAYERPROJECTILE);
+    }
+
+    private Projectile GetChargedAttack(float startX, float startY, int orientation)
+    {
+        switch(_chargeState)
+        {
+            case FIRE:
+                Projectile fireball = new Projectile(startX,startY,32,32,10,5,400,orientation,GetParent());
+                fireball.BuildProjectileAnimator("ProjectileSprites/fireball.png", "ProjectileSprites/fireballReversed.png",3, 5,
+                        "ProjectileSprites/fireballRangeExplosion.png", "ProjectileSprites/fireballRangeExplosionReversed.png",5,5);
+                return fireball;
+            case ICE:
+                Projectile iceSpike = new Projectile(startX,startY,32,32,10,5,400,orientation,GetParent());
+                iceSpike.BuildProjectileAnimator("ProjectileSprites/iceSpike.png","",4,10,
+                        "ProjectileSprites/iceSpikeExplosion.png","",4,5);
+                return iceSpike;
+        }
+        return null;
     }
 
 

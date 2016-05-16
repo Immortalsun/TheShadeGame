@@ -25,6 +25,10 @@ public class Animation {
         reversedImageName = revName;
         associatedState = state;
         image = parent.loadImage(imageName);
+        if(reversedImageName.isEmpty())
+        {
+            reversedImageName = imageName;
+        }
         reversedImage = parent.loadImage(reversedImageName);
         maxFrames = fCount;
         desiredFps = fps;
@@ -32,7 +36,7 @@ public class Animation {
         frameCounter = 1;
         completionCounter = 0;
 
-        if(state.equals(AnimationState.CHARGED))
+        if(state.equals(AnimationState.CHARGED) || state.equals(AnimationState.RUNNING))
         {
             isLooping = true;
         }
