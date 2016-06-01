@@ -25,6 +25,11 @@ public class Stage
         _platformFile = level;
     }
 
+    public Stage(PApplet parent)
+    {
+        _sketchParent = parent;
+    }
+
     public void LoadImages(String[] images)
     {
         backImg = _sketchParent.loadImage(images[0]);
@@ -42,6 +47,16 @@ public class Stage
     }
 
     public int GetScore(){ return _score; }
+
+    public void SetWidth(int width)
+    {
+        _width = width;
+    }
+
+    public void SetHeight(int height)
+    {
+        _height = height;
+    }
 
     public String GetLevelFile(){return _platformFile;}
 

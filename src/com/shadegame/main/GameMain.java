@@ -16,8 +16,7 @@ public class GameMain extends PApplet
     float acceleration = 0.1f;
     int windowWidth = 800;
     int windowHeight = 500;
-    int stageWidth = 7554;
-    int stageHeight = 500;
+    int stageWidth, stageHeight;
     boolean isKeyPressed, paused, attacking, charging;
     HashMap<Integer, Boolean> keyMap = new HashMap<Integer, Boolean>();
     PVector playerVelocity = new PVector(0,0);
@@ -41,26 +40,18 @@ public class GameMain extends PApplet
         keyMap.put(38, false);
         keyMap.put(39, false);
         keyMap.put(32, false);
-        String dataFolder = dataPath("LevelData/level1.lvl");
-        currentStage = new Stage(stageWidth, stageHeight, "WorldSprites/longWarehouse.png", "WorldSprites/longWarehouseFore.png" ,dataFolder,this);
-        engine = new Engine(windowWidth, windowHeight, this, currentStage);
+        engine = new Engine(windowWidth, windowHeight, this);
+        stageWidth = engine.GetStageWidth();
+        stageHeight = engine.GetStageHeight();
         player = engine.CretePlayer(10,stageHeight-60, 32,32);
         player.SetIsJumping(true);
-        engine.SetLevelBounds();
-        engine.LoadLevel();
-        engine.PlaceSpawners();
-        hud = new HUD(player.GetHealth(),currentStage.GetScore(),this);
     }
 
     public void draw()
     {
-        //background(205);
-        currentStage.DisplayStage();
         CheckKeyStatus();
         engine.Update();
-        hud.UpdateHUD(player.GetHealth(),currentStage.GetScore());
         engine.Display();
-        hud.DisplayHUD();
     }
 
     public void keyPressed()

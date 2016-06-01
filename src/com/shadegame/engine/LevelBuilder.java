@@ -107,6 +107,11 @@ public class LevelBuilder
         return platforms;
     }
 
+    public int[] GetLevelDimensions()
+    {
+        return null;
+    }
+
     public class Platform
     {
         public float XLoc;

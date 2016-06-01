@@ -13,10 +13,12 @@ import com.shadegame.gameobject.enemy.EnemyType;
 import com.shadegame.gameobject.enemy.RangedEnemy;
 import com.shadegame.gameobject.player.Player;
 import com.shadegame.gameobject.projectiles.Projectile;
+import com.shadegame.gameobject.world.HUD;
 import com.shadegame.gameobject.world.Stage;
 import processing.core.PApplet;
 import processing.core.PVector;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,6 +26,7 @@ public class Engine
 {
     private int screenWidth;
     private int screenHeight;
+    private int _currentLevelIndex;
     private float xTranslation, yTranslation, baseYTanslation, maxXTranslation;
     private boolean _paused;
     private LevelBuilder _levelBuilder;
@@ -31,15 +34,17 @@ public class Engine
     private ArrayList<Enemy> _enemyCollection;
     private HashMap<String, Spawner> _spawnMap;
     private Stage _currentStage;
+    private HUD _hud;
     private GameObject groundLevel;
     private Player player;
     private PApplet sketchParent;
 
     private final float gravityConstant = .5f;
 
-    public Engine(int scrWidth, int scrHeight, PApplet parent, Stage s)
+    public Engine(int scrWidth, int scrHeight, PApplet parent)
     {
-        _currentStage = s;
+        _currentLevelIndex = 0;
+        _currentStage = new Stage(parent);
         screenWidth = scrWidth;
         screenHeight = scrHeight;
         _gameObjectCollection = new ArrayList(1);
@@ -47,7 +52,11 @@ public class Engine
         _spawnMap = new HashMap<String, Spawner>();
         sketchParent = parent;
         _levelBuilder = new LevelBuilder();
+        _hud = new HUD(0,0,parent);
         EngineProvider.SetDefaultEngineInstance(this);
+        LoadLevel();
+        SetLevelBounds();
+        PlaceSpawners();
     }
 
     public Player CretePlayer(float x, float y, float objectWidth, float objectHeight)
@@ -80,11 +89,14 @@ public class Engine
 
     public void LoadLevel()
     {
-        _levelBuilder.SetLevelFile(_currentStage.GetLevelFile());
+        String level = GetCurrentLevelFile();
+        _levelBuilder.SetLevelFile(level);
         String[] images = _levelBuilder.GetImagePaths();
         _currentStage.LoadImages(images);
         ArrayList<LevelBuilder.Platform> platforms = _levelBuilder.GetPlatforms();
-
+        int[] levelDimensions = _levelBuilder.GetLevelDimensions();
+        _currentStage.SetWidth(levelDimensions[0]);
+        _currentStage.SetHeight(levelDimensions[1]);
         for(LevelBuilder.Platform platform : platforms)
         {
             GameObject plat =new GameObject(platform.XLoc, platform.YLoc, platform.Width,platform.Height,sketchParent);
@@ -130,6 +142,9 @@ public class Engine
         }
 
         SpawnEnemies();
+
+        //update hud
+        _hud.UpdateHUD(player.GetHealth(),_currentStage.GetScore());
     }
 
     private void UpdatePlayer()
@@ -266,6 +281,9 @@ public class Engine
 
     public void Display()
     {
+        //display stage
+        _currentStage.DisplayStage();
+
         KeepPlayerInViewport();
 
         player.Display();
@@ -279,6 +297,9 @@ public class Engine
         {
             g.Display();
         }
+
+        //display hud
+        _hud.DisplayHUD();
     }
 
     private void SpawnEnemies()
@@ -532,6 +553,19 @@ public class Engine
         sketchParent.translate(xTranslation, yTranslation);
     }
 
+    private String GetCurrentLevelFile()
+    {
+        File levelFolder = new File(sketchParent.dataPath("/LevelData"));
+        File[] levels = levelFolder.listFiles();
+
+        if(levels.length > _currentLevelIndex)
+        {
+            return levels[_currentLevelIndex].getPath();
+        }
+
+        return "";
+    }
+
     public void PauseEngine()
     {
         _paused = !_paused;
@@ -552,6 +586,10 @@ public class Engine
     public int GetScreenWidth() {return screenWidth;}
 
     public int GetScreenHeight() {return screenHeight;}
+
+    public int GetStageWidth() {return _currentStage.GetWidth();}
+
+    public int GetStageHeight() {return _currentStage.GetHeight();}
 
     public float GetXTranslation()
     {
