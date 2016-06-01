@@ -14,6 +14,7 @@ public class LevelBuilder
     private String _levelFile;
     private final String LEVEL_TAG = "Level";
     private final String PLATFORMS_TAG = "Platforms";
+    private final String PLATFORM_TAG = "Platform";
     private final String IMAGES_TAG= "Images";
     private final String DIMENSIONS_TAG = "Dimensions";
     private final String WIDTH_TAG = "Width";
@@ -111,7 +112,7 @@ public class LevelBuilder
             XPath xpath = XPathFactory.newInstance().newXPath();
             try
             {
-                NodeList platformNodes = (NodeList)xpath.compile("/Level/Platforms/Platform").evaluate(_doc, XPathConstants.NODESET);
+                NodeList platformNodes = (NodeList)xpath.compile("/" + LEVEL_TAG + "/" + PLATFORMS_TAG + "/" + PLATFORM_TAG).evaluate(_doc, XPathConstants.NODESET);
                 if(platformNodes != null && platformNodes.getLength() > 0)
                 {
                     for(int i=0; i<platformNodes.getLength(); i++)
