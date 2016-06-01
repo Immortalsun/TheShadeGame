@@ -6,6 +6,7 @@ package com.shadegame.main;
 import com.shadegame.gameobject.player.Player;
 import com.shadegame.gameobject.world.HUD;
 import com.shadegame.gameobject.world.Stage;
+import javafx.scene.input.KeyCode;
 import processing.core.*;
 import com.shadegame.engine.*;
 import java.util.HashMap;
@@ -58,6 +59,8 @@ public class GameMain extends PApplet
     {
         if(key == CODED)
         {
+            if(paused)
+                return;
             if(keyCode == 37)
             {
                 keyMap.replace(37, true);
@@ -79,11 +82,15 @@ public class GameMain extends PApplet
             }
             else if(key == 32 || key == ' ')
             {
+                if(paused)
+                    return;
                 keyMap.replace(32, true);
                Attack();
             }
             else if(key>=49 && key <=54)
             {
+                if(paused)
+                    return;
                 if(!charging) {
                     player.Charge(((int)key-48));
                     charging = true;
@@ -94,6 +101,8 @@ public class GameMain extends PApplet
 
     public void keyReleased()
     {
+        if(paused)
+            return;
         if(key == CODED)
         {
             if(keyCode == 37)
