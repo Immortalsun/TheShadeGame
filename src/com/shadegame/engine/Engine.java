@@ -56,10 +56,11 @@ public class Engine
         EngineProvider.SetDefaultEngineInstance(this);
         LoadLevel();
         SetLevelBounds();
+        CreatePlayer(10,_currentStage.GetHeight()-60, 32,32)
         PlaceSpawners();
     }
 
-    public Player CretePlayer(float x, float y, float objectWidth, float objectHeight)
+    public Player CreatePlayer(float x, float y, float objectWidth, float objectHeight)
     {
         player = new Player(x,y, objectWidth, objectHeight, this.sketchParent);
         player.SetIsPlayer(true);

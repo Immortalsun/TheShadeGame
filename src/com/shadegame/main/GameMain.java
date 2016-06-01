@@ -42,7 +42,7 @@ public class GameMain extends PApplet
         engine = new Engine(windowWidth, windowHeight, this);
         stageWidth = engine.GetStageWidth();
         stageHeight = engine.GetStageHeight();
-        player = engine.CretePlayer(10,stageHeight-60, 32,32);
+        player = engine.CretePlayer();
         player.SetIsJumping(true);
     }
 
