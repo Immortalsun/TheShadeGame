@@ -42,8 +42,7 @@ public class GameMain extends PApplet
         engine = new Engine(windowWidth, windowHeight, this);
         stageWidth = engine.GetStageWidth();
         stageHeight = engine.GetStageHeight();
-        player = engine.CretePlayer();
-        player.SetIsJumping(true);
+        player = engine.GetPlayer();
     }
 
     public void draw()

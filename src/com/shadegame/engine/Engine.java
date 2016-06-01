@@ -52,11 +52,11 @@ public class Engine
         _spawnMap = new HashMap<String, Spawner>();
         sketchParent = parent;
         _levelBuilder = new LevelBuilder();
-        _hud = new HUD(0,0,parent);
         EngineProvider.SetDefaultEngineInstance(this);
         LoadLevel();
         SetLevelBounds();
-        CreatePlayer(10,_currentStage.GetHeight()-60, 32,32)
+        CreatePlayer(10,_currentStage.GetHeight()-60, 32,32);
+        _hud = new HUD(player.GetHealth(),_currentStage.GetScore(),parent);
         PlaceSpawners();
     }
 
@@ -66,7 +66,7 @@ public class Engine
         player.SetIsPlayer(true);
         yTranslation = baseYTanslation = screenHeight - _currentStage.GetHeight();
         maxXTranslation = -(_currentStage.GetWidth())+screenWidth;
-
+        player.SetIsJumping(true);
         return player;
     }
 
@@ -594,6 +594,8 @@ public class Engine
     {
         return sketchParent;
     }
+
+    public Player GetPlayer() {return player;}
 
     public int GetScreenWidth() {return screenWidth;}
 
