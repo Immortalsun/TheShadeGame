@@ -19,6 +19,8 @@ public class LevelBuilder
     private final String WIDTH_TAG = "Width";
     private final String HEIGHT_TAG = "Height";
     private final String RENDERIDX_TAG = "RenderIdx";
+    private final String X_TAG = "X";
+    private final String Y_TAG = "Y";
     private Document _doc;
 
 
@@ -48,6 +50,7 @@ public class LevelBuilder
 
     public String[] GetImageNames()
     {
+
         ArrayList<String> imagesArr = new ArrayList<>();
         if(_doc != null)
         {
@@ -77,7 +80,8 @@ public class LevelBuilder
 
             }
         }
-        return (String[])imagesArr.toArray();
+        String[] returnArray = new String[imagesArr.size()];
+        return imagesArr.toArray(returnArray);
     }
 
     private int GetImageRenderIndex(Node imageNode)
@@ -113,8 +117,11 @@ public class LevelBuilder
                     for(int i=0; i<platformNodes.getLength(); i++)
                     {
                         Node platformNode = platformNodes.item(i);
-
-
+                        Platform platform = BuildPlatformObject(platformNode);
+                        if(platform != null)
+                        {
+                            platforms.add(platform);
+                        }
                     }
                 }
 
@@ -123,6 +130,39 @@ public class LevelBuilder
 
 
         return platforms;
+    }
+
+    private Platform BuildPlatformObject(Node platformNode)
+    {
+        if(platformNode.hasChildNodes())
+        {
+            float xLoc,yLoc,width,height;
+            xLoc = yLoc = width = height = 0;
+            NodeList platformAttributes = platformNode.getChildNodes();
+            for(int i=0; i<platformAttributes.getLength(); i++)
+            {
+                Node attr = platformAttributes.item(i);
+                if(attr.getNodeName().equalsIgnoreCase(X_TAG))
+                {
+                    xLoc = Float.parseFloat(attr.getTextContent());
+                }
+                else if(attr.getNodeName().equalsIgnoreCase(Y_TAG))
+                {
+                    yLoc = Float.parseFloat(attr.getTextContent());
+                }
+                else if(attr.getNodeName().equalsIgnoreCase(WIDTH_TAG))
+                {
+                    width = Float.parseFloat(attr.getTextContent());
+                }
+                else if(attr.getNodeName().equalsIgnoreCase(HEIGHT_TAG))
+                {
+                    height = Float.parseFloat(attr.getTextContent());
+                }
+            }
+            return new Platform(xLoc,yLoc,width,height);
+        }
+
+        return null;
     }
 
     public int[] GetLevelDimensions()
