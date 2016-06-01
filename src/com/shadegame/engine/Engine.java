@@ -91,12 +91,12 @@ public class Engine
     {
         String level = GetCurrentLevelFile();
         _levelBuilder.SetLevelFile(level);
-        String[] images = _levelBuilder.GetImagePaths();
-        _currentStage.LoadImages(images);
-        ArrayList<LevelBuilder.Platform> platforms = _levelBuilder.GetPlatforms();
         int[] levelDimensions = _levelBuilder.GetLevelDimensions();
         _currentStage.SetWidth(levelDimensions[0]);
         _currentStage.SetHeight(levelDimensions[1]);
+        String[] images = GetImagePathsFromNames(_levelBuilder.GetImageNames());
+        _currentStage.LoadImages(images);
+        ArrayList<LevelBuilder.Platform> platforms = _levelBuilder.GetPlatforms();
         for(LevelBuilder.Platform platform : platforms)
         {
             GameObject plat =new GameObject(platform.XLoc, platform.YLoc, platform.Width,platform.Height,sketchParent);
@@ -564,6 +564,17 @@ public class Engine
         }
 
         return "";
+    }
+
+    private String[] GetImagePathsFromNames(String[] names)
+    {
+        String[] images = new String[names.length];
+        String dataFolder = sketchParent.dataPath("/WorldSprites");
+        for(int i=0; i<names.length; i++)
+        {
+            images[i] = dataFolder+"\\"+names[i] +".png";
+        }
+        return images;
     }
 
     public void PauseEngine()

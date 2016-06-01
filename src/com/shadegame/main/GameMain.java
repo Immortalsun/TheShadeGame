@@ -23,8 +23,6 @@ public class GameMain extends PApplet
     PVector playerVelocity = new PVector(0,0);
     Engine engine;
     Player player;
-    Stage currentStage;
-    HUD hud;
 
     public static void main(String[] args) {
         PApplet.main(GameMain.class.getName());

@@ -12,11 +12,20 @@ import org.w3c.dom.*;
 public class LevelBuilder
 {
     private String _levelFile;
+    private final String LEVEL_TAG = "Level";
+    private final String PLATFORMS_TAG = "Platforms";
+    private final String IMAGES_TAG= "Images";
+    private final String DIMENSIONS_TAG = "Dimensions";
+    private final String WIDTH_TAG = "Width";
+    private final String HEIGHT_TAG = "Height";
+    private final String RENDERIDX_TAG = "RenderIdx";
+    private Document _doc;
 
 
     public void SetLevelFile(String file)
     {
         _levelFile = file;
+        _doc = SetUpDocument();
     }
 
     private Document SetUpDocument()
@@ -37,27 +46,30 @@ public class LevelBuilder
         }
     }
 
-    public String[] GetImagePaths()
+    public String[] GetImageNames()
     {
-        String[] images = new String[2];
-
-        Document doc = SetUpDocument();
-
-        if(doc != null)
+        ArrayList<String> imagesArr = new ArrayList<>();
+        if(_doc != null)
         {
             XPath xpath = XPathFactory.newInstance().newXPath();
             try {
-                NodeList bgNode = (NodeList) xpath.compile("/Level/BackgroundImage").evaluate(doc, XPathConstants.NODESET);
-                NodeList fgNode = (NodeList) xpath.compile("/Level/ForegroundImage").evaluate(doc, XPathConstants.NODESET);
-
-                if(bgNode.item(0).getNodeType() == Node.ELEMENT_NODE){
-                    Element element = (Element)bgNode.item(0);
-                    images[0] = element.getTextContent();
-                }
-
-                if(fgNode.item(0).getNodeType() == Node.ELEMENT_NODE)
+                NodeList imageNodes = (NodeList)xpath.compile("/"+LEVEL_TAG+"/"+IMAGES_TAG).evaluate(_doc,XPathConstants.NODESET);
+                if(imageNodes != null && imageNodes.getLength() > 0)
                 {
-                    images[1] = fgNode.item(0).getTextContent();
+                    Node imageNode = imageNodes.item(0);
+                    if(imageNode!= null && imageNode.hasChildNodes())
+                    {
+                        NodeList children = imageNode.getChildNodes();
+                        for(int i=0; i< children.getLength(); i++)
+                        {
+                            Node imageChild = children.item(i);
+                            int renderIdx = GetImageRenderIndex(imageChild);
+                            if(renderIdx > -1)
+                            {
+                                imagesArr.add(renderIdx,imageChild.getNodeName());
+                            }
+                        }
+                    }
                 }
             }
             catch(Exception ex)
@@ -65,38 +77,44 @@ public class LevelBuilder
 
             }
         }
-        return images;
+        return (String[])imagesArr.toArray();
+    }
+
+    private int GetImageRenderIndex(Node imageNode)
+    {
+        if(imageNode.hasChildNodes())
+        {
+            NodeList children = imageNode.getChildNodes();
+            for(int i=0; i<children.getLength(); i++)
+            {
+                Node imageChild = children.item(i);
+                if(imageChild.getNodeName().equalsIgnoreCase(RENDERIDX_TAG))
+                {
+                    return Integer.parseInt(imageChild.getTextContent());
+                }
+            }
+        }
+
+        return -1;
     }
 
     public ArrayList<Platform> GetPlatforms()
     {
         ArrayList<Platform> platforms = new ArrayList<>();
 
-        Document doc = SetUpDocument();
-
-        if(doc != null)
+        if(_doc != null)
         {
             XPath xpath = XPathFactory.newInstance().newXPath();
             try
             {
-                NodeList platformNodes = (NodeList)xpath.compile("/Level/Platforms/Platform").evaluate(doc, XPathConstants.NODESET);
+                NodeList platformNodes = (NodeList)xpath.compile("/Level/Platforms/Platform").evaluate(_doc, XPathConstants.NODESET);
                 if(platformNodes != null && platformNodes.getLength() > 0)
                 {
                     for(int i=0; i<platformNodes.getLength(); i++)
                     {
                         Node platformNode = platformNodes.item(i);
 
-                        if(platformNode.getNodeType() == Node.ELEMENT_NODE)
-                        {
-                            Element platform = (Element)platformNode;
 
-                            float xLocation = Float.parseFloat(platform.getAttribute("X"));
-                            float yLocation = Float.parseFloat(platform.getAttribute("Y"));
-                            float width = Float.parseFloat(platform.getAttribute("Width"));
-                            float height = Float.parseFloat(platform.getAttribute("Height"));
-
-                            platforms.add(new Platform(xLocation,yLocation,width,height));
-                        }
                     }
                 }
 
@@ -109,7 +127,41 @@ public class LevelBuilder
 
     public int[] GetLevelDimensions()
     {
-        return null;
+        int[] dimensions = new int[2];
+
+        if(_doc != null)
+        {
+            XPath xpath = XPathFactory.newInstance().newXPath();
+            try
+            {
+                NodeList dimensionNodes = (NodeList)xpath.compile(("/"+LEVEL_TAG+"/"+DIMENSIONS_TAG)).evaluate(_doc, XPathConstants.NODESET);
+                if(dimensionNodes!= null && dimensionNodes.getLength() > 0)
+                {
+                    Node dimNode = dimensionNodes.item(0);
+
+                    if(dimNode != null && dimNode.hasChildNodes())
+                    {
+                        NodeList children = dimNode.getChildNodes();
+                        for(int i=0; i < children.getLength(); i++)
+                        {
+                            Node child = children.item(i);
+                            if(child.getNodeName().equalsIgnoreCase(WIDTH_TAG))
+                            {
+                                dimensions[0]  = Integer.parseInt(child.getTextContent());
+                            }
+                            else if(child.getNodeName().equalsIgnoreCase(HEIGHT_TAG))
+                            {
+                                dimensions[1] = Integer.parseInt(child.getTextContent());
+                            }
+                        }
+                    }
+                }
+            }
+            catch(Exception ex){}
+
+        }
+
+        return dimensions;
     }
 
     public class Platform

@@ -1,31 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <BackgroundImage>\data\WorldSprites\longWarehouse.png</BackgroundImage>
-  <ForegroundImage>\data\WorldSprites\longWarehouseFore.png</ForegroundImage>
-  <Platforms>
-    <Platform Height="19" Width="126" Y="424" X="260">
-      <Name>0</Name>
-    </Platform>
-    <Platform Height="22" Width="122" Y="376" X="422">
-      <Name>1</Name>
-    </Platform>
-    <Platform Height="23.25" Width="148.25" Y="319" X="577.75">
-      <Name>2</Name>
-    </Platform>
-    <Platform Height="26.5" Width="271.5" Y="242" X="760.5">
-      <Name>3</Name>
-    </Platform>
-    <Platform Height="23.5" Width="92.5" Y="263" X="1457">
-      <Name>4</Name>
-    </Platform>
-    <Platform Height="32.5" Width="138" Y="281.75" X="1592">
-      <Name>5</Name>
-    </Platform>
-    <Platform Height="178" Width="38" Y="248" X="1753">
-      <Name>6</Name>
-    </Platform>
-    <Platform Height="31" Width="362" Y="175" X="1060">
-      <Name>7</Name>
-    </Platform>
-  </Platforms>
+<?xml version="1.0" encoding="UTF-8"?>
+<Level>
+	<Dimensions>
+		<Width>7554</Width>
+		<Height>500</Height>
+	</Dimensions>
+	<Images>
+		<longWarehouse>
+			<X>0</X>
+			<Y>0</Y>
+			<Width>7554</Width>
+			<Height>500</Height>
+			<RenderIdx>0</RenderIdx>
+		</longWarehouse>
+		<longWarehouseFore>
+			<X>0</X>
+			<Y>0</Y>
+			<Width>7554</Width>
+			<Height>500</Height>
+			<RenderIdx>1</RenderIdx>
+		</longWarehouseFore>
+	</Images>
+	<Platforms>
+		<Platform>
+			<X>113</X>
+			<Y>361</Y>
+			<Width>305</Width>
+			<Height>46</Height>
+			<RenderIdx>2</RenderIdx>
+		</Platform>
+		<Platform>
+			<X>462</X>
+			<Y>270</Y>
+			<Width>283</Width>
+			<Height>38</Height>
+			<RenderIdx>2</RenderIdx>
+		</Platform>
+		<Platform>
+			<X>778.5</X>
+			<Y>192.5</Y>
+			<Width>187</Width>
+			<Height>51</Height>
+			<RenderIdx>2</RenderIdx>
+		</Platform>
+	</Platforms>
 </Level>
