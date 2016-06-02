@@ -27,7 +27,7 @@ public class Engine
     private int screenWidth;
     private int screenHeight;
     private int _currentLevelIndex;
-    private float xTranslation, yTranslation, baseYTanslation, maxXTranslation;
+    private float xTranslation, yTranslation, baseYTranslation, maxXTranslation;
     private boolean _paused;
     private LevelBuilder _levelBuilder;
     private ArrayList<GameObject> _gameObjectCollection;
@@ -64,7 +64,7 @@ public class Engine
     {
         player = new Player(x,y, objectWidth, objectHeight, this.sketchParent);
         player.SetIsPlayer(true);
-        yTranslation = baseYTanslation = screenHeight - _currentStage.GetHeight();
+        yTranslation = baseYTranslation = screenHeight - _currentStage.GetHeight();
         maxXTranslation = -(_currentStage.GetWidth())+screenWidth;
         player.SetIsJumping(true);
         return player;
@@ -546,7 +546,7 @@ public class Engine
        {
            yTranslation = (screenHeight/2) - player.GetLocation().y;
        }
-       else if((player.GetLocation().y+yTranslation > (screenHeight/2)) && yTranslation > baseYTanslation)
+       else if((player.GetLocation().y+yTranslation > (screenHeight/2)) && yTranslation > baseYTranslation)
        {
            yTranslation = ((screenHeight/2) - player.GetLocation().y);
        }
