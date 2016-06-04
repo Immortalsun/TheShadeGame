@@ -103,6 +103,7 @@ public class Engine
             GameObject plat =new GameObject(platform.XLoc, platform.YLoc, platform.Width,platform.Height,sketchParent);
             plat.SetCollisionType(CollisionType.GROUND);
             plat.SetIsGround(true);
+            _currentStage.SkinPlatform(plat);
             _gameObjectCollection.add(plat);
         }
     }

@@ -1,9 +1,15 @@
 package com.shadegame.gameobject.world;
 
 import com.shadegame.engine.EngineProvider;
+import com.shadegame.gameobject.GameObject;
+import com.shadegame.gameobject.animation.Animation;
+import com.shadegame.gameobject.animation.AnimationState;
+import com.shadegame.gameobject.animation.TextureAnimation;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
+
+import java.util.Random;
 
 /**
  * Created by Maashes on 4/6/2016.
@@ -16,14 +22,7 @@ public class Stage
     private String _platformFile;
     private PImage backImg, lastBackImg;
     private PImage foreImg, lastForeImg;
-
-    public Stage(int width, int height, String bgImage, String foregroundImage, String level ,PApplet parent)
-    {
-        _width = width;
-        _height = height;
-        _sketchParent = parent;
-        _platformFile = level;
-    }
+    private PImage platformSkinImg;
 
     public Stage(PApplet parent)
     {
@@ -34,6 +33,7 @@ public class Stage
     {
         backImg = _sketchParent.loadImage(images[0]);
         foreImg = _sketchParent.loadImage(images[1]);
+        platformSkinImg = _sketchParent.loadImage(images[2]);
     }
 
     public int GetWidth()
@@ -58,7 +58,22 @@ public class Stage
         _height = height;
     }
 
-    public String GetLevelFile(){return _platformFile;}
+    public void SkinPlatform(GameObject platform)
+    {
+        if(platform != null && platformSkinImg != null)
+        {
+            Random rand = new Random();
+            PImage platformImage;
+            int platformWidth = (int)platform.GetWidth();
+            int platformHeight = (int)platform.GetHeight();
+            int imageXLoc = rand.nextInt(platformSkinImg.width - platformWidth);
+            int imageYLoc = rand.nextInt(platformSkinImg.height - platformHeight);
+            platformImage = platformSkinImg.get(imageXLoc,imageYLoc,platformWidth,platformHeight);
+            Animation[] platformAnim = new Animation[1];
+            platformAnim[0] = new TextureAnimation(platformImage);
+            platform.BuildAnimator(platformAnim);
+        }
+    }
 
     public void IncrementScore(int scoreInc)
     {

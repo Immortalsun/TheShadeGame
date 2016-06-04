@@ -19,6 +19,13 @@
 			<Height>500</Height>
 			<RenderIdx>1</RenderIdx>
 		</longWarehouseFore>
+		<warehousePlatformSkin>
+			<X>0</X>
+			<Y>0</Y>
+			<Width>600</Width>
+			<Height>250</Height>
+			<RenderIdx>2</RenderIdx>
+		</warehousePlatformSkin>
 	</Images>
 	<Platforms>
 		<Platform>
@@ -36,7 +43,7 @@
 			<RenderIdx>2</RenderIdx>
 		</Platform>
 		<Platform>
-			<X>635.5</X>
+			<X>635</X>
 			<Y>250</Y>
 			<Width>171.5</Width>
 			<Height>36.5</Height>
@@ -71,7 +78,7 @@
 			<RenderIdx>2</RenderIdx>
 		</Platform>
 		<Platform>
-			<X>1308</X>
+			<X>1307</X>
 			<Y>375</Y>
 			<Width>26</Width>
 			<Height>27</Height>
@@ -93,29 +100,29 @@
 		</Platform>
 		<Platform>
 			<X>2162</X>
-			<Y>148</Y>
+			<Y>147</Y>
 			<Width>202</Width>
 			<Height>18</Height>
 			<RenderIdx>2</RenderIdx>
 		</Platform>
 		<Platform>
 			<X>2588</X>
-			<Y>333</Y>
-			<Width>27</Width>
-			<Height>132</Height>
+			<Y>339</Y>
+			<Width>55</Width>
+			<Height>126</Height>
 			<RenderIdx>2</RenderIdx>
 		</Platform>
 		<Platform>
 			<X>2671</X>
 			<Y>286</Y>
-			<Width>26</Width>
+			<Width>53</Width>
 			<Height>179</Height>
 			<RenderIdx>2</RenderIdx>
 		</Platform>
 		<Platform>
 			<X>2757</X>
-			<Y>237</Y>
-			<Width>29</Width>
+			<Y>238</Y>
+			<Width>72</Width>
 			<Height>227</Height>
 			<RenderIdx>2</RenderIdx>
 		</Platform>
@@ -134,21 +141,21 @@
 			<RenderIdx>2</RenderIdx>
 		</Platform>
 		<Platform>
-			<X>3581</X>
+			<X>3562</X>
 			<Y>270</Y>
-			<Width>44</Width>
+			<Width>96</Width>
 			<Height>40</Height>
 			<RenderIdx>2</RenderIdx>
 		</Platform>
 		<Platform>
 			<X>3749</X>
-			<Y>332</Y>
+			<Y>333</Y>
 			<Width>21</Width>
 			<Height>131</Height>
 			<RenderIdx>2</RenderIdx>
 		</Platform>
 		<Platform>
-			<X>3771</X>
+			<X>3770</X>
 			<Y>377</Y>
 			<Width>126</Width>
 			<Height>23</Height>
@@ -169,14 +176,14 @@
 			<RenderIdx>2</RenderIdx>
 		</Platform>
 		<Platform>
-			<X>4604</X>
+			<X>4591</X>
 			<Y>270</Y>
 			<Width>89</Width>
 			<Height>70</Height>
 			<RenderIdx>2</RenderIdx>
 		</Platform>
 		<Platform>
-			<X>4808</X>
+			<X>4784</X>
 			<Y>263</Y>
 			<Width>115</Width>
 			<Height>67</Height>
@@ -184,7 +191,7 @@
 		</Platform>
 		<Platform>
 			<X>5033</X>
-			<Y>412</Y>
+			<Y>335</Y>
 			<Width>75</Width>
 			<Height>52</Height>
 			<RenderIdx>2</RenderIdx>
@@ -204,13 +211,6 @@
 			<RenderIdx>2</RenderIdx>
 		</Platform>
 		<Platform>
-			<X>5109</X>
-			<Y>334</Y>
-			<Width>85</Width>
-			<Height>75</Height>
-			<RenderIdx>2</RenderIdx>
-		</Platform>
-		<Platform>
 			<X>5193</X>
 			<Y>255</Y>
 			<Width>92</Width>
@@ -218,15 +218,8 @@
 			<RenderIdx>2</RenderIdx>
 		</Platform>
 		<Platform>
-			<X>5284</X>
-			<Y>174</Y>
-			<Width>95</Width>
-			<Height>80</Height>
-			<RenderIdx>2</RenderIdx>
-		</Platform>
-		<Platform>
-			<X>5418</X>
-			<Y>178</Y>
+			<X>5368</X>
+			<Y>180</Y>
 			<Width>339</Width>
 			<Height>25</Height>
 			<RenderIdx>2</RenderIdx>
@@ -243,6 +236,34 @@
 			<Y>210</Y>
 			<Width>142</Width>
 			<Height>24</Height>
+			<RenderIdx>2</RenderIdx>
+		</Platform>
+		<Platform>
+			<X>6507</X>
+			<Y>37</Y>
+			<Width>22</Width>
+			<Height>138</Height>
+			<RenderIdx>2</RenderIdx>
+		</Platform>
+		<Platform>
+			<X>6880</X>
+			<Y>37</Y>
+			<Width>22</Width>
+			<Height>138</Height>
+			<RenderIdx>2</RenderIdx>
+		</Platform>
+		<Platform>
+			<X>6572</X>
+			<Y>319</Y>
+			<Width>97</Width>
+			<Height>25</Height>
+			<RenderIdx>2</RenderIdx>
+		</Platform>
+		<Platform>
+			<X>6779</X>
+			<Y>319</Y>
+			<Width>97</Width>
+			<Height>25</Height>
 			<RenderIdx>2</RenderIdx>
 		</Platform>
 	</Platforms>

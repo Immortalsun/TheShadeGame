@@ -36,7 +36,37 @@ public class Animation {
         frameCounter = 1;
         completionCounter = 0;
 
-        if(state.equals(AnimationState.CHARGED) || state.equals(AnimationState.RUNNING))
+        if(state.equals(AnimationState.CHARGED) ||
+                state.equals(AnimationState.RUNNING) ||
+                state.equals(AnimationState.IDLE))
+        {
+            isLooping = true;
+        }
+    }
+
+    public Animation(PImage image, PImage revImage, AnimationState state, int fCount, int fps)
+    {
+        associatedState = state;
+        this.image = image;
+
+        if(revImage == null)
+        {
+            reversedImage = image;
+        }
+        else
+        {
+            reversedImage = revImage;
+        }
+
+        maxFrames = fCount;
+        desiredFps = fps;
+        currentFrame = 0;
+        frameCounter = 1;
+        completionCounter = 0;
+
+        if(state.equals(AnimationState.CHARGED) ||
+                state.equals(AnimationState.RUNNING) ||
+                state.equals(AnimationState.IDLE))
         {
             isLooping = true;
         }

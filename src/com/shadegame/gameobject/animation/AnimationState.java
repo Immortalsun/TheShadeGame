@@ -6,6 +6,7 @@ package com.shadegame.gameobject.animation;
 
 public enum AnimationState
 {
+    IDLE,
     RUNNING,
     JUMPING,
     ATTACKING,

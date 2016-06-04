@@ -98,8 +98,6 @@ public class GameMain extends PApplet
 
     public void keyReleased()
     {
-        if(paused)
-            return;
         if(key == CODED)
         {
             if(keyCode == 37)

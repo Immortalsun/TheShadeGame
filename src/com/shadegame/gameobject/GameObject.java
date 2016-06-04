@@ -232,11 +232,14 @@ public class GameObject
             return AnimationState.JUMPING;
         }
 
+        if(isGround)
+        {
+            return AnimationState.IDLE;
+        }
+
         if (isOnGround) {
             return AnimationState.RUNNING;
         }
-
-
         return AnimationState.RUNNING;
     }
 
@@ -268,7 +271,7 @@ public class GameObject
         else
         {
 
-                sketchParent.shape(boundingRect, location.x, location.y);
+            sketchParent.shape(boundingRect, location.x, location.y);
         }
     }
 
