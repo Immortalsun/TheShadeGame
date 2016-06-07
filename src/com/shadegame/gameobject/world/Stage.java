@@ -19,7 +19,6 @@ public class Stage
 {
     private int _width, _height, _score,_bgXTranslation;
     private PApplet _sketchParent;
-    private String _platformFile;
     private PImage backImg, lastBackImg;
     private PImage foreImg, lastForeImg;
     private PImage platformSkinImg;
