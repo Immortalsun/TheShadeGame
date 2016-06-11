@@ -5,11 +5,15 @@ import com.shadegame.gameobject.GameObject;
 import com.shadegame.gameobject.animation.Animation;
 import com.shadegame.gameobject.animation.AnimationState;
 import com.shadegame.gameobject.animation.TextureAnimation;
+import processing.awt.PGraphicsJava2D;
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.core.PVector;
 
 import java.util.Random;
+
+import static processing.core.PConstants.JAVA2D;
 
 /**
  * Created by Maashes on 4/6/2016.
@@ -21,7 +25,6 @@ public class Stage
     private PApplet _sketchParent;
     private PImage backImg, lastBackImg;
     private PImage foreImg, lastForeImg;
-    private PImage platformSkinImg;
 
     public Stage(PApplet parent)
     {
@@ -32,7 +35,6 @@ public class Stage
     {
         backImg = _sketchParent.loadImage(images[0]);
         foreImg = _sketchParent.loadImage(images[1]);
-        platformSkinImg = _sketchParent.loadImage(images[2]);
     }
 
     public int GetWidth()
@@ -57,20 +59,14 @@ public class Stage
         _height = height;
     }
 
-    public void SkinPlatform(GameObject platform)
+    public void SkinPlatform(GameObject platform, String imgPath)
     {
-        if(platform != null && platformSkinImg != null)
+        if(platform != null && imgPath != null)
         {
-            Random rand = new Random();
-            PImage platformImage;
-            int platformWidth = (int)platform.GetWidth();
-            int platformHeight = (int)platform.GetHeight();
-            int imageXLoc = rand.nextInt(platformSkinImg.width - platformWidth);
-            int imageYLoc = rand.nextInt(platformSkinImg.height - platformHeight);
-            platformImage = platformSkinImg.get(imageXLoc,imageYLoc,platformWidth,platformHeight);
-            Animation[] platformAnim = new Animation[1];
-            platformAnim[0] = new TextureAnimation(platformImage);
-            platform.BuildAnimator(platformAnim);
+            PImage platformImage = _sketchParent.loadImage(imgPath);
+            Animation[] textureAnims = new Animation[1];
+            textureAnims[0] = new TextureAnimation(platformImage);
+            platform.BuildAnimator(textureAnims);
         }
     }
 

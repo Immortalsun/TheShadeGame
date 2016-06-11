@@ -103,7 +103,13 @@ public class Engine
             GameObject plat =new GameObject(platform.XLoc, platform.YLoc, platform.Width,platform.Height,sketchParent);
             plat.SetCollisionType(CollisionType.GROUND);
             plat.SetIsGround(true);
-            _currentStage.SkinPlatform(plat);
+            if(platform.Image != null && !platform.Image.equalsIgnoreCase(""))
+            {
+                String[] imageArr = new String[1];
+                imageArr[0] = platform.Image;
+                String platformImagePath = GetImagePathsFromNames(imageArr)[0];
+                _currentStage.SkinPlatform(plat,platformImagePath);
+            }
             _gameObjectCollection.add(plat);
         }
     }

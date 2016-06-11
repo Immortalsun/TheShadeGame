@@ -17,6 +17,7 @@ public class LevelBuilder
     private final String PLATFORM_TAG = "Platform";
     private final String IMAGES_TAG= "Images";
     private final String DIMENSIONS_TAG = "Dimensions";
+    private final String IMAGENAME_TAG = "ImageName";
     private final String WIDTH_TAG = "Width";
     private final String HEIGHT_TAG = "Height";
     private final String RENDERIDX_TAG = "RenderIdx";
@@ -139,6 +140,7 @@ public class LevelBuilder
         {
             float xLoc,yLoc,width,height;
             xLoc = yLoc = width = height = 0;
+            String imgName = "";
             NodeList platformAttributes = platformNode.getChildNodes();
             for(int i=0; i<platformAttributes.getLength(); i++)
             {
@@ -159,8 +161,14 @@ public class LevelBuilder
                 {
                     height = Float.parseFloat(attr.getTextContent());
                 }
+                else if(attr.getNodeName().equalsIgnoreCase(IMAGENAME_TAG))
+                {
+                    imgName = attr.getTextContent();
+                }
             }
-            return new Platform(xLoc,yLoc,width,height);
+            Platform retPlat = new Platform(xLoc,yLoc,width,height);
+            retPlat.SetPlatformImage(imgName);
+            return retPlat;
         }
 
         return null;
@@ -211,6 +219,7 @@ public class LevelBuilder
         public float YLoc;
         public float Width;
         public float Height;
+        public String Image;
 
         public Platform(float x, float y, float width, float height)
         {
@@ -218,6 +227,11 @@ public class LevelBuilder
             YLoc = y;
             Width = width;
             Height = height;
+        }
+
+        public void SetPlatformImage(String img)
+        {
+            Image = img;
         }
     }
 }

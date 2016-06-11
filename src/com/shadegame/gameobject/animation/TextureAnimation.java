@@ -7,9 +7,10 @@ import processing.core.PImage;
  */
 public class TextureAnimation extends Animation
 {
-    public TextureAnimation(PImage image)
+
+    public TextureAnimation(PImage mainImage)
     {
-        super(image, null, AnimationState.IDLE, 1, 100);
+        super(mainImage, null, AnimationState.IDLE, 1, 100);
     }
 
     @Override
