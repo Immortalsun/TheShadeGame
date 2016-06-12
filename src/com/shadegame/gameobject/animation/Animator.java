@@ -31,7 +31,7 @@ public class Animator {
     {
         for(Animation anim : animations)
         {
-            _animations.put(anim.associatedState, anim);
+            _animations.put(anim.AssociatedState, anim);
         }
     }
 
@@ -90,7 +90,16 @@ public class Animator {
             lastDirection = object.GetVelocity().x;
         }
 
-        sketchParent.image(frame, object.GetLocation().x, object.GetLocation().y, object.GetWidth(), object.GetHeight());
+        float xLoc = object.GetLocation().x;
+        float yLoc = object.GetLocation().y;
+
+        if(anim.HasSpecifiedLocation())
+        {
+            xLoc = anim.GetAnimationX();
+            yLoc = anim.GetAnimationY();
+        }
+
+        sketchParent.image(frame, xLoc, yLoc, frame.width, frame.height);
 
         if(object.GetIsAnimTriggered())
         {

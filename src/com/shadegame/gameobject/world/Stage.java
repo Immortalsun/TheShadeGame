@@ -59,13 +59,16 @@ public class Stage
         _height = height;
     }
 
-    public void SkinPlatform(GameObject platform, String imgPath)
+    public void SkinPlatform(GameObject platform, String imgPath, float animX, float animY)
     {
         if(platform != null && imgPath != null)
         {
             PImage platformImage = _sketchParent.loadImage(imgPath);
             Animation[] textureAnims = new Animation[1];
-            textureAnims[0] = new TextureAnimation(platformImage);
+            TextureAnimation textureAnim = new TextureAnimation(platformImage);
+            textureAnim.SetAnimationLocation(animX,animY);
+            textureAnims[0] = textureAnim;
+
             platform.BuildAnimator(textureAnims);
         }
     }

@@ -16,6 +16,6 @@ public class TextureAnimation extends Animation
     @Override
     public PImage GetNextFrame(boolean isReversed, int moveDirection)
     {
-        return image;
+        return Image;
     }
 }

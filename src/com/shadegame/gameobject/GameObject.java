@@ -3,6 +3,7 @@ package com.shadegame.gameobject;
 /**
  * Created by Maashes on 3/30/2016.
  */
+import com.shadegame.engine.EngineProvider;
 import com.shadegame.engine.collision.CollisionType;
 import com.shadegame.gameobject.animation.Animation;
 import com.shadegame.gameobject.animation.AnimationState;
@@ -20,7 +21,7 @@ public class GameObject
     private PApplet sketchParent;
     private CollisionType collisionType;
     private Animator animator;
-    private int fillColor, orientation;
+    private int strokeColor, orientation;
     private float minY, minX, objWidth, objHeight;
     private boolean isPlayer, isOnGround, isGround,
             isJumping, isDestroyed, isAttacking,
@@ -37,10 +38,10 @@ public class GameObject
         objHeight = objectHeight;
         isPlayer = false;
         velocity = new PVector(0,0);
-        fillColor = sketchParent.color(168,230,201);
+        strokeColor = sketchParent.color(0,0,0);
         orientation = 1;
-        boundingRect.setFill(fillColor);
-        boundingRect.setStroke(false);
+        boundingRect.setFill(false);
+        boundingRect.setStroke(strokeColor);
     }
 
     //Properties
@@ -268,10 +269,10 @@ public class GameObject
         {
             animator.DoAnimation(GetCurrentAnimationState());
         }
-        else
-        {
 
-            sketchParent.shape(boundingRect, location.x, location.y);
+        if(EngineProvider.GetDefaultEngineInstance().GetIsEngineDebugMode())
+        {
+            sketchParent.shape(boundingRect,location.x,location.y);
         }
     }
 

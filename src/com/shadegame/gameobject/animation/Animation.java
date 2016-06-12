@@ -10,21 +10,22 @@ import processing.core.PImage;
 
 public class Animation {
 
-    public String imageName;
-    public String reversedImageName;
-    public PImage image, reversedImage;
+    private String imageName;
+    private String reversedImageName;
+    public final PImage Image, reversedImage;
     private Animation childAnim;
-    public AnimationState associatedState;
-    public int maxFrames, desiredFps, currentFrame, frameCounter, completionCounter;
-    public boolean isCompleted, hasChildAnimation, isLooping;
+    public final AnimationState AssociatedState;
+    private int maxFrames, desiredFps, currentFrame, frameCounter, completionCounter;
+    private float animXLoc,animYLoc;
+    private boolean isCompleted, hasChildAnimation, isLooping, hasLocation;
 
     public Animation(PApplet parent, String name, String revName, AnimationState state, int fCount, int fps)
     {
 
         imageName = name;
         reversedImageName = revName;
-        associatedState = state;
-        image = parent.loadImage(imageName);
+        AssociatedState = state;
+        Image = parent.loadImage(imageName);
         if(reversedImageName.isEmpty())
         {
             reversedImageName = imageName;
@@ -46,12 +47,12 @@ public class Animation {
 
     public Animation(PImage image, PImage revImage, AnimationState state, int fCount, int fps)
     {
-        associatedState = state;
-        this.image = image;
+        AssociatedState = state;
+        this.Image = image;
 
         if(revImage == null)
         {
-            reversedImage = image;
+            reversedImage = Image;
         }
         else
         {
@@ -83,9 +84,43 @@ public class Animation {
         isLooping = value;
     }
 
+    public void SetAnimationLocation(float x, float y)
+    {
+        animXLoc = x;
+        animYLoc = y;
+        hasLocation = true;
+    }
+
+    public void SetCurrentFrame(int frame)
+    {
+        currentFrame = frame;
+    }
+
+    public int GetCurrentFrame()
+    {
+        return currentFrame;
+    }
+
+    public float GetAnimationX()
+    {
+        return animXLoc;
+    }
+
+    public float GetAnimationY()
+    {
+        return animYLoc;
+    }
+
     public Animation GetChildAnimation()
     {
         return childAnim;
+    }
+
+
+
+    public boolean HasSpecifiedLocation()
+    {
+        return hasLocation;
     }
 
     public boolean GetIsCompleted()
@@ -103,7 +138,7 @@ public class Animation {
         {
             if (!isReversed)
             {
-                frame = image.get(0, (currentFrame * 32), 32, 32);
+                frame = Image.get(0, (currentFrame * 32), 32, 32);
                 return frame;
             }
             else
@@ -115,7 +150,7 @@ public class Animation {
         {
             if(!isReversed)
             {
-                frame = image.get(0, (maxFrames-1)*32, 32, 32);
+                frame = Image.get(0, (maxFrames-1)*32, 32, 32);
             }
             else
             {

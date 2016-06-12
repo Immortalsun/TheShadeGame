@@ -29,7 +29,7 @@ public class JumpingAnimation extends Animation {
             }
             else
             {
-                frame = image.get(0,0,32,32);
+                frame = Image.get(0,0,32,32);
                 return frame;
             }
         }
@@ -42,7 +42,7 @@ public class JumpingAnimation extends Animation {
             }
             else
             {
-                frame = image.get(0,32,32,32);
+                frame = Image.get(0,32,32,32);
                 return frame;
             }
         }

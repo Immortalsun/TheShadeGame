@@ -7,6 +7,9 @@ import java.io.File;
 import java.util.ArrayList;
 import javax.xml.parsers.*;
 import javax.xml.xpath.*;
+
+import com.shadegame.engine.utils.PlatformHelper;
+import com.shadegame.engine.utils.PlatformType;
 import org.w3c.dom.*;
 
 public class LevelBuilder
@@ -168,6 +171,7 @@ public class LevelBuilder
             }
             Platform retPlat = new Platform(xLoc,yLoc,width,height);
             retPlat.SetPlatformImage(imgName);
+            retPlat.SetPlatformType(PlatformHelper.GetPlatformType(imgName));
             return retPlat;
         }
 
@@ -220,6 +224,7 @@ public class LevelBuilder
         public float Width;
         public float Height;
         public String Image;
+        public PlatformType Type;
 
         public Platform(float x, float y, float width, float height)
         {
@@ -232,6 +237,11 @@ public class LevelBuilder
         public void SetPlatformImage(String img)
         {
             Image = img;
+        }
+
+        public void SetPlatformType(PlatformType type)
+        {
+            Type = type;
         }
     }
 }

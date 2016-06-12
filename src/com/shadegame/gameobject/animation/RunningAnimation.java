@@ -23,17 +23,17 @@ public class RunningAnimation extends Animation
         boolean isMoving = moveDirection != 0;
 
         if (!isMoving) {
-            currentFrame = 0;
+            SetCurrentFrame(0);
         }
 
         if (!isReversed)
         {
-            frame = image.get(0, (currentFrame * 32), 32, 32);
+            frame = Image.get(0, (GetCurrentFrame() * 32), 32, 32);
             return frame;
         }
         else
         {
-            frame = reversedImage.get(0, (currentFrame * 32), 32, 32);
+            frame = reversedImage.get(0, (GetCurrentFrame() * 32), 32, 32);
         }
 
 

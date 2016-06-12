@@ -7,6 +7,7 @@ import com.shadegame.engine.collision.CollisionDirection;
 import com.shadegame.engine.collision.CollisionResult;
 import com.shadegame.engine.collision.CollisionRule;
 import com.shadegame.engine.collision.CollisionType;
+import com.shadegame.engine.utils.PlatformHelper;
 import com.shadegame.gameobject.*;
 import com.shadegame.gameobject.enemy.Enemy;
 import com.shadegame.gameobject.enemy.EnemyType;
@@ -28,7 +29,7 @@ public class Engine
     private int screenHeight;
     private int _currentLevelIndex;
     private float xTranslation, yTranslation, baseYTranslation, maxXTranslation;
-    private boolean _paused;
+    private boolean _paused,_debugMode;
     private LevelBuilder _levelBuilder;
     private ArrayList<GameObject> _gameObjectCollection;
     private ArrayList<Enemy> _enemyCollection;
@@ -100,7 +101,11 @@ public class Engine
         ArrayList<LevelBuilder.Platform> platforms = _levelBuilder.GetPlatforms();
         for(LevelBuilder.Platform platform : platforms)
         {
-            GameObject plat =new GameObject(platform.XLoc, platform.YLoc, platform.Width,platform.Height,sketchParent);
+            float[] boundingOffsets = PlatformHelper.GetPlatformBoundingBoxOffsets(platform.Type);
+            GameObject plat =new GameObject(platform.XLoc+boundingOffsets[0],
+                    platform.YLoc+boundingOffsets[1],
+                    platform.Width+boundingOffsets[2],
+                    platform.Height+boundingOffsets[3],sketchParent);
             plat.SetCollisionType(CollisionType.GROUND);
             plat.SetIsGround(true);
             if(platform.Image != null && !platform.Image.equalsIgnoreCase(""))
@@ -108,7 +113,7 @@ public class Engine
                 String[] imageArr = new String[1];
                 imageArr[0] = platform.Image;
                 String platformImagePath = GetImagePathsFromNames(imageArr)[0];
-                _currentStage.SkinPlatform(plat,platformImagePath);
+                _currentStage.SkinPlatform(plat,platformImagePath,platform.XLoc,platform.YLoc);
             }
             _gameObjectCollection.add(plat);
         }
@@ -590,6 +595,8 @@ public class Engine
         _paused = !_paused;
     }
 
+    public void ToggleEngineDebugMode(){ _debugMode = !_debugMode;}
+
     public PVector GetPlayerLocation()
     {
         return new PVector(player.GetLocation().x, player.GetLocation().y);
@@ -627,5 +634,10 @@ public class Engine
     public boolean GetIsPaused()
     {
         return _paused;
+    }
+
+    public boolean GetIsEngineDebugMode()
+    {
+        return _debugMode;
     }
 }

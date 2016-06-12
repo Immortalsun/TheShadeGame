@@ -73,6 +73,11 @@ public class GameMain extends PApplet
         }
         else
         {
+            if(key=='d' || key=='D')
+            {
+                ToggleDebugMode();
+            }
+
             if (key == 'P' || key == 'p')
             {
                 Pause();
@@ -229,5 +234,10 @@ public class GameMain extends PApplet
             paused = false;
             engine.PauseEngine();
         }
+    }
+
+    public void ToggleDebugMode()
+    {
+        engine.ToggleEngineDebugMode();
     }
 }

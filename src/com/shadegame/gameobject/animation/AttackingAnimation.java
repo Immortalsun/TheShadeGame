@@ -22,13 +22,13 @@ public class AttackingAnimation extends Animation {
 
         if (!isReversed)
         {
-            frame = image.get(0, (currentFrame * 32), 32, 32);
+            frame = Image.get(0, (GetCurrentFrame() * 32), 32, 32);
 
             return frame;
         }
         else
         {
-            frame = reversedImage.get(0, (currentFrame * 32), 32, 32);
+            frame = reversedImage.get(0, (GetCurrentFrame() * 32), 32, 32);
         }
 
         return frame;
