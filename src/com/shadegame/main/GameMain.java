@@ -15,6 +15,7 @@ import java.util.Map;
 public class GameMain extends PApplet
 {
     float acceleration = 0.1f;
+    float playerSpeed = 2.8f;
     int windowWidth = 800;
     int windowHeight = 500;
     int stageWidth, stageHeight;
@@ -159,11 +160,11 @@ public class GameMain extends PApplet
             }
             else if(keyMap.get(37))
             {
-                playerVelocity.x = -2.5f;
+                playerVelocity.x = -(playerSpeed);
             }
             else if(keyMap.get(39))
             {
-                playerVelocity.x = 2.5f;
+                playerVelocity.x = playerSpeed;
             }
 
             if(keyMap.get(38) && !player.GetIsJumping())
