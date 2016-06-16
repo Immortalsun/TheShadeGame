@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import javax.xml.parsers.*;
 import javax.xml.xpath.*;
 
+import com.shadegame.engine.utils.PlatformGroup;
 import com.shadegame.engine.utils.PlatformHelper;
-import com.shadegame.engine.utils.PlatformType;
+import com.shadegame.engine.utils.Platform;
 import org.w3c.dom.*;
 
 public class LevelBuilder
@@ -21,6 +22,9 @@ public class LevelBuilder
     private final String IMAGES_TAG= "Images";
     private final String DIMENSIONS_TAG = "Dimensions";
     private final String IMAGENAME_TAG = "ImageName";
+    private final String GROUPS_TAG = "Groups";
+    private final String NAME_TAG = "Name";
+    private final String GROUP_TAG = "Group";
     private final String WIDTH_TAG = "Width";
     private final String HEIGHT_TAG = "Height";
     private final String RENDERIDX_TAG = "RenderIdx";
@@ -107,7 +111,7 @@ public class LevelBuilder
         return -1;
     }
 
-    public ArrayList<Platform> GetPlatforms()
+    public ArrayList<Platform> GetPlatforms(ArrayList<PlatformGroup> groups)
     {
         ArrayList<Platform> platforms = new ArrayList<>();
 
@@ -125,16 +129,66 @@ public class LevelBuilder
                         Platform platform = BuildPlatformObject(platformNode);
                         if(platform != null)
                         {
-                            platforms.add(platform);
+                            boolean addToGroup = false;
+                            for(int k=0; k< groups.size(); k++)
+                            {
+                                if(IsPlatformPartOfGroup(groups.get(k),platform))
+                                {
+                                    groups.get(k).AddPlatformChild(platform);
+                                    addToGroup = true;
+                                }
+                            }
+
+                            if(!addToGroup)
+                            {
+                                platforms.add(platform);
+                            }
                         }
+                    }
+
+                    for(int j=0; j < groups.size(); j++)
+                    {
+                        PlatformGroup group = groups.get(j);
+                        group.BuildFullPlatform();
+                        platforms.add(group);
                     }
                 }
 
             }catch(Exception ex){}
         }
-
-
         return platforms;
+    }
+
+    public boolean IsPlatformPartOfGroup(PlatformGroup group, Platform platform)
+    {
+        return (platform.XLoc >= group.XLoc && platform.XLoc+platform.Width <= group.XLoc+group.Width) &&
+                (platform.YLoc >= group.YLoc && platform.YLoc+platform.Height <= group.YLoc+group.Height);
+    }
+
+    public ArrayList<PlatformGroup> GetGroups()
+    {
+        ArrayList<PlatformGroup> groups = new ArrayList<>();
+        if(_doc != null)
+        {
+            XPath xPath = XPathFactory.newInstance().newXPath();
+            try
+            {
+                NodeList groupNodes = (NodeList)xPath.compile("/" + LEVEL_TAG + "/" + GROUPS_TAG + "/" + GROUP_TAG).evaluate(_doc, XPathConstants.NODESET);
+                if(groupNodes != null && groupNodes.getLength() > 0)
+                {
+                    for(int i=0; i < groupNodes.getLength(); i++)
+                    {
+                        Node groupNode = groupNodes.item(i);
+                        PlatformGroup group = BuildGroupObject(groupNode);
+                        if(group != null)
+                        {
+                            groups.add(group);
+                        }
+                    }
+                }
+            }catch(Exception ex){}
+        }
+        return groups;
     }
 
     private Platform BuildPlatformObject(Node platformNode)
@@ -173,6 +227,47 @@ public class LevelBuilder
             retPlat.SetPlatformImage(imgName);
             retPlat.SetPlatformType(PlatformHelper.GetPlatformType(imgName));
             return retPlat;
+        }
+
+        return null;
+    }
+
+    private PlatformGroup BuildGroupObject(Node groupNode)
+    {
+
+        if(groupNode.hasChildNodes())
+        {
+            float xLoc,yLoc,width,height;
+            xLoc = yLoc = width = height = 0;
+            String name = "";
+            NodeList groupAttributes = groupNode.getChildNodes();
+            for(int i=0; i<groupAttributes.getLength(); i++)
+            {
+                Node attr = groupAttributes.item(i);
+                if(attr.getNodeName().equalsIgnoreCase(X_TAG))
+                {
+                    xLoc = Float.parseFloat(attr.getTextContent());
+                }
+                else if(attr.getNodeName().equalsIgnoreCase(Y_TAG))
+                {
+                    yLoc = Float.parseFloat(attr.getTextContent());
+                }
+                else if(attr.getNodeName().equalsIgnoreCase(WIDTH_TAG))
+                {
+                    width = Float.parseFloat(attr.getTextContent());
+                }
+                else if(attr.getNodeName().equalsIgnoreCase(HEIGHT_TAG))
+                {
+                    height = Float.parseFloat(attr.getTextContent());
+                }
+                else if(attr.getNodeName().equalsIgnoreCase(NAME_TAG))
+                {
+                    name = attr.getTextContent();
+                }
+            }
+            PlatformGroup retGroup = new PlatformGroup(xLoc,yLoc,width,height,name);
+
+            return retGroup;
         }
 
         return null;
@@ -217,31 +312,4 @@ public class LevelBuilder
         return dimensions;
     }
 
-    public class Platform
-    {
-        public float XLoc;
-        public float YLoc;
-        public float Width;
-        public float Height;
-        public String Image;
-        public PlatformType Type;
-
-        public Platform(float x, float y, float width, float height)
-        {
-            XLoc = x;
-            YLoc = y;
-            Width = width;
-            Height = height;
-        }
-
-        public void SetPlatformImage(String img)
-        {
-            Image = img;
-        }
-
-        public void SetPlatformType(PlatformType type)
-        {
-            Type = type;
-        }
-    }
 }

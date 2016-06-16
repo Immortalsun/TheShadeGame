@@ -20,6 +20,16 @@
 			<RenderIdx>1</RenderIdx>
 		</longWarehouseFore>
 	</Images>
+	<Groups>
+		<Group>
+			<Name>Group1</Name>
+			<X>1588</X>
+			<Y>211</Y>
+			<Width>451</Width>
+			<Height>91</Height>
+			<RenderIdx>2</RenderIdx>
+		</Group>
+	</Groups>
 	<Platforms>
 		<Platform>
 			<X>204</X>

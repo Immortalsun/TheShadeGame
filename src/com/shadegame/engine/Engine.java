@@ -3,19 +3,13 @@ package com.shadegame.engine;
 /**
  * Created by Maashes on 3/30/2016.
  */
-import com.shadegame.engine.collision.CollisionDirection;
-import com.shadegame.engine.collision.CollisionResult;
-import com.shadegame.engine.collision.CollisionRule;
-import com.shadegame.engine.collision.CollisionType;
-import com.shadegame.engine.utils.PlatformHelper;
+import com.shadegame.engine.collision.*;
+import com.shadegame.engine.utils.*;
 import com.shadegame.gameobject.*;
-import com.shadegame.gameobject.enemy.Enemy;
-import com.shadegame.gameobject.enemy.EnemyType;
-import com.shadegame.gameobject.enemy.RangedEnemy;
-import com.shadegame.gameobject.player.Player;
-import com.shadegame.gameobject.projectiles.Projectile;
-import com.shadegame.gameobject.world.HUD;
-import com.shadegame.gameobject.world.Stage;
+import com.shadegame.gameobject.enemy.*;
+import com.shadegame.gameobject.player.*;
+import com.shadegame.gameobject.projectiles.*;
+import com.shadegame.gameobject.world.*;
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -98,8 +92,9 @@ public class Engine
         _currentStage.SetHeight(levelDimensions[1]);
         String[] images = GetImagePathsFromNames(_levelBuilder.GetImageNames());
         _currentStage.LoadImages(images);
-        ArrayList<LevelBuilder.Platform> platforms = _levelBuilder.GetPlatforms();
-        for(LevelBuilder.Platform platform : platforms)
+        ArrayList<PlatformGroup> groups = _levelBuilder.GetGroups();
+        ArrayList<Platform> platforms = _levelBuilder.GetPlatforms(groups);
+        for(Platform platform : platforms)
         {
             float[] boundingOffsets = PlatformHelper.GetPlatformBoundingBoxOffsets(platform.Type);
             GameObject plat =new GameObject(platform.XLoc+boundingOffsets[0],
@@ -108,12 +103,18 @@ public class Engine
                     platform.Height+boundingOffsets[3],sketchParent);
             plat.SetCollisionType(CollisionType.GROUND);
             plat.SetIsGround(true);
-            if(platform.Image != null && !platform.Image.equalsIgnoreCase(""))
+            if(platform instanceof Platform && platform.Image != null && !platform.Image.equalsIgnoreCase(""))
             {
                 String[] imageArr = new String[1];
                 imageArr[0] = platform.Image;
                 String platformImagePath = GetImagePathsFromNames(imageArr)[0];
                 _currentStage.SkinPlatform(plat,platformImagePath,platform.XLoc,platform.YLoc);
+            }
+            else if(platform instanceof PlatformGroup)
+            {
+                PlatformGroup group = (PlatformGroup)platform;
+                String[] groupImages = GetImagePathsFromNames(group.GetChildImages());
+                _currentStage.SkinPlatformGroup(plat,groupImages,group.GetChildren(),group.XLoc,group.YLoc);
             }
             _gameObjectCollection.add(plat);
         }

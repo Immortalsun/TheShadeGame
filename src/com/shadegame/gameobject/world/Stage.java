@@ -1,6 +1,8 @@
 package com.shadegame.gameobject.world;
 
 import com.shadegame.engine.EngineProvider;
+import com.shadegame.engine.utils.Platform;
+import com.shadegame.engine.utils.PlatformGroup;
 import com.shadegame.gameobject.GameObject;
 import com.shadegame.gameobject.animation.Animation;
 import com.shadegame.gameobject.animation.AnimationState;
@@ -11,6 +13,7 @@ import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.core.PVector;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static processing.core.PConstants.JAVA2D;
@@ -64,6 +67,45 @@ public class Stage
         if(platform != null && imgPath != null)
         {
             PImage platformImage = _sketchParent.loadImage(imgPath);
+            Animation[] textureAnims = new Animation[1];
+            TextureAnimation textureAnim = new TextureAnimation(platformImage);
+            textureAnim.SetAnimationLocation(animX,animY);
+            textureAnims[0] = textureAnim;
+
+            platform.BuildAnimator(textureAnims);
+        }
+    }
+
+    public void SkinPlatformGroup(GameObject platform, String[] imagePaths, ArrayList<Platform> groupChildren, float animX, float animY)
+    {
+        if(platform != null && imagePaths.length > 0)
+        {
+            int platWidth = (int)platform.GetWidth();
+            int platHeight = (int)platform.GetHeight();
+            float imgX = 0;
+            float imgY = 0;
+            Platform prevChild = null;
+            PGraphics combinedSkin = _sketchParent.createGraphics(platWidth,platHeight, JAVA2D);
+            for(int i=0; i<imagePaths.length; i++)
+            {
+                if(prevChild != null)
+                {
+                    if(groupChildren.get(i).XLoc > prevChild.XLoc)
+                    {
+                        imgX+=groupChildren.get(i).Width;
+                    }
+                    if(groupChildren.get(i).YLoc > prevChild.YLoc)
+                    {
+                        imgY += groupChildren.get(i).Height;
+                    }
+                }
+                PImage imageFragment = _sketchParent.loadImage(imagePaths[i]);
+                combinedSkin.beginDraw();
+                combinedSkin.image(imageFragment,imgX,imgY);
+                prevChild = groupChildren.get(i);
+            }
+            combinedSkin.endDraw();
+            PImage platformImage = combinedSkin.get();
             Animation[] textureAnims = new Animation[1];
             TextureAnimation textureAnim = new TextureAnimation(platformImage);
             textureAnim.SetAnimationLocation(animX,animY);
