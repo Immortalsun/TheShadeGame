@@ -5,7 +5,9 @@ package com.shadegame.engine.utils;
  */
 public enum PlatformType
 {
-    BASIC,
+    COMPLETE,
+    BASICHORIZONTAL,
+    BASICVERTICAL,
     HORIZONTALSHIFT,
     VERTICALSHIFT,
     FALLINGTRAP

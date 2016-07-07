@@ -8,12 +8,17 @@ public class PlatformHelper
 
     public static PlatformType GetPlatformType(String platformImage)
     {
-        if(platformImage.contains("basic"))
+        if(platformImage.contains("Horizontal") || platformImage.contains("Left") || platformImage.contains("Right"))
         {
-            return PlatformType.BASIC;
+            return PlatformType.BASICHORIZONTAL;
         }
 
-        return PlatformType.BASIC;
+        if(platformImage.contains("Vertical") || platformImage.contains("Top") || platformImage.contains("Bottom"))
+        {
+            return PlatformType.BASICVERTICAL;
+        }
+
+        return PlatformType.COMPLETE;
     }
 
     public static float[] GetPlatformBoundingBoxOffsets(PlatformType type)
@@ -22,7 +27,8 @@ public class PlatformHelper
 
         switch(type)
         {
-            case BASIC:
+            case COMPLETE:
+            case BASICHORIZONTAL:
                 bounds[0] = 0;
                 bounds[1] = 2;
                 bounds[2] = 0;

@@ -32,26 +32,6 @@ public class PlatformGroup extends Platform
             _totalWidth = p.Width;
             return;
         }
-
-        if(p.XLoc < _smallestX)
-        {
-            _smallestX = p.XLoc;
-        }
-
-        if(p.YLoc < _smallestY)
-        {
-            _smallestY = p.YLoc;
-        }
-
-        if(p.YLoc+p.Height > _smallestY + _totalHeight)
-        {
-            _totalHeight += p.Height;
-        }
-
-        if(p.XLoc+p.Width > _smallestX + _totalWidth)
-        {
-            _totalWidth += p.Width;
-        }
         SetPlatformType(p.Type);
     }
 
@@ -67,22 +47,62 @@ public class PlatformGroup extends Platform
 
     public void BuildFullPlatform()
     {
+        _platformChildren.sort((platform, t1) -> {
+            if(platform.XLoc != t1.XLoc){
+                if(platform.XLoc < t1.XLoc)
+                {
+                    return -1;
+                }
+                else if(platform.XLoc > t1.XLoc)
+                {
+                    return 1;
+                }
+            }
+            else if(platform.YLoc != t1.YLoc){
+                if(platform.YLoc < t1.YLoc){
+                    return -1;
+                }
+                else if(platform.YLoc > t1.YLoc){
+                    return 1;
+                }
+            }
+
+            return 0;
+        });
+
+        if(_platformChildren.size() > 1)
+        {
+            for(Platform p : _platformChildren)
+            {
+                if(p.XLoc < _smallestX)
+                {
+                    _smallestX = p.XLoc;
+                }
+
+                if(p.YLoc < _smallestY)
+                {
+                    _smallestY = p.YLoc;
+                }
+
+                if(p.YLoc+p.Height > _smallestY + _totalHeight)
+                {
+                    _totalHeight += p.Height;
+                }
+
+                if(p.XLoc+p.Width > _smallestX + _totalWidth)
+                {
+                    _totalWidth += p.Width;
+                }
+            }
+        }
+
+
         XLoc = _smallestX;
         YLoc = _smallestY;
         Width = _totalWidth;
         Height = _totalHeight;
         _images = new String[_platformChildren.size()];
-        _platformChildren.sort((platform, t1) -> {
-            if(platform.XLoc < t1.XLoc)
-            {
-                return -1;
-            }
-            else if(platform.XLoc > t1.XLoc)
-            {
-                return 1;
-            }
-            return 0;
-        });
+
 
         int imageIdx = 0;
         for(Platform p : _platformChildren)
