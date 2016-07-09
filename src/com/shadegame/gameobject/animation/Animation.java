@@ -1,5 +1,6 @@
 package com.shadegame.gameobject.animation;
 
+import com.shadegame.gameobject.GameObject;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -91,6 +92,11 @@ public class Animation {
         hasLocation = true;
     }
 
+    public void SetHasLocation(boolean value)
+    {
+        hasLocation = value;
+    }
+
     public void SetCurrentFrame(int frame)
     {
         currentFrame = frame;
@@ -101,12 +107,12 @@ public class Animation {
         return currentFrame;
     }
 
-    public float GetAnimationX()
+    public float GetAnimationX(GameObject associatedObject)
     {
         return animXLoc;
     }
 
-    public float GetAnimationY()
+    public float GetAnimationY(GameObject associatedObject)
     {
         return animYLoc;
     }

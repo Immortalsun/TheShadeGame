@@ -3,9 +3,7 @@ package com.shadegame.gameobject.player;
 import com.shadegame.engine.collision.CollisionType;
 import com.shadegame.gameobject.GameObject;
 import com.shadegame.gameobject.animation.*;
-import com.shadegame.gameobject.projectiles.Fireball;
 import com.shadegame.gameobject.projectiles.Projectile;
-import com.sun.org.apache.xpath.internal.SourceTree;
 import processing.core.*;
 
 import java.util.ArrayList;
@@ -34,6 +32,7 @@ public class Player extends GameObject {
         animations[2] = new Animation(parent, "PlayerSprites/playerAttack.png", "PlayerSprites/playerAttackReversed.png",AnimationState.ATTACKING,5,10);
         animations[3] = new Animation(parent, "PlayerSprites/playerDamaged.png", "PlayerSprites/playerDamagedReversed.png",AnimationState.DAMAGED,4,10);
         animations[4] = new MeleeAttackingAnimation(parent, "PlayerSprites/playerFireMeleeAttack.png", "PlayerSprites/playerFireMeleeAttackReversed.png",6,4);
+        animations[4].SetHasLocation(true);
         BuildAnimator(animations);
         GenerateAnimationCollection();
     }

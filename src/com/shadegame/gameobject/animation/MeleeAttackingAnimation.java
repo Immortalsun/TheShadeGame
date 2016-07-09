@@ -1,5 +1,6 @@
 package com.shadegame.gameobject.animation;
 
+import com.shadegame.gameobject.GameObject;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -8,8 +9,12 @@ import processing.core.PImage;
  */
 public class MeleeAttackingAnimation extends Animation
 {
-    public MeleeAttackingAnimation(PApplet parent, String name, String revName, int fCount, int fps) {
+    private boolean _isReversed;
+
+    public MeleeAttackingAnimation(PApplet parent, String name, String revName, int fCount, int fps)
+    {
         super(parent, name, revName, AnimationState.MELEEATTACK, fCount, fps);
+
     }
 
     public PImage GetNextFrame(boolean isReversed, int moveDirection)
@@ -21,14 +26,38 @@ public class MeleeAttackingAnimation extends Animation
         if (!isReversed)
         {
             frame = Image.get(0, (GetCurrentFrame() * 32), 48, 32);
-
+            _isReversed = false;
             return frame;
         }
         else
         {
             frame = reversedImage.get(0, (GetCurrentFrame() * 32), 48, 32);
+            _isReversed = true;
         }
 
         return frame;
+    }
+
+    public float GetAnimationX(GameObject associatedObj)
+    {
+        if(!_isReversed)
+        {
+            return associatedObj.GetLocation().x;
+        }
+        else{
+            return associatedObj.GetLocation().x-associatedObj.GetWidth()/2;
+        }
+    }
+
+    public float GetAnimationY(GameObject associatedObj)
+    {
+        if(!_isReversed)
+        {
+            return associatedObj.GetLocation().y;
+        }
+        else
+        {
+            return associatedObj.GetLocation().y;
+        }
     }
 }
