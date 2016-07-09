@@ -3,8 +3,9 @@ package com.shadegame.gameobject.enemy;
 import com.shadegame.engine.collision.CollisionType;
 import com.shadegame.engine.EngineProvider;
 import com.shadegame.gameobject.animation.Animation;
-import com.shadegame.gameobject.animation.AttackingAnimation;
+import com.shadegame.gameobject.animation.ProjectileAttackingAnimation;
 import com.shadegame.gameobject.animation.RunningAnimation;
+import com.shadegame.gameobject.player.AttackType;
 import com.shadegame.gameobject.projectiles.NoxiousBall;
 import com.shadegame.gameobject.projectiles.Projectile;
 import processing.core.PApplet;
@@ -24,7 +25,7 @@ public class ButtEnemy extends RangedEnemy
         SetType(EnemyType.RANGED);
         Animation[] animations = new Animation[2];
         animations[0] = new RunningAnimation(parent, "EnemySprites/scootieBootie.png","EnemySprites/scootieBootieReversed.png",3, 10);
-        animations[1] = new AttackingAnimation(parent,"EnemySprites/scootieAttack.png", "EnemySprites/scootieAttackReversed.png",5,10);
+        animations[1] = new ProjectileAttackingAnimation(parent,"EnemySprites/scootieAttack.png", "EnemySprites/scootieAttackReversed.png",5,10);
         _attackCounter = 0;
         BuildAnimator(animations);
 
@@ -45,7 +46,7 @@ public class ButtEnemy extends RangedEnemy
                 this.SetOrientation(-1);
             }
 
-            SetIsAttacking(true);
+            SetIsAttacking(true, AttackType.BLAST);
             float startX = 0;
             float startY = 0;
 

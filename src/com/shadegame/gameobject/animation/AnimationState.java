@@ -10,6 +10,8 @@ public enum AnimationState
     RUNNING,
     JUMPING,
     ATTACKING,
+    MELEEATTACK,
+    AOEATTACK,
     CHARGING,
     CHARGED,
     DAMAGED,

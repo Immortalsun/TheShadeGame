@@ -244,7 +244,7 @@ public class Engine
                     RangedEnemy buttEnemy = (RangedEnemy) enemy;
                     _gameObjectCollection.add(buttEnemy.GetCurrentProjectile());
                     buttEnemy.ClearCurrentProjectile();
-                    buttEnemy.SetIsAttacking(false);
+                    buttEnemy.SetIsAttacking(false, AttackType.NONE);
                 }
 
                 if(enemy.GetIsDestroyed())

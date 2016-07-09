@@ -6,10 +6,10 @@ import processing.core.PImage;
 /**
  * Created by Maashes on 4/5/2016.
  */
-public class AttackingAnimation extends Animation {
+public class ProjectileAttackingAnimation extends Animation {
 
 
-    public AttackingAnimation(PApplet parent, String name, String revName, int fCount, int fps) {
+    public ProjectileAttackingAnimation(PApplet parent, String name, String revName, int fCount, int fps) {
         super(parent, name, revName, AnimationState.ATTACKING, fCount, fps);
     }
 

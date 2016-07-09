@@ -1,5 +1,6 @@
 package com.shadegame.gameobject.enemy;
 
+import com.shadegame.gameobject.player.AttackType;
 import com.shadegame.gameobject.projectiles.Projectile;
 import processing.core.PApplet;
 
@@ -22,7 +23,7 @@ public class RangedEnemy extends Enemy {
 
     public void ClearCurrentProjectile()
     {
-        SetIsAttacking(false);
+        SetIsAttacking(false, AttackType.NONE);
         _currentProjectile = null;
     }
 

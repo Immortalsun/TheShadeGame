@@ -28,11 +28,12 @@ public class Player extends GameObject {
         _health = 1000;
         _chargeState = ChargeState.NONE;
         SetCollisionType(CollisionType.PLAYER);
-        Animation[] animations = new Animation[4];
+        Animation[] animations = new Animation[5];
         animations[0] = new RunningAnimation(parent,"PlayerSprites/player1.png", "PlayerSprites/player1Reversed.png",3, 10);
         animations[1] = new JumpingAnimation(parent,"PlayerSprites/playerJump.png", "PlayerSprites/playerJumpReversed.png",2,10);
         animations[2] = new Animation(parent, "PlayerSprites/playerAttack.png", "PlayerSprites/playerAttackReversed.png",AnimationState.ATTACKING,5,10);
         animations[3] = new Animation(parent, "PlayerSprites/playerDamaged.png", "PlayerSprites/playerDamagedReversed.png",AnimationState.DAMAGED,4,10);
+        animations[4] = new MeleeAttackingAnimation(parent, "PlayerSprites/playerFireMeleeAttack.png", "PlayerSprites/playerFireMeleeAttackReversed.png",6,4);
         BuildAnimator(animations);
         GenerateAnimationCollection();
     }
@@ -171,7 +172,7 @@ public class Player extends GameObject {
         {
             _attackCounter++;
         }
-        SetIsAttacking(true);
+        SetIsAttacking(true, AttackType.BLAST);
 
         float startX;
         float startY;
@@ -189,11 +190,25 @@ public class Player extends GameObject {
             startY = (this.GetLocation().y+this.GetHeight()/2)-20;
         }
 
-        _currentProjectile = GetChargedAttack(startX,startY,this.GetOrientation());
+        _currentProjectile = GetChargedProjectileAttack(startX,startY,this.GetOrientation());
         _currentProjectile.SetCollisionType(CollisionType.PLAYERPROJECTILE);
     }
 
-    private Projectile GetChargedAttack(float startX, float startY, int orientation)
+    public void CastMeleeAttack()
+    {
+        if(!_charged)
+            return;
+
+        if(_attackCounter < 3)
+        {
+            _attackCounter++;
+        }
+        SetIsAttacking(true, AttackType.MELEE);
+
+
+    }
+
+    private Projectile GetChargedProjectileAttack(float startX, float startY, int orientation)
     {
         switch(_chargeState)
         {

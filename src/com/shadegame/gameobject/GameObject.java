@@ -8,6 +8,7 @@ import com.shadegame.engine.collision.CollisionType;
 import com.shadegame.gameobject.animation.Animation;
 import com.shadegame.gameobject.animation.AnimationState;
 import com.shadegame.gameobject.animation.Animator;
+import com.shadegame.gameobject.player.AttackType;
 import processing.core.*;
 
 import static processing.core.PConstants.RECT;
@@ -20,6 +21,7 @@ public class GameObject
     private PVector velocity;
     private PApplet sketchParent;
     private CollisionType collisionType;
+    private AttackType currentAttackType;
     private Animator animator;
     private int strokeColor, orientation;
     private float minY, minX, objWidth, objHeight;
@@ -141,9 +143,16 @@ public class GameObject
         animationTriggered = value;
     }
 
-    public void SetIsAttacking(boolean attacking)
+    public void SetIsAttacking(boolean attacking, AttackType type)
     {
         isAttacking = attacking;
+        if(attacking)
+        {
+            currentAttackType = type;
+        }
+        else{
+            currentAttackType = AttackType.NONE;
+        }
     }
 
     public PApplet GetParent()
@@ -215,7 +224,18 @@ public class GameObject
     {
         if(isAttacking)
         {
-            return AnimationState.ATTACKING;
+            if(currentAttackType.equals(AttackType.BLAST))
+            {
+                return AnimationState.ATTACKING;
+            }
+            else if(currentAttackType.equals(AttackType.MELEE)){
+                return AnimationState.MELEEATTACK;
+            }
+            else if(currentAttackType.equals(AttackType.EXPLOSION))
+            {
+                return AnimationState.AOEATTACK;
+            }
+
         }
 
         if(isDamaged)

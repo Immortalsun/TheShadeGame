@@ -36,10 +36,12 @@ public class GameMain extends PApplet
 
     public void setup()
     {
-        keyMap.put(37, false);
-        keyMap.put(38, false);
-        keyMap.put(39, false);
-        keyMap.put(32, false);
+        keyMap.put(37, false); //left arrow. movement
+        keyMap.put(38, false); //up arrow jump
+        keyMap.put(39, false); //right arrow, movement
+        keyMap.put(32, false); //space for attack, unmodified does projectile
+        keyMap.put(113, false); //Q attack modifier for melee
+        keyMap.put(119, false); //W attack modifier for AOE
         engine = new Engine(windowWidth, windowHeight, this);
         stageWidth = engine.GetStageWidth();
         stageHeight = engine.GetStageHeight();
@@ -88,7 +90,7 @@ public class GameMain extends PApplet
                 if(paused)
                     return;
                 keyMap.replace(32, true);
-               Attack();
+                Attack();
             }
             else if(key>=49 && key <=54)
             {
@@ -98,6 +100,18 @@ public class GameMain extends PApplet
                     player.Charge(((int)key-48));
                     charging = true;
                 }
+            }
+            else if(key == 113)
+            {
+                if(paused)
+                    return;
+                keyMap.replace(113, true);
+            }
+            else if(key == 'w')
+            {
+                if(paused)
+                    return;
+                keyMap.replace(119, true);
             }
         }
     }
@@ -129,6 +143,16 @@ public class GameMain extends PApplet
             else if((key>=49 && key <=54))
             {
                 charging = false;
+            }
+            else if(key == 113)
+            {
+                keyMap.replace(113, false);
+            }
+            else if(key == 119)
+            {
+                if(paused)
+                    return;
+                keyMap.replace(119, false);
             }
         }
 
@@ -183,7 +207,18 @@ public class GameMain extends PApplet
 
         if (!attacking) {
             attacking = true;
-            player.CastProjectile();
+            if((!keyMap.get(113) && !keyMap.get(119)) || (keyMap.get(113) && keyMap.get(119)))
+            {
+                player.CastProjectile();
+            }
+            else if(keyMap.get(113))
+            {
+                player.CastMeleeAttack();
+            }
+            else
+            {
+                //TODO cast AOE attacks
+            }
         }
     }
 
