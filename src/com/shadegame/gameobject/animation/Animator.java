@@ -95,8 +95,8 @@ public class Animator {
 
         if(anim.HasSpecifiedLocation())
         {
-            xLoc = anim.GetAnimationX(object);
-            yLoc = anim.GetAnimationY(object);
+            xLoc = anim.GetAnimationX();
+            yLoc = anim.GetAnimationY();
         }
 
         sketchParent.image(frame, xLoc, yLoc, frame.width, frame.height);

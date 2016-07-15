@@ -107,12 +107,12 @@ public class Animation {
         return currentFrame;
     }
 
-    public float GetAnimationX(GameObject associatedObject)
+    public float GetAnimationX()
     {
         return animXLoc;
     }
 
-    public float GetAnimationY(GameObject associatedObject)
+    public float GetAnimationY()
     {
         return animYLoc;
     }

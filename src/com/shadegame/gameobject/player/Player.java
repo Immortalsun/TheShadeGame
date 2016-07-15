@@ -31,7 +31,7 @@ public class Player extends GameObject {
         animations[1] = new JumpingAnimation(parent,"PlayerSprites/playerJump.png", "PlayerSprites/playerJumpReversed.png",2,10);
         animations[2] = new Animation(parent, "PlayerSprites/playerAttack.png", "PlayerSprites/playerAttackReversed.png",AnimationState.ATTACKING,5,10);
         animations[3] = new Animation(parent, "PlayerSprites/playerDamaged.png", "PlayerSprites/playerDamagedReversed.png",AnimationState.DAMAGED,4,10);
-        animations[4] = new MeleeAttackingAnimation(parent, "PlayerSprites/playerFireMeleeAttack.png", "PlayerSprites/playerFireMeleeAttackReversed.png",6,4);
+        animations[4] = new Animation(parent, "PlayerSprites/playerMeleeAttack.png", "PlayerSprites/playerMeleeAttackReversed.png",AnimationState.MELEEATTACK,6,4);
         animations[4].SetHasLocation(true);
         BuildAnimator(animations);
         GenerateAnimationCollection();
@@ -204,7 +204,24 @@ public class Player extends GameObject {
         }
         SetIsAttacking(true, AttackType.MELEE);
 
+        float startX;
+        float startY;
 
+        this.GetVelocity().x = 0;
+
+        if(this.GetOrientation() > 0)
+        {
+            startX = this.GetLocation().x+this.GetWidth();
+            startY = (this.GetLocation().y+this.GetHeight()/2)-20;
+        }
+        else
+        {
+            startX = this.GetLocation().x-this.GetWidth();
+            startY = (this.GetLocation().y+this.GetHeight()/2)-20;
+        }
+
+        _currentProjectile = GetchargedMeleeAttack(startX,startY,this.GetOrientation());
+        _currentProjectile.SetCollisionType(CollisionType.PLAYERPROJECTILE);
     }
 
     private Projectile GetChargedProjectileAttack(float startX, float startY, int orientation)
@@ -221,6 +238,19 @@ public class Player extends GameObject {
                 iceSpike.BuildProjectileAnimator("ProjectileSprites/iceSpike.png","",4,10,
                         "ProjectileSprites/iceSpikeExplosion.png","",4,5);
                 return iceSpike;
+        }
+        return null;
+    }
+
+    private Projectile GetchargedMeleeAttack(float startX, float startY, int orientation)
+    {
+        switch(_chargeState)
+        {
+            case FIRE:
+                Projectile fireSword = new Projectile(startX, startY, 32, 32, 40, 0, 10,orientation,GetParent());
+                fireSword.BuildProjectileAnimator("ProjectileSprites/fireMeleeAttack.png","ProjectileSprites/fireMeleeAttackReversed.png",8,5,
+                        "ProjectileSprites/fireballRangeExplosion.png","ProjectileSprites/fireballRangeExplosionReversed.png",5,5);
+                return fireSword;
         }
         return null;
     }
