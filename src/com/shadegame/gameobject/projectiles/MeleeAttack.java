@@ -11,5 +11,9 @@ public class MeleeAttack extends Projectile {
         super(x, y, 32, 32, 50, 0, 50, direction, parent);
     }
 
+    public void SetStateBasedOnAnimationCompletion()
+    {
+        SetIsReadyForCleanup(true);
+    }
 
 }
